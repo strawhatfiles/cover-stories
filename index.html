@@ -6,7 +6,7 @@
     <title>BOLDcast One Piece Guide</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/jpeg" href="Luffy.png">
+    <link rel="icon" type="image/png" href="Luffy.png">
     
     <!-- General Meta Tags -->
     <meta name="description" content="a comprehensive overview for all Cover Stories, Movies, Specials & Fillers — made by the community for BOLDcast">
@@ -15,13 +15,13 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="One Piece Cover Stories & Extra Content Guide">
     <meta property="og:description" content="a comprehensive overview for all Cover Stories, Movies, Specials & Fillers — made by the community for BOLDcast">
-    <meta property="og:image" content="https://strawhatfiles.github.io/cover-storiess/icon.jpg">
+    <meta property="og:image" content="https://strawhatfiles.github.io/cover-stories/icon.jpg">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="One Piece Cover Stories & Extra Content Guide">
     <meta name="twitter:description" content="a comprehensive overview for all Cover Stories, Movies, Specials & Fillers — made by the community for BOLDcast">
-    <meta name="twitter:image" content="https://strawhatfiles.github.io/cover-storiess/icon.jpg">
+    <meta name="twitter:image" content="https://strawhatfiles.github.io/cover-stories/icon.jpg">
 
     <style>
         * {
@@ -737,6 +737,191 @@
                 padding: 1.25rem;
             }
         }
+
+        .filler-timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .filler-timeline::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #4ecdc4 0%, #ff6b6b 50%, #4ecdc4 100%);
+            border-radius: 2px;
+        }
+
+        .filler-item {
+            position: relative;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 1.5rem 5rem 1.5rem 4rem;
+            margin-bottom: 2rem;
+            margin-left: 2rem;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .filler-item::before {
+            content: '';
+            position: absolute;
+            left: -2.25rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #4ecdc4;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 0, 0, 0.8);
+            transition: all 0.3s ease;
+        }
+
+        .filler-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
+            border-color: rgba(78, 205, 196, 0.3);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .filler-item:hover::before {
+            background: #ff6b6b;
+            transform: scale(1.3);
+            box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
+        }
+
+        .filler-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .filler-title {
+            color: #4ecdc4;
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .filler-episodes {
+            background: rgba(78, 205, 196, 0.2);
+            color: #4ecdc4;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(78, 205, 196, 0.3);
+        }
+
+        .filler-description {
+            color: #d0d0d0;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .filler-note {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 3px solid #ffc107;
+            color: #ffc107;
+            padding: 0.75rem 1rem;
+            margin-top: 1rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.9rem;
+            font-style: italic;
+        }
+
+        .special-filler {
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+
+        .special-filler::before {
+            background: #ff6b6b;
+        }
+
+        .special-filler .filler-title {
+            color: #ff6b6b;
+        }
+
+        .special-filler .filler-episodes {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border-color: rgba(255, 107, 107, 0.3);
+        }
+
+        .episode-count {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4ecdc4, #26a085);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: white;
+            box-shadow: 0 3px 10px rgba(78, 205, 196, 0.3);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .filler-item:hover .episode-count {
+            transform: scale(1.1);
+            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.5);
+        }
+
+        .special-filler .episode-count {
+            background: linear-gradient(135deg, #ff6b6b, #e74c3c);
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        .special-filler:hover .episode-count {
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .episode-count {
+                right: 1rem;
+                top: 1rem;
+                width: 40px;
+                height: 40px;
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filler-timeline::before {
+                left: 15px;
+            }
+            
+            .filler-item {
+                margin-left: 1rem;
+                padding: 1.25rem 3.5rem 1.25rem 2.5rem;
+            }
+            
+            .filler-item::before {
+                left: -1.5rem;
+                top: 1.25rem;
+            }
+            
+            .filler-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            
+            .filler-title {
+                font-size: 1.2rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1104,7 +1289,6 @@
                 </div>
             </div>
 
-            <h2 style="margin: 2rem 0; color: #4ecdc4;"></h2>
             <h2 style="margin: 2rem 0; color: #4ecdc4;">Non-Canon Specials <span style="color: #26887e; font-size: 0.8em;">(all ~5min)</span></h2>
 
 
@@ -1165,12 +1349,166 @@
                     </div>
                 </div>
             </div>
+        </div>
 
         <!-- Filler Tab -->
         <div id="filler" class="tab-content">
-            <div class="content-item">
-                <h4>Filler Content</h4>
-                <p>This section is currently being prepared. Additional filler content will be added here soon.</p>
+            <div class="filler-timeline">
+                <div class="filler-item">
+                    <div class="episode-count">8</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Warship Island Arc</h3>
+                        <span class="filler-episodes">Ep. 54-61</span>
+                    </div>
+                    <p class="filler-description">This is the first filler arc in One Piece and follows the Straw Hats <span class="spoiler" onclick="toggleSpoiler(this)">rescuing a girl and a dragon</span>. The person they throw overboard, on the way up Reverse Mountain, is one of the antagonists of the arc.</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">2</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">mid-Alabasta Padding</h3>
+                        <span class="filler-episodes">Ep. 98-99</span>
+                    </div>
+                    <p class="filler-description">Wacky adventures with Ace while traveling the desert in Alabasta</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">4</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">post-Alabasta (Character-centered)</h3>
+                        <span class="filler-episodes">Ep. 132-135</span>
+                    </div>
+                    <p class="filler-description">You watched the Chopper and Robin episode. The rest follow a similar formula, focusing on the Straw Hats and how they interact with the world, similar to the post-Enies Lobby filler episodes.</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">3</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Goat Island Arc</h3>
+                        <span class="filler-episodes">Ep. 136-138</span>
+                    </div>
+                    <p class="filler-description">One of the fillers before Jaya. Straw Hats find <span class="spoiler" onclick="toggleSpoiler(this)">an uncharted island that is occupied by an old man and a bunch of goats</span>.</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">5</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Ruluka Island Arc</h3>
+                        <span class="filler-episodes">Ep. 139-143</span>
+                    </div>
+                    <p class="filler-description">One of the fillers before Jaya. Follows the Straw Hats as they discover <span class="spoiler" onclick="toggleSpoiler(this)">an island that is ruled by a dictator who overworks his people</span>.</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">5</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Ocean's Dream Arc</h3>
+                        <span class="filler-episodes">Ep. 220-224</span>
+                    </div>
+                    <p class="filler-description">Filler based on a One Piece videogame for the PlayStation</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">2</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Foxy's Return Arc</h3>
+                        <span class="filler-episodes">Ep. 225-226</span>
+                    </div>
+                    <p class="filler-description">Somehow Palpatine returned</p>
+                </div>
+
+                <div class="filler-item special-filler">
+                    <div class="episode-count">5</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Boss Luffy Historical Special</h3>
+                        <span class="filler-episodes">Ep. 291-292, 303, 406-407</span>
+                    </div>
+                    <p class="filler-description">Filler/special that is set in 19th century Japan</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">10</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Ice Hunter Arc</h3>
+                        <span class="filler-episodes">Ep. 326-335</span>
+                    </div>
+                    <p class="filler-description">Chronicles the journey of the Straw Hat Pirates from Water 7, into the Florian Triangle, coming close to a winter island.</p>
+                    <div class="filler-note">
+                        Episode 326 (from 06:51 to 10:30) is canon material showing features of the Sunny!
+                    </div>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">3</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Spa Island Arc</h3>
+                        <span class="filler-episodes">Ep. 382-384</span>
+                    </div>
+                    <p class="filler-description">Takes place after Thriller Bark. The Straw Hats discover a spa island and meet with some interesting characters.</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">4</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Little East Blue Arc</h3>
+                        <span class="filler-episodes">Ep. 426-429</span>
+                    </div>
+                    <p class="filler-description">Filler that is meant to lead into movie #10 (One Piece Film: Strong World)</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">2</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Special Retrospective Before Marineford</h3>
+                        <span class="filler-episodes">Ep. 457-458</span>
+                    </div>
+                    <p class="filler-description">"The Siblings' Vow!" – Recap episodes for what happened before Ace got caught by Blackbeard</p>
+                </div>
+
+                <div class="filler-item special-filler">
+                    <div class="episode-count">2</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">The Strongest Tag-Team! Luffy and Toriko's Hard Struggle!</h3>
+                        <span class="filler-episodes">Ep. 492</span>
+                    </div>
+                    <p class="filler-description">Crossover episode with Toriko (first half of this is Toriko Ep. 1)</p>
+                </div>
+
+                <div class="filler-item special-filler">
+                    <div class="episode-count">2</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Team Formation! Save Chopper</h3>
+                        <span class="filler-episodes">Ep. 542</span>
+                    </div>
+                    <p class="filler-description">Crossover episode with Toriko (first half of this is Toriko Ep. 51)</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">4</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Z's Ambition Arc</h3>
+                        <span class="filler-episodes">Ep. 575-578</span>
+                    </div>
+                    <p class="filler-description">Filler that is meant to lead into movie #12 (One Piece Film: Z)</p>
+                </div>
+
+                <div class="filler-item special-filler">
+                    <div class="episode-count">2</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">History's Strongest Collaboration vs. Glutton of the Sea</h3>
+                        <span class="filler-episodes">Ep. 590</span>
+                    </div>
+                    <p class="filler-description">Crossover episode with Toriko & Dragon Ball Z (first half of this is Toriko Ep. 99)</p>
+                </div>
+
+                <div class="filler-item">
+                    <div class="episode-count">3</div>
+                    <div class="filler-header">
+                        <h3 class="filler-title">Caesar's Retrieval Arc</h3>
+                        <span class="filler-episodes">Ep. 626-628</span>
+                    </div>
+                    <p class="filler-description">The already-kidnapped Caesar got kidnapped...</p>
+                </div>
             </div>
         </div>
     </div>
