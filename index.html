@@ -23,906 +23,7 @@
     <meta name="twitter:description" content="a comprehensive overview for all Cover Stories, Movies, Specials & Fillers — made by the community for BOLDcast">
     <meta name="twitter:image" content="https://strawhatfiles.github.io/cover-stories/icon.jpg">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #000000e8;
-            color: #2f3640;
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        .header {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-            animation: slideDown 0.5s ease-out;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 30px rgba(78, 205, 196, 0.5);
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            color: #a0a0a0;
-        }
-
-        .tab-container {
-            display: flex;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 1rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-        }
-
-        .tab {
-            padding: 1rem 2rem;
-            margin: 0 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            border-radius: 30px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 1rem;
-            font-weight: 500;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tab::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.5s;
-        }
-
-        .tab:hover::before {
-            left: 100%;
-        }
-
-        .tab:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(78, 205, 196, 0.3);
-        }
-
-        .tab.active {
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            box-shadow: 0 5px 20px rgba(78, 205, 196, 0.5);
-        }
-
-        .content {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            animation: fadeIn 0.5s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .cover-story {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .cover-stories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-            padding: 1rem 0;
-        }
-
-        .cover-stories-grid .cover-story {
-            display: flex;
-            flex-direction: column;
-            transform: translateY(0);
-            opacity: 1;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            animation: slideInUp 0.6s ease-out forwards;
-            animation-delay: calc(var(--item-index, 0) * 0.1s);
-        }
-
-        @keyframes slideInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .cover-story:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(78, 205, 196, 0.25), 
-                        0 10px 20px rgba(255, 107, 107, 0.1);
-            border-color: rgba(78, 205, 196, 0.4);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .cover-story:hover .cover-story-content h3 {
-            color: #ff6b6b;
-            text-shadow: 0 0 10px rgba(255, 107, 107, 0.3);
-        }
-
-        .cover-story h3 {
-            color: #4ecdc4;
-            margin-bottom: 0.5rem;
-            font-size: 1.5rem;
-        }
-
-        .cover-story-content {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .chapters {
-            color: #a0a0a0;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-
-        .pdf-container {
-            margin: 1rem 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            height: 120px;
-            flex-shrink: 0;
-        }
-
-        .pdf-container iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .pdf-placeholder {
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px dashed rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 120px; /* Same fixed short height */
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .pdf-placeholder:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(78, 205, 196, 0.5);
-        }
-
-        .load-button {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            color: #4ecdc4;
-            font-size: 1.1rem;
-            font-weight: 500;
-        }
-
-        .load-button svg {
-            opacity: 0.8;
-        }
-
-        .pdf-placeholder:hover .load-button {
-            color: #ff6b6b;
-            transform: scale(1.1) translateY(-2px);
-        }
-
-        .pdf-placeholder:hover .load-button svg {
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-
-        .info-box {
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-top: auto;
-            font-size: 0.9rem;
-            color: #b0b0b0;
-            border-left: 3px solid #4ecdc4;
-            flex-shrink: 0;
-        }
-
-        .spoiler {
-            background: rgba(255, 255, 255, 0.2);
-            color: transparent;
-            border-radius: 3px;
-            padding: 0 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            user-select: none;
-        }
-
-        .spoiler.revealed {
-            background: rgba(78, 205, 196, 0.2);
-            color: #4ecdc4;
-        }
-
-        .spoiler:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-
-        .btn {
-            padding: 0.75rem 1.5rem;
-            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
-            border: none;
-            border-radius: 25px;
-            color: #fff;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(78, 205, 196, 0.4);
-        }
-
-        .btn-secondary {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .content-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .content-item:hover {
-            transform: translateX(10px);
-            border-color: rgba(78, 205, 196, 0.3);
-            box-shadow: -5px 0 20px rgba(78, 205, 196, 0.2);
-        }
-
-        .content-item h4 {
-            color: #ff6b6b;
-            margin-bottom: 0.5rem;
-        }
-
-        .content-item p {
-            color: #d0d0d0;
-            line-height: 1.6;
-        }
-
-        .episodes {
-            color: #4ecdc4;
-            font-weight: 500;
-            margin-top: 0.5rem;
-        }
-
-        .special-link {
-            color: #4ecdc4;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .special-link:hover {
-            color: #ff6b6b;
-            transform: translateX(5px);
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2rem;
-            }
-            
-            .tab {
-                padding: 0.75rem 1rem;
-                font-size: 0.9rem;
-            }
-            
-            .cover-story {
-                padding: 1.5rem;
-            }
-        }
-        @media (max-width: 1200px) {
-            .cover-stories-grid {
-                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                gap: 1.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .cover-stories-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-                padding: 0.5rem 0;
-            }
-            
-            .cover-story {
-                padding: 1.25rem;
-                margin-bottom: 0;
-            }
-            
-            .pdf-container, .pdf-placeholder {
-                height: 100px;
-            }
-        }
-
-        .scroll-btn {
-            position: fixed;
-            bottom: 1.5rem;
-            right: 1.5rem;
-            padding: 0.875rem;
-            border-radius: 50%;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            transition: all 0.3s ease;
-            display: none;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .scroll-btn:hover {
-            transform: scale(1.1) translateY(-2px);
-            box-shadow: 0 12px 30px rgba(78, 205, 196, 0.3);
-        }
-
-        .specials-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: space-between;
-            margin-bottom: 2rem;
-        }
-
-        .special-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            flex: 1 1 calc(50% - 0.75rem);
-            min-width: 300px;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .special-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
-            border-color: rgba(78, 205, 196, 0.3);
-        }
-
-        .special-item h4 {
-            color: #4ecdc4;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .special-item p {
-            color: #d0d0d0;
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
-        }
-
-        .special-item .episodes {
-            color: #4ecdc4;
-            font-weight: 500;
-            margin-top: 0.5rem;
-        }
-
-        .special-embed {
-            margin: 1rem 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            aspect-ratio: 16/9;
-            width: 100%;
-        }
-
-        .special-embed.movie-poster {
-            aspect-ratio: 7/5;
-        }
-
-        .special-embed iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .special-embed img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border: none;
-        }
-
-        @media (max-width: 768px) {
-            .specials-grid {
-                flex-direction: column;
-            }
-            
-            .special-item {
-                flex: 1 1 100%;
-                min-width: unset;
-            }
-        }
-
-        .warning-box {
-            padding: 1rem;
-            border-radius: 8px;
-            margin: 1rem 0;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .warning-box.yellow {
-            background: rgba(255, 193, 7, 0.15);
-            border: 1px solid rgba(255, 193, 7, 0.3);
-            color: #ffc107;
-            border-left: 4px solid #ffc107;
-        }
-
-        .warning-icon {
-            flex-shrink: 0;
-        }
-
-        .load-all-container {
-            text-align: center;
-            margin: 2rem 0;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .load-all-btn {
-            padding: 1.2rem 2.5rem;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid #4ecdc4;
-            border-radius: 8px;
-            color: #4ecdc4;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            font-size: 1rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .load-all-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(78, 205, 196, 0.1), transparent);
-            transition: left 0.6s;
-        }
-
-        .load-all-btn:hover {
-            background: rgba(78, 205, 196, 0.1);
-            color: #fff;
-            border-color: #ff6b6b;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(78, 205, 196, 0.3);
-        }
-
-        .load-all-btn:hover::before {
-            left: 100%;
-        }
-
-        .load-all-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
-            transform: none;
-            background: rgba(0, 0, 0, 0.4);
-            border-color: #666;
-            color: #999;
-        }
-
-        .load-all-btn:disabled:hover {
-            background: rgba(0, 0, 0, 0.4);
-            color: #999;
-            border-color: #666;
-            box-shadow: none;
-        }
-
-        .non-canon-grid {
-            display: grid;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .non-canon-row-1 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .non-canon-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .non-canon-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
-            border-color: rgba(78, 205, 196, 0.3);
-        }
-
-        .non-canon-item h4 {
-            color: #4ecdc4;
-            margin-bottom: 1rem;
-            font-size: 1.3rem;
-        }
-
-        .non-canon-embed {
-            margin: 1rem 0;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            aspect-ratio: 4/3;
-            width: 100%;
-        }
-
-        .non-canon-embed iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .nissin-container {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .nissin-container:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
-            border-color: rgba(78, 205, 196, 0.3);
-        }
-
-        .nissin-container h4 {
-            color: #4ecdc4;
-            margin-bottom: 1.5rem;
-            font-size: 1.4rem;
-            text-align: center;
-        }
-
-        .nissin-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 1.5rem;
-            min-height: 400px;
-        }
-
-        .nissin-item {
-            background: rgba(255, 255, 255, 0.03);
-            border-radius: 10px;
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        .nissin-item:hover {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(78, 205, 196, 0.2);
-        }
-
-        .nissin-item h5 {
-            color: #ff6b6b;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            text-align: center;
-        }
-
-        .nissin-embed {
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.2);
-            aspect-ratio: 16/9;
-            width: 100%;
-        }
-
-        .nissin-embed iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        @media (max-width: 768px) {
-            .non-canon-row-1 {
-                grid-template-columns: 1fr;
-            }
-            
-            .nissin-grid {
-                grid-template-columns: 1fr;
-                grid-template-rows: repeat(4, 1fr);
-                min-height: auto;
-            }
-            
-            .nissin-container {
-                padding: 1.5rem;
-            }
-            
-            .non-canon-item {
-                padding: 1.25rem;
-            }
-        }
-
-        .filler-timeline {
-            position: relative;
-            padding: 2rem 0;
-        }
-
-        .filler-timeline::before {
-            content: '';
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(180deg, #4ecdc4 0%, #ff6b6b 50%, #4ecdc4 100%);
-            border-radius: 2px;
-        }
-
-        .filler-item {
-            position: relative;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 1.5rem 5rem 1.5rem 4rem;
-            margin-bottom: 2rem;
-            margin-left: 2rem;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            transform: translateX(0);
-            opacity: 1;
-        }
-
-        .filler-item::before {
-            content: '';
-            position: absolute;
-            left: -2.25rem;
-            top: 1.5rem;
-            width: 12px;
-            height: 12px;
-            background: #4ecdc4;
-            border-radius: 50%;
-            border: 3px solid rgba(0, 0, 0, 0.8);
-            transition: all 0.3s ease;
-        }
-
-        .filler-item:hover {
-            transform: translateX(10px);
-            box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
-            border-color: rgba(78, 205, 196, 0.3);
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .filler-item:hover::before {
-            background: #ff6b6b;
-            transform: scale(1.3);
-            box-shadow: 0 0 20px rgba(255, 107, 107, 0.4);
-        }
-
-        .filler-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .filler-title {
-            color: #4ecdc4;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin: 0;
-        }
-
-        .filler-episodes {
-            background: rgba(78, 205, 196, 0.2);
-            color: #4ecdc4;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            border: 1px solid rgba(78, 205, 196, 0.3);
-        }
-
-        .filler-description {
-            color: #d0d0d0;
-            line-height: 1.6;
-            margin: 0;
-            font-size: 1rem;
-        }
-
-        .filler-note {
-            background: rgba(255, 193, 7, 0.1);
-            border-left: 3px solid #ffc107;
-            color: #ffc107;
-            padding: 0.75rem 1rem;
-            margin-top: 1rem;
-            border-radius: 0 8px 8px 0;
-            font-size: 0.9rem;
-            font-style: italic;
-        }
-
-        .special-filler {
-            border-color: rgba(255, 107, 107, 0.3);
-        }
-
-        .special-filler::before {
-            background: #ff6b6b;
-        }
-
-        .special-filler .filler-title {
-            color: #ff6b6b;
-        }
-
-        .special-filler .filler-episodes {
-            background: rgba(255, 107, 107, 0.2);
-            color: #ff6b6b;
-            border-color: rgba(255, 107, 107, 0.3);
-        }
-
-        .episode-count {
-            position: absolute;
-            right: 1.5rem;
-            top: 1.5rem;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #4ecdc4, #26a085);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: white;
-            box-shadow: 0 3px 10px rgba(78, 205, 196, 0.3);
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .filler-item:hover .episode-count {
-            transform: scale(1.1);
-            box-shadow: 0 5px 15px rgba(78, 205, 196, 0.5);
-        }
-
-        .special-filler .episode-count {
-            background: linear-gradient(135deg, #ff6b6b, #e74c3c);
-            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
-        }
-
-        .special-filler:hover .episode-count {
-            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.5);
-        }
-
-        @media (max-width: 768px) {
-            .episode-count {
-                right: 1rem;
-                top: 1rem;
-                width: 40px;
-                height: 40px;
-                font-size: 0.75rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .filler-timeline::before {
-                left: 15px;
-            }
-            
-            .filler-item {
-                margin-left: 1rem;
-                padding: 1.25rem 3.5rem 1.25rem 2.5rem;
-            }
-            
-            .filler-item::before {
-                left: -1.5rem;
-                top: 1.25rem;
-            }
-            
-            .filler-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0.5rem;
-            }
-            
-            .filler-title {
-                font-size: 1.2rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="header">
@@ -940,6 +41,7 @@
         <button class="tab active" onclick="showTab('cover-stories')">Cover Stories</button>
         <button class="tab" onclick="showTab('specials-movies')">Specials & Movies</button>
         <button class="tab" onclick="showTab('filler')">Filler</button>
+        <button class="tab" onclick="showTab('ops-eds')">OPs & EDs</button>
     </div>
 
     <div class="content">
@@ -1020,7 +122,7 @@
                         <p class="chapters">ch182-228 (Alabasta -> Jaya)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-4">
-                                <div class="load-button" onclick="loadPDF('placeholder-4', 'https://drive.google.com/file/d/1ZznmLi9JxRrcAClRvHrcQ8EuRQIa7Dyy/preview')">
+                                <div class="load-button" onclick="loadPDF('placeholder-4', 'https://drive.google.com/file/d/11NCJhE-fjhxVzkF76g8vK9cK9jElHMLU/preview')">
                                     <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M8 5v14l11-7z"/>
                                     </svg>
@@ -1040,7 +142,7 @@
                         <p class="chapters">ch236-262 (Jaya -> Skypiea)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-5">
-                                <div class="load-button" onclick="loadPDF('placeholder-5', 'https://drive.google.com/file/d/19YtKHWtcIII_Bc3d7p4n5zKoi4UhlQ0p/preview')">
+                                <div class="load-button" onclick="loadPDF('placeholder-5', 'https://drive.google.com/file/d/1jwst7A5x5-XdCp2uRMSV1Bzkcz3nyyZ5/preview')">
                                     <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M8 5v14l11-7z"/>
                                     </svg>
@@ -1196,7 +298,7 @@
 
                 <div class="cover-story">
                     <div class="cover-story-content">
-                        <h3>#11 – Straw Hat's Separation Serial ✅</h3>
+                        <h3>#11-18 – Straw Hat's Separation Serial ✅</h3>
                         <p class="chapters">ch543-560 (Impel Down -> Marineford)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-11">
@@ -1216,11 +318,11 @@
 
                 <div class="cover-story">
                     <div class="cover-story-content">
-                        <h3>#12 – From the Decks of the World</h3>
+                        <h3>#19 – From the Decks of the World</h3>
                         <p class="chapters">ch613-668 (Fish-Man Island -> PH)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-12">
-                                <div class="load-button" onclick="loadPDF('placeholder-12', 'https://drive.google.com/file/d/10hgwzXtBjkT4vUvA1u_6oOyANPd3YZ2j/preview')">
+                                <div class="load-button" onclick="loadPDF('placeholder-12', 'https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview')">
                                     <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
                                         <path d="M8 5v14l11-7z"/>
                                     </svg>
@@ -1229,7 +331,7 @@
                             </div>
                         </div>
                         <div class="info-box">
-                            takes place after the Timeskip / SH reunion
+                            takes place after the timeskip / reunion
                         </div>
                     </div>
                 </div>
@@ -1238,8 +340,17 @@
 
         <!-- Specials & Movies Tab -->
         <div id="specials-movies" class="tab-content">
-            <h2 style="margin: 2rem 0; color: #4ecdc4;">Canon Specials <span style="color: #26887e; font-size: 0.8em;">(25min & 16min)</span></h2>
+            <div class="warning-box" style="background: rgba(78, 205, 196, 0.15); border: 1px solid rgba(78, 205, 196, 0.3); color: #4ecdc4; border-left: 4px solid #4ecdc4; margin-bottom: 2rem;">
+                <span class="warning-icon">📁</span>
+                <div>
+                    We have uploaded all Movies and Specials that aren't on streaming platforms in NA to a <a href="https://drive.google.com/drive/u/0/folders/1_UN22z2VXOKHL72rzLJpDbEVxyOMoynZ" style="color: #ff6b6b; text-decoration: underline; transition: all 0.3s ease;" target="_blank" onmouseover="this.style.color='#4ecdc4'; this.style.transform='translateX(3px)'" onmouseout="this.style.color='#ff6b6b'; this.style.transform='translateX(0)'">Google Drive</a>.
+                <div>
+                </div>
+                    <strong>They do have subtitles, but to display them you have to download the video & view it using VLC Media Player!</strong>
+                </div>
+            </div>
 
+            <h2 style="margin: 2rem 0; color: #4ecdc4;">Canon Specials</h2>
 
             <div class="specials-grid">
                 <div class="special-item">
@@ -1248,17 +359,25 @@
                         <img src="Monsters.jpg" alt="Monsters: 103 Mercies Dragon Damnation">
                     </div>
                     <p>This is an adaptation of a one-shot, that was written by Oda in 1994, before he started working on One Piece.</p>
-                    <p>Despite being a standalone, its main lead is part of One Piece canon.</p>
-                    <p class="episodes"><a href="https://www.netflix.com/title/81733654" class="special-link" target="_blank">Viewable on Netflix</a></p>
+                    <p><em>Despite being a standalone, its main lead is part of the One Piece canon.</em></p>
+                    <p class="episodes"><a href="https://www.netflix.com/title/81733654" class="special-link" target="_blank">Viewable on Netflix</a><span style="color: #d0d0d0; margin-left: 10px;">(25min)</span></p>
                 </div>
 
                 <div class="special-item">
-                    <h4>One Piece Film Strong World: Episode 0 (2010)</h4>
+                    <div class="title-with-download">
+                        <h4>One Piece Film Strong World: Episode 0 (2010)</h4>
+                        <a href="https://drive.google.com/uc?export=download&id=1dO-WvswITNLInom-td2bHo0qh28fzYtr" class="download-btn" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 12l-4-4h2.5V2h3v6H12l-4 4z"/>
+                                <path d="M2 14h12v1H2v-1z"/>
+                            </svg>
+                        </a>
+                    </div>
                     <div class="special-embed">
                         <iframe src="https://drive.google.com/file/d/1dO-WvswITNLInom-td2bHo0qh28fzYtr/preview" allow="autoplay"></iframe>
                     </div>
-                    <p>This is an adaptation of "Chapter 0", which was written by Oda and released alongside one of the chapters during Marineford.</p>
-                    <p>The content of this episode is canon & good to have as context going into Movie #10 (One Piece Film: Strong World).</p>
+                    <p>This is an adaptation of the one-shot "Chapter 0", which was written by Oda and released alongside one of the Marineford chapters.</p>
+                    <p><em>The events of this episode are canon & <u>also good to have as context going into Movie #10 (One Piece Film: Strong World)</u>.</em></p>
                     <div class="warning-box yellow">
                         <span class="warning-icon">⚠️</span>
                         For some reason, however, they thought it would be a good idea to basically spoil the majority of the movie in the preview for this episode...
@@ -1267,7 +386,7 @@
                 </div>
             </div>
 
-            <h2 style="margin: 2rem 0; color: #4ecdc4;">Canon Movies <span style="color: #26887e; font-size: 0.8em;">(written and/or supervised by Oda)</span></h2>
+            <h2 style="margin: 2rem 0; color: #4ecdc4;">Movies <span style="color: #26887e; font-size: 0.8em;">(written and/or supervised by Oda)</span></h2>
 
             <div class="specials-grid">
                 <div class="special-item">
@@ -1276,7 +395,13 @@
                     <div class="special-embed movie-poster">
                         <img src="Strong World.png" alt="One Piece Film: Strong World">
                     </div>
-                    <p class="episodes"><a href="https://www.netflix.com/title/80998781" class="special-link" target="_blank">Viewable on Netflix</a><span style="color: #d0d0d0; margin-left: 10px;">(recommended to watch "Episode 0" before it tho)</span></p>
+                    <p class="episodes" style="display: flex; justify-content: space-between; align-items: baseline;">
+                        <span>
+                            <a href="https://www.netflix.com/title/80998781" class="special-link" target="_blank">Viewable on Netflix</a>
+                            <span style="color: #d0d0d0; margin-left: 10px;">(1h 55m)</span>
+                        </span>
+                        <span style="color: #888; font-size: 0.8em; font-style: italic; line-height: 1;">recommended to watch "Episode 0" before this</span>
+                    </p>
                 </div>
 
                 <div class="special-item">
@@ -1285,12 +410,11 @@
                     <div class="special-embed movie-poster">
                         <img src="Z.jpg" alt="One Piece Film: Z">
                     </div>
-                    <p class="episodes"><a href="https://www.netflix.com/title/80198443" class="special-link" target="_blank">Viewable on Netflix</a></p>
+                    <p class="episodes"><a href="https://www.netflix.com/title/80198443" class="special-link" target="_blank">Viewable on Netflix</a><span style="color: #d0d0d0; margin-left: 10px;">(1h 48m)</span></p>
                 </div>
             </div>
 
             <h2 style="margin: 2rem 0; color: #4ecdc4;">Non-Canon Specials <span style="color: #26887e; font-size: 0.8em;">(all ~5min)</span></h2>
-
 
             <div class="non-canon-grid">
                 <div class="nissin-container">
@@ -1328,24 +452,77 @@
                 
                 <div class="non-canon-row-1">
                     <div class="non-canon-item">
-                        <h4>Jango's Dance Carnival</h4>
+                        <div class="title-with-download">
+                            <h4>Jango's Dance Carnival</h4>
+                            <a href="https://drive.google.com/uc?export=download&id=1v_w9zLJB4Ugf3tBjqUPnC5J2Pq9dWjLC" class="download-btn" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M8 12l-4-4h2.5V2h3v6H12l-4 4z"/>
+                                    <path d="M2 14h12v1H2v-1z"/>
+                                </svg>
+                            </a>
+                        </div>
                         <div class="non-canon-embed">
                             <iframe src="https://drive.google.com/file/d/1v_w9zLJB4Ugf3tBjqUPnC5J2Pq9dWjLC/preview" allow="autoplay"></iframe>
                         </div>
                     </div>
 
                     <div class="non-canon-item">
-                        <h4>Soccer King of Dreams</h4>
+                        <div class="title-with-download">
+                            <h4>Soccer King of Dreams</h4>
+                            <a href="https://drive.google.com/uc?export=download&id=1OSjAd2iq4zgGgd87gdqY43Y8VfzirxFF" class="download-btn" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M8 12l-4-4h2.5V2h3v6H12l-4 4z"/>
+                                    <path d="M2 14h12v1H2v-1z"/>
+                                </svg>
+                            </a>
+                        </div>
                         <div class="non-canon-embed">
                             <iframe src="https://drive.google.com/file/d/1OSjAd2iq4zgGgd87gdqY43Y8VfzirxFF/preview" allow="autoplay"></iframe>
                         </div>
                     </div>
 
                     <div class="non-canon-item">
-                        <h4>The Pirate Baseball King</h4>
+                        <div class="title-with-download">
+                            <h4>The Pirate Baseball King</h4>
+                            <a href="https://drive.google.com/uc?export=download&id=1rqYl8RCaqb8qz_1TbgvvV3AhWhIwm3zs" class="download-btn" target="_blank">
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                    <path d="M8 12l-4-4h2.5V2h3v6H12l-4 4z"/>
+                                    <path d="M2 14h12v1H2v-1z"/>
+                                </svg>
+                            </a>
+                        </div>
                         <div class="non-canon-embed">
                             <iframe src="https://drive.google.com/file/d/1rqYl8RCaqb8qz_1TbgvvV3AhWhIwm3zs/preview" allow="autoplay"></iframe>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2 style="margin: 2rem 0; color: #4ecdc4;">Non-Canon Movies <span style="color: #26887e; font-size: 0.8em;">(both ~1h 35m)</span><span style="color: #26887e; font-size: 0.8em;"></span></h2>
+
+            <div class="specials-grid">
+                <div class="special-item">
+                    <div class="title-with-download">
+                        <h4>#04 – One Piece The Movie: Dead End Adventure (2003)</h4>
+                        <a href="https://drive.google.com/uc?export=download&id=1TO2XXpoBMhWogbIaAxOibeBE6MoiPJ8T" class="download-btn" target="_blank">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                                <path d="M8 12l-4-4h2.5V2h3v6H12l-4 4z"/>
+                                <path d="M2 14h12v1H2v-1z"/>
+                            </svg>
+                        </a>
+                    </div>
+                    <p>takes place between the events of Alabasta and Jaya</p>
+                    <div class="special-embed">
+                        <iframe src="https://drive.google.com/file/d/1TO2XXpoBMhWogbIaAxOibeBE6MoiPJ8T/preview" allow="autoplay"></iframe>
+                    </div>
+                </div>
+
+                <div class="special-item">
+                    <h4>#07 – One Piece The Movie: The Giant Mechanical Soldier of Karakuri Castle (2006)</h4>
+                    <p>takes place between the events of Skypiea and Water 7</p>
+                    <div class="warning-box yellow">
+                        <span class="warning-icon">⚠️</span>
+                        The link to the file that ChocoBoshi uploaded was taken down, so if you want to watch it, let him know and he will get you one.
                     </div>
                 </div>
             </div>
@@ -1500,15 +677,49 @@
                     </div>
                     <p class="filler-description">Crossover episode with Toriko & Dragon Ball Z (first half of this is Toriko Ep. 99)</p>
                 </div>
+            </div>
+        </div>
 
-                <div class="filler-item">
-                    <div class="episode-count">3</div>
-                    <div class="filler-header">
-                        <h3 class="filler-title">Caesar's Retrieval Arc</h3>
-                        <span class="filler-episodes">Ep. 626-628</span>
+        <!-- OPs & EDs Tab -->
+        <div id="ops-eds" class="tab-content">
+            <div class="ops-eds-list">
+                <div class="ops-eds-item">
+                    <div class="ops-eds-content">
+                        <h4>One Piece Log: Fish-Man Island Saga – Opening</h4>
+                        <p class="episodes">Episodes 1-9</p>
+                        <p>Special opening made for the Fish-Man Island Remake.</p>
+                        <div class="warning-box yellow">
+                            <span class="warning-icon">⚠️</span>
+                            If you watch it on Crunchyroll, beware that Eps. 10-13, 14-17, 18-21 have three different versions of the original opening, which are covers by Japanese YouTubers & VTubers.
+                        </div>
                     </div>
-                    <p class="filler-description">The already-kidnapped Caesar got kidnapped...</p>
+                    <div class="ops-eds-video">
+                        <iframe src="https://www.youtube-nocookie.com/embed/N5kOymBivr0?si=pp7AwQh3SkCjQvvt" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
                 </div>
+
+                <div class="ops-eds-item">
+                    <div class="ops-eds-content">
+                        <h4>One Piece Log: Fish-Man Island Saga – Ending</h4>
+                        <p class="episodes">Episodes 1-21</p>
+                        <p>Special ending made for the Fish-Man Island Remake.</p>
+                    </div>
+                    <div class="ops-eds-video">
+                        <iframe src="https://www.youtube-nocookie.com/embed/1-_B5gioYwA?si=sS13o8UHL2WUy263" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                    </div>
+                </div>
+                
+                <h2 style="margin: 2rem 0; color: #4ecdc4;">Openings</h2>
+            
+                <div class="ops-eds-item no-video">
+                    <div class="ops-eds-content">
+                        <h4>Opening #16 – Hands Up!</h4>
+                        <p class="episodes">Episodes 591-618</p>
+                        <p>This opening plays during the Punk Hazard Arc.</p>
+                    </div>
+                </div>
+
+                <h2 style="margin: 2rem 0; color: #4ecdc4;">Endings</h2>
             </div>
         </div>
     </div>
@@ -1554,15 +765,15 @@
                 { id: 'placeholder-1', url: 'https://drive.google.com/file/d/1o1m-AOBmkYQnOCbGpgNqfuhypJw0LyFb/preview' },
                 { id: 'placeholder-2', url: 'https://drive.google.com/file/d/1ZMN2h90f8dtrsGeeJaFlMQ2ilexzjGNZ/preview' },
                 { id: 'placeholder-3', url: 'https://drive.google.com/file/d/1DGH137BYqBw8nk0Z7sSyo8o43ONz81Wf/preview' },
-                { id: 'placeholder-4', url: 'https://drive.google.com/file/d/1ZznmLi9JxRrcAClRvHrcQ8EuRQIa7Dyy/preview' },
-                { id: 'placeholder-5', url: 'https://drive.google.com/file/d/19YtKHWtcIII_Bc3d7p4n5zKoi4UhlQ0p/preview' },
+                { id: 'placeholder-4', url: 'https://drive.google.com/file/d/11NCJhE-fjhxVzkF76g8vK9cK9jElHMLU/preview' },
+                { id: 'placeholder-5', url: 'https://drive.google.com/file/d/1jwst7A5x5-XdCp2uRMSV1Bzkcz3nyyZ5/preview' },
                 { id: 'placeholder-6', url: 'https://drive.google.com/file/d/1RG7C-0-w66xkNGV-BBma9wKuDrTzuiKS/preview' },
                 { id: 'placeholder-7', url: 'https://drive.google.com/file/d/1srYxhyx1WsHqzaXHAFr041A4qgVaqKxn/preview' },
                 { id: 'placeholder-8', url: 'https://drive.google.com/file/d/1E_rMKM3q0fsiRZSzUuJVHyC1WSlKXEdr/preview' },
                 { id: 'placeholder-9', url: 'https://drive.google.com/file/d/14SoE08itCyfZoR01u17wuy5ropLGx4r4/preview' },
                 { id: 'placeholder-10', url: 'https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview' },
                 { id: 'placeholder-11', url: 'https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview' },
-                { id: 'placeholder-12', url: 'https://drive.google.com/file/d/10hgwzXtBjkT4vUvA1u_6oOyANPd3YZ2j/preview' },
+                { id: 'placeholder-12', url: 'https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview' },
                 { id: 'placeholder-13', url: 'https://drive.google.com/file/d/19viS9LFusX5zEy9aQWb2VPpnx7WwO5f5/preview' },
                 { id: 'placeholder-14', url: 'https://drive.google.com/file/d/1VicvvI0x5VAL8YXFdw8Hw2lQxrdKKQ9m/preview' }
             ];
