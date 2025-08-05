@@ -939,3 +939,82 @@ h1 {
     height: 16px;
     overflow: visible;
 }
+
+.ops-eds-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.ops-eds-item {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+    align-items: start;
+}
+
+.ops-eds-item.no-video {
+    grid-template-columns: 1fr;
+}
+
+.ops-eds-item:hover {
+    transform: translateX(10px);
+    box-shadow: 0 10px 30px rgba(78, 205, 196, 0.2);
+    border-color: rgba(78, 205, 196, 0.3);
+}
+
+.ops-eds-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.ops-eds-video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.ops-eds-video iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.ops-eds-item h4 {
+    color: #4ecdc4;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+}
+
+.ops-eds-item p {
+    color: #d0d0d0;
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+}
+
+.ops-eds-item .episodes {
+    color: #4ecdc4;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+    .ops-eds-item {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .ops-eds-item.no-video {
+        grid-template-columns: 1fr;
+    }
+}
