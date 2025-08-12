@@ -63,9 +63,9 @@
                 </button>
             </div>
             <div class="cover-stories-grid">
-                <div class="cover-story">
+                <div class="cover-story" data-number="COVER #8">
                     <div class="cover-story-content">
-                        <h3>#08 – Miss Goldenweek's "Operation: Meet BW"</h3>
+                        <h3>Miss Goldenweek's "Operation: Meet BW"</h3>
                         <p class="chapters">ch359-413 (Water 7 -> Enies Lobby)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-8">
@@ -83,7 +83,7 @@
                     </div>
                 </div>
 
-                <div class="cover-story">
+                <div class="cover-story" data-number="COVER #8.5">
                     <div class="cover-story-content">
                         <h3>Where They Are Now #1 – Skypiea</h3>
                         <p class="chapters">ch424-427 (Enies Lobby)</p>
@@ -103,9 +103,9 @@
                     </div>
                 </div>
 
-                <div class="cover-story">
+                <div class="cover-story" data-number="COVER #9">
                     <div class="cover-story-content">
-                        <h3>#09 – Enel's Great Space Operations</h3>
+                        <h3>Enel's Great Space Operations</h3>
                         <p class="chapters">ch428-474 (Enies Lobby -> Thriller Bark)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-9">
@@ -123,7 +123,7 @@
                     </div>
                 </div>
 
-                <div class="cover-story">
+                <div class="cover-story" data-number="COVER #9.5">
                     <div class="cover-story-content">
                         <h3>Where They Are Now #2 – Water 7</h3>
                         <p class="chapters">ch486-490 (Thriller Bark)</p>
@@ -143,9 +143,9 @@
                     </div>
                 </div>
 
-                <div class="cover-story">
+                <div class="cover-story" data-number="COVER #10">
                     <div class="cover-story-content">
-                        <h3>#10 – CP9's Independent Report</h3>
+                        <h3>CP9's Independent Report Log</h3>
                         <p class="chapters">ch491-528 (Thriller Bark -> Impel Down)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-10">
@@ -163,9 +163,9 @@
                     </div>
                 </div>
 
-                <div class="cover-story">
+                <div class="cover-story" data-number="COVER #11-18">
                     <div class="cover-story-content">
-                        <h3>#11-18 – Straw Hat's Separation Serial ✅</h3>
+                        <h3>Straw Hat's Separation Serial ✅</h3>
                         <p class="chapters">ch543-560 (Impel Down -> Marineford)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-11">
@@ -183,10 +183,10 @@
                     </div>
                 </div>
 
-                <div class="cover-story">
+                <div class="cover-story" data-number="COVER #19">
                     <div class="cover-story-content">
-                        <h3>#19 – From the Decks of the World</h3>
-                        <p class="chapters">ch613-668 (Fish-Man Island -> PH)</p>
+                        <h3>From the Decks of the World</h3>
+                        <p class="chapters">ch613-668 (Fish-Man Island -> Punk Hazard)</p>
                         <div class="pdf-container">
                             <div class="pdf-placeholder" id="placeholder-12">
                                 <div class="load-button" onclick="loadPDF('placeholder-12', 'https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview')">
@@ -737,6 +737,7 @@
             const container = document.querySelector('.load-all-container');
             
             button.disabled = true;
+            button.classList.add('loading');
             button.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Loading...';
             
             // PDF URLs array - matches your existing placeholders
@@ -764,6 +765,7 @@
                     
                     // Hide container when all are loaded
                     if (index === pdfData.length - 1) {
+                        button.classList.remove('loading');
                         setTimeout(() => {
                             container.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
                             container.style.opacity = '0';
