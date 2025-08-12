@@ -23,11 +23,14 @@
     <meta name="twitter:description" content="a comprehensive overview for all Cover Stories, Movies, Specials & Fillers — made by the community for BOLDcast">
     <meta name="twitter:image" content="https://strawhatfiles.github.io/cover-stories/icon.jpg">
 
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://drive.google.com">
     <link rel="preconnect" href="https://www.youtube-nocookie.com">
     <link rel="preconnect" href="https://www.netflix.com">
 
-    <link rel="stylesheet" href="styles.css">
+    <!-- Version-Based Cache Busting -->
+    <link rel="stylesheet" href="styles.css?v=1.0.1">
+    <script>const SITE_VERSION = "1.0.1";</script>
 </head>
 <body>
     <div class="header">
@@ -869,8 +872,9 @@
         }
 
         function loadPDF(placeholderId, pdfUrl) {
+            const versionedUrl = `${pdfUrl}${pdfUrl.includes('?') ? '&' : '?'}v=${SITE_VERSION}`;
             const placeholder = document.getElementById(placeholderId);
-            placeholder.innerHTML = `<iframe src="${pdfUrl}" allow="autoplay"></iframe>`;
+            placeholder.innerHTML = `<iframe src="${versionedUrl}" allow="autoplay"></iframe>`;
             placeholder.classList.remove('pdf-placeholder');
         }
 
