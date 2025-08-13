@@ -1080,6 +1080,35 @@
         window.addEventListener('scroll', updateScrollButton);
         updateScrollButton();
 
+        let isScrolled = false;
+
+        function updateTabContainer() {
+            const tabContainer = document.querySelector('.tab-container');
+            const scrollY = window.scrollY;
+            const startThreshold = 100;
+            const endThreshold = 400;
+            
+            // Create smooth transition zone between thresholds
+            if (scrollY <= startThreshold) {
+                // Fully expanded
+                tabContainer.classList.remove('scrolled');
+                isScrolled = false;
+            } else if (scrollY >= endThreshold) {
+                // Fully collapsed
+                tabContainer.classList.add('scrolled');
+                isScrolled = true;
+            }
+        }
+
+        window.addEventListener('scroll', updateTabContainer);
+
+        // Debounced scroll handler for smoother performance
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateTabContainer, 10);
+        });
+
         function openLightbox(imageSrc) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
