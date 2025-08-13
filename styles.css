@@ -158,6 +158,11 @@ h1 {
     box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
 }
 
+.cover-story.completed::after {
+    background: linear-gradient(135deg, #28a745, #20c997);
+    box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
+}
+
 .cover-stories-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
