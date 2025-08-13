@@ -944,6 +944,8 @@
             setTimeout(() => {
                 activeContent.style.animation = 'fadeIn 0.5s ease-out';
             }, 10);
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         function createPDFEmbed(pdfPath, pdfId, driveUrl) {
