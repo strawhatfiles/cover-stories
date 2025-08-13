@@ -1088,6 +1088,16 @@ h1 {
     .filler-title {
         font-size: 1.2rem;
     }
+
+    .filler-description {
+        font-size: 0.85rem;
+    }
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .filler-description {
+        font-size: 0.85rem !important;
+    }
 }
 
 .title-with-download {
