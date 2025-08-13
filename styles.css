@@ -220,6 +220,32 @@ h1 {
     box-shadow: 0 3px 10px rgba(40, 167, 69, 0.3);
 }
 
+.cover-story.deactivated {
+    opacity: 0.4;
+    background: rgba(255, 255, 255, 0.02);
+    pointer-events: none;
+}
+
+.cover-story.deactivated .cover-story-content h3,
+.cover-story.deactivated .cover-story-content p,
+.cover-story.deactivated .info-box {
+    color: #333;
+    filter: blur(5px);
+    user-select: none;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.1);
+}
+
+.cover-story.deactivated .chapters {
+    filter: blur(6px);
+    color: #222;
+}
+
+.cover-story.deactivated .pdf-container,
+.cover-story.deactivated .pdf-placeholder {
+    filter: blur(3px);
+    opacity: 0.3;
+}
+
 .cover-stories-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
