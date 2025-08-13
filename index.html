@@ -126,7 +126,7 @@
         <!-- Cover Stories Tab -->
         <div id="cover-stories" class="tab-content active">
 
-            <div class="load-all-container">
+            <div class="load-all-container" id="mobileLoadAllContainer" style="display: none;">
                 <button class="load-all-btn" onclick="loadAllPDFs()" id="loadAllBtn">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M8 5v14l11-7z"/>
@@ -141,16 +141,7 @@
                     <div class="cover-story-content">
                         <h3>Buggy's Crew Adventure Chronicles ✅</h3>
                         <p class="chapters">ch35-75 (Syrup Village -> Arlong Park)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-1">
-                                <div class="load-button" onclick="loadPDF('placeholder-1', 'https://drive.google.com/file/d/1o1m-AOBmkYQnOCbGpgNqfuhypJw0LyFb/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-1"></div>
                         <div class="info-box">
                             takes place between the events of Orange Town and Loguetown
                         </div>
@@ -161,16 +152,7 @@
                     <div class="cover-story-content">
                         <h3>Diary of Koby-Meppo ✅</h3>
                         <p class="chapters">ch83-119 (Arlong Park -> Little Garden)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-2">
-                                <div class="load-button" onclick="loadPDF('placeholder-2', 'https://drive.google.com/file/d/1ZMN2h90f8dtrsGeeJaFlMQ2ilexzjGNZ/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-2"></div>
                         <div class="info-box">
                             takes place between the events of Romance Dawn and Post-Enies Lobby
                         </div>
@@ -181,16 +163,7 @@
                     <div class="cover-story-content">
                         <h3>Jango's Dance Paradise</h3>
                         <p class="chapters">ch126-172 (Little Garden -> Alabasta)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-3">
-                                <div class="load-button" onclick="loadPDF('placeholder-3', 'https://drive.google.com/file/d/1DGH137BYqBw8nk0Z7sSyo8o43ONz81Wf/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-3"></div>
                         <div class="info-box">
                             takes place between the events of Baratie and Alabasta
                         </div>
@@ -201,16 +174,7 @@
                     <div class="cover-story-content">
                         <h3>Hatchan's Sea-Floor Stroll</h3>
                         <p class="chapters">ch182-228 (Alabasta -> Jaya)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-4">
-                                <div class="load-button" onclick="loadPDF('placeholder-4', 'https://drive.google.com/file/d/11NCJhE-fjhxVzkF76g8vK9cK9jElHMLU/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-4"></div>
                         <div class="info-box">
                             takes place between the events of Arlong Park and <span class="spoiler" onclick="toggleSpoiler(this)">Sabaody</span>
                         </div>
@@ -221,16 +185,7 @@
                     <div class="cover-story-content">
                         <h3>Wapol's Omnivorous Hurrah</h3>
                         <p class="chapters">ch236-262 (Jaya -> Skypiea)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-5">
-                                <div class="load-button" onclick="loadPDF('placeholder-5', 'https://drive.google.com/file/d/1jwst7A5x5-XdCp2uRMSV1Bzkcz3nyyZ5/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-5"></div>
                         <div class="info-box">
                             takes place between the events of Drum Island and <span class="spoiler" onclick="toggleSpoiler(this)">3D2Y/timeskip</span>
                         </div>
@@ -241,16 +196,7 @@
                     <div class="cover-story-content">
                         <h3>Ace's Great Blackbeard Search</h3>
                         <p class="chapters">ch272-305 (Skypiea -> Foxy)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-6">
-                                <div class="load-button" onclick="loadPDF('placeholder-6', 'https://drive.google.com/file/d/1RG7C-0-w66xkNGV-BBma9wKuDrTzuiKS/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-6"></div>
                         <div class="info-box">
                             takes place between the events of Jaya and Post-Enies Lobby
                         </div>
@@ -261,16 +207,7 @@
                     <div class="cover-story-content">
                         <h3>Gedatsu's Accidental Blue-Sea Life</h3>
                         <p class="chapters">ch314-348 (Foxy -> Water 7)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-7">
-                                <div class="load-button" onclick="loadPDF('placeholder-7', 'https://drive.google.com/file/d/1srYxhyx1WsHqzaXHAFr041A4qgVaqKxn/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-7"></div>
                         <div class="info-box">
                             takes place after the events of Skypiea
                         </div>
@@ -281,16 +218,7 @@
                     <div class="cover-story-content">
                         <h3>Miss Goldenweek's "Operation: Meet BW"</h3>
                         <p class="chapters">ch359-413 (Water 7 -> Enies Lobby)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-8">
-                                <div class="load-button" onclick="loadPDF('placeholder-8', 'https://drive.google.com/file/d/1E_rMKM3q0fsiRZSzUuJVHyC1WSlKXEdr/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-8"></div>
                         <div class="info-box">
                             takes place after the events of Alabasta
                         </div>
@@ -301,16 +229,7 @@
                     <div class="cover-story-content">
                         <h3>Where They Are Now #1 – Skypiea</h3>
                         <p class="chapters">ch424-427 (Enies Lobby)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-13">
-                                <div class="load-button" onclick="loadPDF('placeholder-13', 'https://drive.google.com/file/d/19viS9LFusX5zEy9aQWb2VPpnx7WwO5f5/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-9"></div>
                         <div class="info-box">
                             takes place after the events of Skypiea
                         </div>
@@ -321,16 +240,7 @@
                     <div class="cover-story-content">
                         <h3>Enel's Great Space Operations</h3>
                         <p class="chapters">ch428-474 (Enies Lobby -> Thriller Bark)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-9">
-                                <div class="load-button" onclick="loadPDF('placeholder-9', 'https://drive.google.com/file/d/14SoE08itCyfZoR01u17wuy5ropLGx4r4/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-10"></div>
                         <div class="info-box">
                             takes place after the events of Skypiea
                         </div>
@@ -341,16 +251,7 @@
                     <div class="cover-story-content">
                         <h3>Where They Are Now #2 – Water 7</h3>
                         <p class="chapters">ch486-490 (Thriller Bark)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-14">
-                                <div class="load-button" onclick="loadPDF('placeholder-14', 'https://drive.google.com/file/d/1VicvvI0x5VAL8YXFdw8Hw2lQxrdKKQ9m/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-11"></div>
                         <div class="info-box">
                             takes place after the events of Enies Lobby
                         </div>
@@ -361,16 +262,7 @@
                     <div class="cover-story-content">
                         <h3>CP9's Independent Report Log</h3>
                         <p class="chapters">ch491-528 (Thriller Bark -> Impel Down)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-10">
-                                <div class="load-button" onclick="loadPDF('placeholder-10', 'https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-12"></div>
                         <div class="info-box">
                             takes place after the events of Enies Lobby
                         </div>
@@ -381,16 +273,7 @@
                     <div class="cover-story-content">
                         <h3>Straw Hat's Separation Serial ✅</h3>
                         <p class="chapters">ch543-560 (Impel Down -> Marineford)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-11">
-                                <div class="load-button" onclick="loadPDF('placeholder-11', 'https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-13"></div>
                         <div class="info-box">
                             takes place after the events of Sabaody
                         </div>
@@ -401,16 +284,7 @@
                     <div class="cover-story-content">
                         <h3>From the Decks of the World</h3>
                         <p class="chapters">ch613-668 (Fish-Man Island -> Punk Hazard)</p>
-                        <div class="pdf-container">
-                            <div class="pdf-placeholder" id="placeholder-12">
-                                <div class="load-button" onclick="loadPDF('placeholder-12', 'https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview')">
-                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Load PDF</span>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="pdf-container" id="pdf-14"></div>
                         <div class="info-box">
                             takes place after the timeskip / reunion
                         </div>
@@ -959,6 +833,88 @@
             }, 10);
         }
 
+        function createPDFEmbed(pdfPath, pdfId, driveUrl) {
+            // Check if browser actually supports PDF viewing (more reliable than user agent)
+            const supportsPDF = (function() {
+                // Check if we're likely on mobile regardless of user agent
+                const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+                const isSmallScreen = window.innerWidth <= 768;
+                
+                // Check for known mobile browsers that don't support PDF embeds well
+                const userAgent = navigator.userAgent.toLowerCase();
+                const isMobileBrowser = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i.test(userAgent);
+                
+                // Check if browser has PDF plugin support
+                let hasPDFSupport;
+                try {
+                    hasPDFSupport = navigator.pdfViewerEnabled || 
+                                (navigator.plugins && Array.from(navigator.plugins).some(plugin => 
+                                    plugin.name.toLowerCase().includes('pdf')));
+                } catch (e) {
+                    hasPDFSupport = false;
+                }
+                
+                // Use mobile version if any mobile indicators are true OR if no PDF support
+                return !isTouchDevice && !isSmallScreen && !isMobileBrowser && hasPDFSupport;
+            })();
+            
+            if (supportsPDF) {
+                // Desktop with PDF support: Direct PDF embed
+                return `
+                    <div style="position: relative; width: 100%; height: 100%;">
+                        <object data="${pdfPath}#view=Fit" type="application/pdf" 
+                                style="width: 160%; height: 100%; margin-left: -30%; border: none;">
+                            <div class="pdf-placeholder" id="placeholder-${pdfId}">
+                                <div class="load-button" onclick="loadPDF('placeholder-${pdfId}', '${driveUrl}')">
+                                    <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    <span>Load PDF</span>
+                                </div>
+                            </div>
+                        </object>
+                        <button onclick="window.open('${pdfPath}', '_blank')" 
+                                style="position: absolute;
+                                    top: 50%;
+                                    right: 8px;
+                                    transform: translateY(-50%);
+                                    background: rgba(0, 0, 0, 0.7); 
+                                    border: 1px solid rgba(255, 255, 255, 0.3);
+                                    border-radius: 50%; 
+                                    width: 32px;
+                                    height: 32px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    color: white; 
+                                    cursor: pointer; 
+                                    transition: all 0.3s ease;
+                                    backdrop-filter: blur(5px);
+                                    z-index: 10;"
+                                onmouseover="this.style.background='rgba(255, 107, 107, 0.9)'; this.style.transform='translateY(-50%) scale(1.1)'"
+                                onmouseout="this.style.background='rgba(0, 0, 0, 0.7)'; this.style.transform='translateY(-50%) scale(1)'"
+                                title="Open in new tab">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19 19H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
+                            </svg>
+                        </button>
+                    </div>
+                `;
+            } else {
+                // Mobile or no PDF support: Show placeholder with load button
+                return `
+                    <div class="pdf-placeholder" id="placeholder-${pdfId}">
+                        <div class="load-button" onclick="loadPDF('placeholder-${pdfId}', '${driveUrl}')">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <span>Load PDF</span>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
         function loadPDF(placeholderId, pdfUrl) {
             const versionedUrl = `${pdfUrl}${pdfUrl.includes('?') ? '&' : '?'}v=${SITE_VERSION}`;
             const placeholder = document.getElementById(placeholderId);
@@ -967,14 +923,27 @@
         }
 
         function loadAllPDFs() {
+            const isMobile = (function() {
+                const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+                const isSmallScreen = window.innerWidth <= 768;
+                const userAgent = navigator.userAgent.toLowerCase();
+                const isMobileBrowser = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i.test(userAgent);
+                
+                return isTouchDevice || isSmallScreen || isMobileBrowser;
+            })();
+            
+            if (!isMobile) return; // Only works on mobile
+            
             const button = document.getElementById('loadAllBtn');
+            if (!button) return;
+            
             const container = document.querySelector('.load-all-container');
             
             button.disabled = true;
             button.classList.add('loading');
             button.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Loading...';
             
-            // PDF URLs array - matches your existing placeholders
+            // PDF URLs array for mobile
             const pdfData = [
                 { id: 'placeholder-1', url: 'https://drive.google.com/file/d/1o1m-AOBmkYQnOCbGpgNqfuhypJw0LyFb/preview' },
                 { id: 'placeholder-2', url: 'https://drive.google.com/file/d/1ZMN2h90f8dtrsGeeJaFlMQ2ilexzjGNZ/preview' },
@@ -984,12 +953,12 @@
                 { id: 'placeholder-6', url: 'https://drive.google.com/file/d/1RG7C-0-w66xkNGV-BBma9wKuDrTzuiKS/preview' },
                 { id: 'placeholder-7', url: 'https://drive.google.com/file/d/1srYxhyx1WsHqzaXHAFr041A4qgVaqKxn/preview' },
                 { id: 'placeholder-8', url: 'https://drive.google.com/file/d/1E_rMKM3q0fsiRZSzUuJVHyC1WSlKXEdr/preview' },
-                { id: 'placeholder-13', url: 'https://drive.google.com/file/d/19viS9LFusX5zEy9aQWb2VPpnx7WwO5f5/preview' },
-                { id: 'placeholder-9', url: 'https://drive.google.com/file/d/14SoE08itCyfZoR01u17wuy5ropLGx4r4/preview' },
-                { id: 'placeholder-14', url: 'https://drive.google.com/file/d/1VicvvI0x5VAL8YXFdw8Hw2lQxrdKKQ9m/preview' },
-                { id: 'placeholder-10', url: 'https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview' },
-                { id: 'placeholder-11', url: 'https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview' },
-                { id: 'placeholder-12', url: 'https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview' }
+                { id: 'placeholder-9', url: 'https://drive.google.com/file/d/19viS9LFusX5zEy9aQWb2VPpnx7WwO5f5/preview' },
+                { id: 'placeholder-10', url: 'https://drive.google.com/file/d/14SoE08itCyfZoR01u17wuy5ropLGx4r4/preview' },
+                { id: 'placeholder-11', url: 'https://drive.google.com/file/d/1VicvvI0x5VAL8YXFdw8Hw2lQxrdKKQ9m/preview' },
+                { id: 'placeholder-12', url: 'https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview' },
+                { id: 'placeholder-13', url: 'https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview' },
+                { id: 'placeholder-14', url: 'https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview' }
             ];
             
             // Load each PDF with a small delay to prevent overwhelming the browser
@@ -1030,7 +999,53 @@
         }
 
         // Call the function when the DOM is loaded
-        document.addEventListener('DOMContentLoaded', initializeStaggeredAnimation);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Define all PDF containers and their paths
+            const pdfs = [
+                { id: 'pdf-1', path: './Colored Cover Stories/01.pdf', driveUrl: 'https://drive.google.com/file/d/1o1m-AOBmkYQnOCbGpgNqfuhypJw0LyFb/preview' },
+                { id: 'pdf-2', path: './Colored Cover Stories/02.pdf', driveUrl: 'https://drive.google.com/file/d/1ZMN2h90f8dtrsGeeJaFlMQ2ilexzjGNZ/preview' },
+                { id: 'pdf-3', path: './Colored Cover Stories/03.pdf', driveUrl: 'https://drive.google.com/file/d/1DGH137BYqBw8nk0Z7sSyo8o43ONz81Wf/preview' },
+                { id: 'pdf-4', path: './Colored Cover Stories/04.pdf', driveUrl: 'https://drive.google.com/file/d/11NCJhE-fjhxVzkF76g8vK9cK9jElHMLU/preview' },
+                { id: 'pdf-5', path: './Colored Cover Stories/05.pdf', driveUrl: 'https://drive.google.com/file/d/1jwst7A5x5-XdCp2uRMSV1Bzkcz3nyyZ5/preview' },
+                { id: 'pdf-6', path: './Colored Cover Stories/06.pdf', driveUrl: 'https://drive.google.com/file/d/1RG7C-0-w66xkNGV-BBma9wKuDrTzuiKS/preview' },
+                { id: 'pdf-7', path: './Colored Cover Stories/07.pdf', driveUrl: 'https://drive.google.com/file/d/1srYxhyx1WsHqzaXHAFr041A4qgVaqKxn/preview' },
+                { id: 'pdf-8', path: './Colored Cover Stories/08.pdf', driveUrl: 'https://drive.google.com/file/d/1E_rMKM3q0fsiRZSzUuJVHyC1WSlKXEdr/preview' },
+                { id: 'pdf-9', path: './Colored Cover Stories/09_0.pdf', driveUrl: 'https://drive.google.com/file/d/19viS9LFusX5zEy9aQWb2VPpnx7WwO5f5/preview' },
+                { id: 'pdf-10', path: './Colored Cover Stories/09.pdf', driveUrl: 'https://drive.google.com/file/d/14SoE08itCyfZoR01u17wuy5ropLGx4r4/preview' },
+                { id: 'pdf-11', path: './Colored Cover Stories/10_0.pdf', driveUrl: 'https://drive.google.com/file/d/1VicvvI0x5VAL8YXFdw8Hw2lQxrdKKQ9m/preview' },
+                { id: 'pdf-12', path: './Colored Cover Stories/10.pdf', driveUrl: 'https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview' },
+                { id: 'pdf-13', path: './Colored Cover Stories/11-18.pdf', driveUrl: 'https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview' },
+                { id: 'pdf-14', path: './Colored Cover Stories/19.pdf', driveUrl: 'https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview' }
+            ];
+            
+            // Load all PDFs
+            pdfs.forEach(pdf => {
+                const container = document.getElementById(pdf.id);
+                if (container) {
+                    const pdfNumber = pdf.id.replace('pdf-', '');
+                    container.innerHTML = createPDFEmbed(pdf.path, pdfNumber, pdf.driveUrl);
+                }
+            });
+            
+            // Also call your existing animation function
+            initializeStaggeredAnimation();
+
+            // Show/hide mobile-specific elements
+            const isMobile = (function() {
+                const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+                const isSmallScreen = window.innerWidth <= 768;
+                const userAgent = navigator.userAgent.toLowerCase();
+                const isMobileBrowser = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i.test(userAgent);
+                
+                return isTouchDevice || isSmallScreen || isMobileBrowser;
+            })();
+
+            const mobileContainer = document.getElementById('mobileLoadAllContainer');
+
+            if (isMobile && mobileContainer) {
+                mobileContainer.style.display = 'block';
+            }
+        });
 
         function toggleSpoiler(element) {
             element.classList.toggle('revealed');
