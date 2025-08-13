@@ -925,6 +925,16 @@
 
     <script>
         function showTab(tabName) {
+            // Temporarily disable tab container transitions during scroll
+            const tabContainer = document.querySelector('.tab-container');
+            tabContainer.style.transition = 'none';
+            
+            // Instantly scroll to top first
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            
+            // Force update tab container state immediately
+            tabContainer.classList.remove('scrolled');
+            
             const tabContents = document.querySelectorAll('.tab-content');
             tabContents.forEach(tab => {
                 tab.classList.remove('active');
@@ -936,16 +946,16 @@
             });
 
             document.getElementById(tabName).classList.add('active');
-
             event.target.classList.add('active');
 
             const activeContent = document.getElementById(tabName);
             activeContent.style.animation = 'none';
-            setTimeout(() => {
-                activeContent.style.animation = 'fadeIn 0.5s ease-out';
-            }, 10);
             
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Re-enable transitions after a brief delay
+            setTimeout(() => {
+                tabContainer.style.transition = '';
+                activeContent.style.animation = 'fadeIn 0.5s ease-out';
+            }, 50);
         }
 
         function createPDFEmbed(pdfPath, pdfId, driveUrl) {
