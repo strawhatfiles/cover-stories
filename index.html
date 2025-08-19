@@ -1154,16 +1154,24 @@
     }
 
     function loadAllPDFs() {
-        const isMobile = (function () {
+        const supportsPDF = (function () {
             const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
             const isSmallScreen = window.innerWidth <= 768;
+
             const userAgent = navigator.userAgent.toLowerCase();
             const isMobileBrowser = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile|tablet/i.test(userAgent);
 
-            return isTouchDevice || isSmallScreen || isMobileBrowser;
+            let hasPDFSupport;
+            try {
+                hasPDFSupport = navigator.pdfViewerEnabled || (navigator.plugins && Array.from(navigator.plugins).some((plugin) => plugin.name.toLowerCase().includes("pdf")));
+            } catch (e) {
+                hasPDFSupport = false;
+            }
+
+            return !isTouchDevice && !isSmallScreen && !isMobileBrowser && hasPDFSupport;
         })();
 
-        if (!isMobile) return; // Only works on mobile
+        if (supportsPDF) return; // early return
 
         const button = document.getElementById("loadAllBtn");
         if (!button) return;
@@ -1190,6 +1198,13 @@
             { id: "placeholder-12", url: "https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview" },
             { id: "placeholder-13", url: "https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview" },
             { id: "placeholder-14", url: "https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview" },
+            { id: "placeholder-15", url: "https://drive.google.com/file/d/yo/preview" },
+            { id: "placeholder-16", url: "https://drive.google.com/file/d/yo/preview" },
+            { id: "placeholder-17", url: "https://drive.google.com/file/d/yo/preview" },
+            { id: "placeholder-18", url: "https://drive.google.com/file/d/yo/preview" },
+            { id: "placeholder-19", url: "https://drive.google.com/file/d/yo/preview" },
+            { id: "placeholder-20", url: "https://drive.google.com/file/d/yo/preview" },
+            { id: "placeholder-21", url: "https://drive.google.com/file/d/yo/preview" },
         ];
 
         // Load each PDF with a small delay to prevent overwhelming the browser
@@ -1247,6 +1262,13 @@
             { id: "pdf-12", path: "./Colored Cover Stories/10.pdf", driveUrl: "https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview" },
             { id: "pdf-13", path: "./Colored Cover Stories/11-18.pdf", driveUrl: "https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview" },
             { id: "pdf-14", path: "./Colored Cover Stories/19 (without last page).pdf", driveUrl: "https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview" },
+            { id: "pdf-15", path: "./Colored Cover Stories/20.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+            { id: "pdf-16", path: "./Colored Cover Stories/21.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+            { id: "pdf-17", path: "./Colored Cover Stories/22.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+            { id: "pdf-18", path: "./Colored Cover Stories/23.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+            { id: "pdf-19", path: "./Colored Cover Stories/24.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+            { id: "pdf-20", path: "./Colored Cover Stories/25.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+            { id: "pdf-21", path: "./Colored Cover Stories/26.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
         ];
 
         // Load all PDFs
