@@ -566,6 +566,7 @@ h1 {
     display: none;
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 10000;
 }
 
 .scroll-btn:hover {
@@ -584,6 +585,15 @@ h1 {
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-3px); }
+}
+
+@media (max-width: 768px) {
+    .scroll-btn {
+        bottom: calc(env(safe-area-inset-bottom) + 2rem);
+        right: 1rem;
+        z-index: 10000;
+        position: fixed !important;
+    }
 }
 
 .specials-grid {
