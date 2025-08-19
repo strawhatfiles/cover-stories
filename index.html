@@ -1361,14 +1361,14 @@
 
     // Close lightbox when clicking outside the image
     document.addEventListener("click", function (e) {
-        if (e.target.id === "lightbox") {
+        if (e.target.id === "lightbox" || e.target.id === "lightbox-img") {
             closeLightbox();
         }
     });
 </script>
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-    <img class="lightbox-content" id="lightbox-img" onclick="event.stopPropagation()" src="" alt="" />
+    <img class="lightbox-content" id="lightbox-img" src="" alt=""/>
 </div>
 </body>
 </html>
