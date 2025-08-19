@@ -1517,6 +1517,11 @@ h1 {
     flex-shrink: 0;
 }
 
+.sunny-gallery {
+    grid-template-columns: repeat(5, 1fr) !important;
+    grid-template-rows: repeat(2, 1fr);
+}
+
 .lightbox {
     display: none;
     position: fixed;
