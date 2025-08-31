@@ -1281,12 +1281,16 @@
             { id: "pdf-21", path: "./Colored Cover Stories/26.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
         ];
 
-        // Load all PDFs
-        pdfs.forEach((pdf) => {
+        // Load all PDFs with staggered delay
+        pdfs.forEach((pdf, index) => {
             const container = document.getElementById(pdf.id);
             if (container) {
                 const pdfNumber = pdf.id.replace("pdf-", "");
-                container.innerHTML = createPDFEmbed(pdf.path, pdfNumber, pdf.driveUrl);
+
+                // Add delay based on index - 300ms between each PDF
+                setTimeout(() => {
+                    container.innerHTML = createPDFEmbed(pdf.path, pdfNumber, pdf.driveUrl);
+                }, index * 450);
             }
         });
 
@@ -1395,6 +1399,25 @@
             closeLightbox();
         }
     });
+
+    function typeWriter(element, text, speed = 50) {
+        let i = 0;
+        element.innerHTML = '';
+        function type() {
+            if (i < text.length) {
+                element.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(type, speed);
+            }
+        }
+        type();
+    }
+    // Run immediately when script loads
+    const header = document.querySelector('h1');
+    if (header) {
+        const originalText = header.textContent;
+        typeWriter(header, originalText, 80);
+    }
 </script>
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
