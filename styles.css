@@ -1400,7 +1400,6 @@ h1 {
 .spoiler-blocked {
     position: relative;
     cursor: default;
-    pointer-events: none;
 }
 
 .spoiler-blocked img {
@@ -1444,7 +1443,6 @@ h1 {
 
 .ops-eds-video.spoiler-blocked {
     position: relative;
-    pointer-events: none;
 }
 
 .ops-eds-video.spoiler-blocked iframe {
@@ -1486,7 +1484,6 @@ h1 {
 .ops-eds-item.spoiler-blocked {
     opacity: 0.4;
     background: rgba(255, 255, 255, 0.02);
-    pointer-events: none;
 }
 
 .ops-eds-item.spoiler-blocked .ops-eds-content h4,
