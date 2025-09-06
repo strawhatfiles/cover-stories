@@ -237,7 +237,7 @@
             <p class="progress-label">Cover Story Progress • 12 of 19 Complete</p>
         </div>
 
-        <div class="load-all-container" id="mobileLoadAllContainer" style="display: none;">
+        <div class="load-all-container" id="mobileLoadAllContainer">
             <button class="load-all-btn" onclick="loadAllPDFs()" id="loadAllBtn">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M8 5v14l11-7z" />
@@ -1626,7 +1626,7 @@
         const loadAllContainer = document.getElementById("mobileLoadAllContainer");
         if (!loadAllContainer) return;
 
-        loadAllContainer.style.display = drivePlaceholders.length > 0 ? "block" : "none";
+        if (drivePlaceholders.length === 0) loadAllContainer.style.display = "none";
     }
 
     // Call the function when the DOM is loaded

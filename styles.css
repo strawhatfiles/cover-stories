@@ -745,12 +745,19 @@ h1 {
 }
 
 .load-all-container {
+    display: none;
     text-align: center;
     margin: 2rem 0;
     padding: 1.5rem;
     background: rgba(255, 255, 255, 0.03);
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 1024px), (pointer: coarse) {
+    .load-all-container {
+        display: block;
+    }
 }
 
 .load-all-btn {
