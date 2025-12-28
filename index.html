@@ -30,7 +30,7 @@
 
     <!-- Stylesheet + Version-Based Cache Busting -->
     <link rel="stylesheet" href="styles.css?v=1.0.1">
-    <script>const SITE_VERSION = "1.0.1";</script>
+    <script>const SITE_VERSION = "1.0.2";</script>
 </head>
 <body>
 <div class="header">
@@ -228,13 +228,15 @@
                     <a href="#cover-story-20" class="marker incomplete" data-number="20">20</a>
                     <a href="#cover-story-21" class="marker incomplete" data-number="21">21</a>
                     <a href="#cover-story-22" class="marker incomplete" data-number="22">22</a>
+                    <!--
                     <a href="#cover-story-23" class="marker incomplete" data-number="23">23</a>
                     <a href="#cover-story-24" class="marker incomplete" data-number="24">24</a>
                     <a href="#cover-story-25" class="marker incomplete" data-number="25">25</a>
                     <a href="#cover-story-26" class="marker incomplete" data-number="26">26</a>
+                     -->
                 </div>
             </div>
-            <p class="progress-label">Cover Story Progress • 12 of 19 Complete</p>
+            <p class="progress-label">Cover Story Progress • 12 of 15 Complete</p>
         </div>
 
         <div class="load-all-container" id="mobileLoadAllContainer">
@@ -351,7 +353,7 @@
                     <h3>CP9's Independent Report</h3>
                     <p class="chapters">ch491-528 (Thriller Bark -> Impel Down)</p>
                     <div class="pdf-container" id="pdf-12"></div>
-                    <div class="info-box">takes place after the events of <strong>Enies Lobby</strong>...</div>
+                    <div class="info-box">takes place between the events of <strong>Enies Lobby</strong> and <strong>Dressrosa</strong></div>
                 </div>
             </div>
 
@@ -369,34 +371,37 @@
                     <h3>From the Decks of the World</h3>
                     <p class="chapters">ch613-668 (Fish-Man Island -> Punk Hazard)</p>
                     <div class="pdf-container" id="pdf-14"></div>
-                    <div class="info-box">takes place after the events of <strong>Return to Sabaody</strong>...</div>
+                    <div class="info-box">takes place between the events of <strong>Return to Sabaody</strong> and <strong>Dressrosa</strong></div>
                 </div>
             </div>
 
-            <div class="cover-story deactivated" data-number="COVER #20" id="cover-story-20">
+            <div class="cover-story" data-number="COVER #20" id="cover-story-20">
                 <div class="cover-story-content">
                     <h3>Caribou's Kehihihihi in the New World</h3>
                     <p class="chapters">ch674-731 (Punk Hazard -> Dressrosa)</p>
                     <div class="pdf-container" id="pdf-15"></div>
-                    <div class="info-box">takes place between the events of <strong>Fish-Man Island</strong> and <strong>Wano</strong></div>
+                    <!-- <div class="info-box">takes place between the events of <strong>Fish-Man Island</strong> and <strong>Wano</strong></div> -->
+                    <div class="info-box">takes place after the events of <strong>Fish-Man Island</strong>...</div>
                 </div>
             </div>
 
-            <div class="cover-story deactivated" data-number="COVER #21" id="cover-story-21">
+            <div class="cover-story" data-number="COVER #21" id="cover-story-21">
                 <div class="cover-story-content">
                     <h3>Solo Journey of Jinbe, Knight of the Sea</h3>
                     <p class="chapters">ch751-785 (Dressrosa)</p>
                     <div class="pdf-container" id="pdf-16"></div>
-                    <div class="info-box">takes place between the events of <strong>Fish-Man Island</strong> and <strong>Whole Cake Island</strong></div>
+                    <!-- <div class="info-box">takes place between the events of <strong>Fish-Man Island</strong> and <strong>Whole Cake Island</strong></div> -->
+                    <div class="info-box">takes place after the events of <strong>Fish-Man Island</strong>...</div>
                 </div>
             </div>
 
-            <div class="cover-story deactivated" data-number="COVER #22" id="cover-story-22">
+            <div class="cover-story" data-number="COVER #22" id="cover-story-22">
                 <div class="cover-story-content">
                     <h3>From the Decks of the World: The 500,000,000 Man Arc</h3>
-                    <p class="chapters">ch805-838 (Zou -> Whole Cake Island)</p>
+                    <p class="chapters">ch805-838 (Zou -> <span class="spoiler" onclick="toggleSpoiler(this)">Whole Cake Island</span>)</p>
                     <div class="pdf-container" id="pdf-17"></div>
-                    <div class="info-box">takes place between the events of <strong>Dressrosa</strong> and <strong>Whole Cake Island</strong></div>
+                    <!-- <div class="info-box">takes place between the events of <strong>Dressrosa</strong> and <strong>Whole Cake Island</strong></div> -->
+                    <div class="info-box">takes place after the events of <strong>Dressrosa</strong>...</div>
                 </div>
             </div>
 
@@ -597,14 +602,6 @@
                 <div class="bump-of-chicken-section">
                     <h5>Hungry Days × One Piece × Bump of Chicken</h5>
                     <p class="bump-disclaimer">Animated music video of the full song (by Bump of Chicken) from the 4 short Nissin Noodle commercials</p>
-                    <!-- SPOILER VERSION -->
-                    <div class="bump-embed spoiler-blocked">
-                        <img src="embeds/thumbnails/Bump of Chicken.jpg" alt="Hungry Days × One Piece × Bump of Chicken" />
-                        <div class="spoiler-overlay">
-                            <div class="spoiler-text">SPOILERS UNTIL AFTER DRESSROSA</div>
-                        </div>
-                    </div>
-                    <!-- FUTURE VERSION
                     <div class="bump-embed clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/x5Prd-CQNnk?si=BWhbDbmSxOIHL6Gb', '_blank')">
                         <img src="embeds/thumbnails/Bump of Chicken.jpg" alt="Hungry Days × One Piece × Bump of Chicken">
                         <div class="play-overlay">
@@ -613,7 +610,6 @@
                             </svg>
                         </div>
                     </div>
-                    FUTURE VERSION -->
                 </div>
             </div>
 
@@ -869,13 +865,63 @@
                 <p class="filler-description">Crossover episode with Toriko & Dragon Ball Z – first half to this is Toriko Episode 99</p>
             </div>
 
+            <div class="filler-item special-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">Curtain-up on a New Adventure</h3>
+                    <span class="filler-episodes">Ep. 751</span>
+                </div>
+                <p class="filler-description">
+                    Bartolomeo recaps the Straw Hats' backstories
+                </p>
+                <div class="filler-note">
+                    <u>Keep in mind</u>: Barto's knowledge on display here will contradict later events
+                </div>
+                <div class="filler-note">
+                    Episode 751 (from 17:25 onward) is canon!
+                </div>
+            </div>
+
             <div class="filler-item">
-                <div class="episode-count">= 62</div>
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">Save Zunesha! The Straw Hat's Rescue Operation!</h3>
+                    <span class="filler-episodes">Ep. 775</span>
+                </div>
+                <p class="filler-description">
+                    "Anime canon" <em>(= expanded on what was only 1 page in the manga)</em> showing the <span class="spoiler" onclick="toggleSpoiler(this)">Mink Tribe & the Straw Hats treating Zunesha</span>
+                </p>
+            </div>
+
+            <div class="filler-item">
+                <div class="episode-count">3</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">Marine Rookie Arc</h3>
+                    <span class="filler-episodes">Eps. 780-782</span>
+                </div>
+                <p class="filler-description">
+                    After running out of food on the way to WCI <span class="spoiler" onclick="toggleSpoiler(this)">the Sanji Retrieval Team infiltrates a Marine base to eat food and steal provisions</span>
+                </p>
+            </div>
+
+            <div class="filler-item">
+                <div class="episode-count">2</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">Carbonic Acid King / Cidre Guild Arc</h3>
+                    <span class="filler-episodes">Eps. 895-896</span>
+                </div>
+                <p class="filler-description">
+                    Filler that is meant to lead into movie #14 (One Piece: Stampede)
+                </p>
+            </div>
+
+            <div class="filler-item">
+                <div class="episode-count">= 69</div>
                 <div class="filler-header">
                     <h3 class="filler-title">up-to-date until</h3>
-                    <span class="filler-episodes">Ep. 745</span>
+                    <span class="filler-episodes">Ep. 750 Uncut Reaction</span>
                 </div>
-                <p class="filler-description">...</p>
+                <p class="filler-description">as of December 24, 2025</p>
             </div>
         </div>
     </div>
@@ -893,7 +939,145 @@
                 <div class="collapsible-content" id="done-ops-eds-content">
                     <div class="collapsible-content-inner">
 
-                        <h2 style="margin: 2rem 0; color: #4ecdc4;">Openings (#1-15) + Endings (#1-18)</h2>
+                        <h2 style="margin: 2rem 0; color: #4ecdc4;">One Piece Log: Fish-Man Island Saga (Remastered & Re-Edited)</h2>
+
+                        <div class="ops-eds-item" id="fmi-op">
+                            <div class="ops-eds-content">
+                                <h4>Opening – We Go! <span style="font-size: 0.69em;">(Straw Hat Pirates' voice actors)</span></h4>
+                                <p class="episodes">Episodes 1-9</p>
+                                <p>Special opening made for the Fish-Man Island remake.</p>
+                                <div class="warning-box yellow">
+                                    <span class="warning-icon">⚠️</span>
+                                    If you watch it on Crunchyroll, beware that Eps. 10-13, 14-17, 18-21 have three different versions of the original opening, which are covers by Japanese YouTubers & VTubers.
+                                </div>
+                            </div>
+                            <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/N5kOymBivr0?si=pp7AwQh3SkCjQvvt', '_blank')">
+                                <img src="embeds/thumbnails/OPs & EDs/OP (Fish-Man Island Remake).jpg" alt="One Piece Log: Fish-Man Island Saga (Special Edited Version) — Opening" style="width: 100%; height: 100%; object-fit: cover;" />
+                                <div class="play-overlay">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ops-eds-item" id="fmi-ed">
+                            <div class="ops-eds-content">
+                                <h4>Ending – Sailing <span style="font-size: 0.69em;">(BE:FIRST)</span></h4>
+                                <p class="episodes">Episodes 1-21</p>
+                                <p>Special ending made for the Fish-Man Island remake.</p>
+                            </div>
+                            <!-- embed not available -->
+                            <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/1-_B5gioYwA?si=sS13o8UHL2WUy263', '_blank')">
+                                <img src="embeds/thumbnails/OPs & EDs/ED (Fish-Man Island Remake).jpg" alt="One Piece Log: Fish-Man Island Saga (Special Edited Version) — Ending" style="width: 100%; height: 100%; object-fit: cover;" />
+                                <div class="play-overlay">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="warning-box" style="background: rgba(78, 205, 196, 0.15); border: 1px solid rgba(78, 205, 196, 0.3); color: #4ecdc4; border-left: 4px solid #4ecdc4; margin-bottom: 2rem;">
+                            <span class="warning-icon">📺</span>
+                            <div>
+                                <strong>Note:</strong> All the YouTube embeds from here on out are for quick reference only. For the best viewing experience (original quality + ENG subtitles), it's recommended to watch the openings and endings directly on Crunchyroll, using the listed episode numbers.
+                            </div>
+                        </div>
+
+                        <h2 style="margin: 2rem 0; color: #4ecdc4;">Openings (#1-18) + Endings (#1-18)</h2>
+
+                        <p class="episodes" style="color: #4ecdc4; font-size: 1.8em; font-style: italic; line-height: 1.3; margin-top: 0.5rem;">...</p>
+
+                        <div class="ops-eds-item" id="opening-16">
+                            <div class="ops-eds-content">
+                                <h4>Opening #16 – Hands Up! <span style="font-size: 0.69em;">(Kota Shinzato)</span></h4>
+                                <p class="episodes">Episodes 591-618*</p>
+                                <p>This opening plays during the Punk Hazard Arc.</p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p></p>
+                                <p class="episodes" style="color: #888; font-size: 1em; font-style: italic; line-height: 1.3; margin-top: 0.5rem;">* it goes back to Opening #15 on Crunchyroll for Eps. 619-628</p>
+                            </div>
+                            <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/CW7kciiPtk8?si=ju-Q4Lpv50jlw7K_', '_blank')">
+                                <img src="embeds/thumbnails/OPs & EDs/OP-16.png" alt="Opening #16: Hands Up!" style="width: 100%; height: 100%; object-fit: cover;" />
+                                <div class="play-overlay">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                                <!--
+                                <div class="spoiler-overlay">
+                                    <div class="spoiler-text">SAFE AFTER EP. 599</div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+
+                        <div class="ops-eds-item" id="opening-17-v1">
+                            <div class="ops-eds-content">
+                                <h4>Opening #17 (v1) – Wake up! <span style="font-size: 0.69em;">(AAA)</span></h4>
+                                <p class="episodes">Episodes 629-662</p>
+                                <p>This opening plays during the Dressrosa Arc.</p>
+                            </div>
+                            <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/D2j7Iol_9Zo?si=62pGNMh0v-ugaiTc', '_blank')">
+                                <img src="embeds/thumbnails/OPs & EDs/OP-17.png" alt="Opening #17 (v1): Wake up!" style="width: 100%; height: 100%; object-fit: cover;" />
+                                <div class="play-overlay">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                                <!--
+                                <div class="spoiler-overlay">
+                                    <div class="spoiler-text">SAFE AFTER EP. 643</div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+
+                        <div class="ops-eds-item" id="opening-17-v2">
+                            <div class="ops-eds-content">
+                                <h4>Opening #17 (v2) – Wake up! <span style="font-size: 0.69em;">(AAA)</span></h4>
+                                <p class="episodes">Episodes 663-686</p>
+                                <p>This opening plays during the Dressrosa Arc.</p>
+                            </div>
+                            <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/vIR2MugGYXA?si=pA40h2ZHJLawLeTW', '_blank')">
+                                <img src="embeds/thumbnails/OPs & EDs/OP-17.png" alt="Opening #17 (v2): Wake up!" style="width: 100%; height: 100%; object-fit: cover;" />
+                                <div class="play-overlay">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                                <!--
+                                <div class="spoiler-overlay">
+                                    <div class="spoiler-text">SAFE AFTER EP. 6<span class="blurred-digits">73</span></div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
+
+                        <div class="ops-eds-item" id="opening-18">
+                            <div class="ops-eds-content">
+                                <h4>Opening #18 – Hard Knock Days <span style="font-size: 0.69em;">(GENERATIONS from EXILE TRIBE)</span></h4>
+                                <p class="episodes">Episodes 687-746</p>
+                                <p>This opening plays during the Dressrosa Arc.</p>
+                            </div>
+                            <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/A52j3oiK0fg?si=rCPAqX-V4iB7aDms', '_blank')">
+                                <img src="embeds/thumbnails/OPs & EDs/OP-18.png" alt="Opening #18: Hard Knock Days" style="width: 100%; height: 100%; object-fit: cover;" />
+                                <div class="play-overlay">
+                                    <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M8 5v14l11-7z" />
+                                    </svg>
+                                </div>
+                                <!--
+                                <div class="spoiler-overlay">
+                                    <div class="spoiler-text">SAFE AFTER EP. 7<span class="blurred-digits">02</span></div>
+                                </div>
+                                -->
+                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -921,45 +1105,6 @@
                 </div>
             </div>
 
-            <h2 style="margin: 2rem 0; color: #4ecdc4;">One Piece Log: Fish-Man Island Saga (Remastered & Re-Edited)</h2>
-
-            <div class="ops-eds-item" id="fmi-op">
-                <div class="ops-eds-content">
-                    <h4>Opening – We Go! <span style="font-size: 0.69em;">(Straw Hat Pirates' voice actors)</span></h4>
-                    <p class="episodes">Episodes 1-9</p>
-                    <p>Special opening made for the Fish-Man Island remake.</p>
-                    <div class="warning-box yellow">
-                        <span class="warning-icon">⚠️</span>
-                        If you watch it on Crunchyroll, beware that Eps. 10-13, 14-17, 18-21 have three different versions of the original opening, which are covers by Japanese YouTubers & VTubers.
-                    </div>
-                </div>
-                <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/N5kOymBivr0?si=pp7AwQh3SkCjQvvt', '_blank')">
-                    <img src="embeds/thumbnails/OPs & EDs/OP (Fish-Man Island Remake).jpg" alt="One Piece Log: Fish-Man Island Saga (Special Edited Version) — Opening" style="width: 100%; height: 100%; object-fit: cover;" />
-                    <div class="play-overlay">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ops-eds-item" id="fmi-ed">
-                <div class="ops-eds-content">
-                    <h4>Ending – Sailing <span style="font-size: 0.69em;">(BE:FIRST)</span></h4>
-                    <p class="episodes">Episodes 1-21</p>
-                    <p>Special ending made for the Fish-Man Island remake.</p>
-                </div>
-                <!-- embed not available -->
-                <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/1-_B5gioYwA?si=sS13o8UHL2WUy263', '_blank')">
-                    <img src="embeds/thumbnails/OPs & EDs/ED (Fish-Man Island Remake).jpg" alt="One Piece Log: Fish-Man Island Saga (Special Edited Version) — Ending" style="width: 100%; height: 100%; object-fit: cover;" />
-                    <div class="play-overlay">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </div>
-                </div>
-            </div>
-
             <div class="warning-box" style="background: rgba(78, 205, 196, 0.15); border: 1px solid rgba(78, 205, 196, 0.3); color: #4ecdc4; border-left: 4px solid #4ecdc4; margin-bottom: 2rem;">
                 <span class="warning-icon">📺</span>
                 <div>
@@ -967,97 +1112,13 @@
                 </div>
             </div>
 
-            <h2 style="margin: 2rem 0; color: #4ecdc4;">Openings (#16-28) + Endings (#19-22)</h2>
+            <h2 style="margin: 2rem 0; color: #4ecdc4;">Openings (#19-28) + Endings (#19-22)</h2>
 
-            <div class="ops-eds-item" id="opening-16">
-                <div class="ops-eds-content">
-                    <h4>Opening #16 – Hands Up! <span style="font-size: 0.69em;">(Kota Shinzato)</span></h4>
-                    <p class="episodes">Episodes 591-618*</p>
-                    <p>This opening plays during the Punk Hazard Arc.</p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p></p>
-                    <p class="episodes" style="color: #888; font-size: 1em; font-style: italic; line-height: 1.3; margin-top: 0.5rem;">* it goes back to Opening #15 on Crunchyroll for Eps. 619-628</p>
-                </div>
-                <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/CW7kciiPtk8?si=ju-Q4Lpv50jlw7K_', '_blank')">
-                    <img src="embeds/thumbnails/OPs & EDs/OP-16.png" alt="Opening #16: Hands Up!" style="width: 100%; height: 100%; object-fit: cover;" />
-                    <div class="play-overlay">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </div>
-                    <div class="spoiler-overlay">
-                        <div class="spoiler-text">SAFE AFTER EP. 599</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ops-eds-item" id="opening-17-v1">
-                <div class="ops-eds-content">
-                    <h4>Opening #17 (v1) – Wake up! <span style="font-size: 0.69em;">(AAA)</span></h4>
-                    <p class="episodes">Episodes 629-662</p>
-                    <p>This opening plays during the Dressrosa Arc.</p>
-                </div>
-                <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/D2j7Iol_9Zo?si=62pGNMh0v-ugaiTc', '_blank')">
-                    <img src="embeds/thumbnails/OPs & EDs/OP-17.png" alt="Opening #17 (v1): Wake up!" style="width: 100%; height: 100%; object-fit: cover;" />
-                    <div class="play-overlay">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </div>
-                    <div class="spoiler-overlay">
-                        <div class="spoiler-text">SAFE AFTER EP. 643</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ops-eds-item" id="opening-17-v2">
-                <div class="ops-eds-content">
-                    <h4>Opening #17 (v2) – Wake up! <span style="font-size: 0.69em;">(AAA)</span></h4>
-                    <p class="episodes">Episodes 663-686</p>
-                    <p>This opening plays during the Dressrosa Arc.</p>
-                </div>
-                <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/vIR2MugGYXA?si=pA40h2ZHJLawLeTW', '_blank')">
-                    <img src="embeds/thumbnails/OPs & EDs/OP-17.png" alt="Opening #17 (v2): Wake up!" style="width: 100%; height: 100%; object-fit: cover;" />
-                    <div class="play-overlay">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </div>
-                    <div class="spoiler-overlay">
-                        <div class="spoiler-text">SAFE AFTER EP. 6<span class="blurred-digits">73</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ops-eds-item spoiler-blocked" id="opening-18">
-                <!-- remove ' spoiler-blocked' above this after ep702 -->
-                <div class="ops-eds-content">
-                    <h4>Opening #18 – Hard Knock Days <span style="font-size: 0.69em;">(GENERATIONS from EXILE TRIBE)</span></h4>
-                    <p class="episodes">Episodes 687-746</p>
-                    <p>This opening plays during the Dressrosa Arc.</p>
-                </div>
-                <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/A52j3oiK0fg?si=rCPAqX-V4iB7aDms', '_blank')">
-                    <img src="embeds/thumbnails/OPs & EDs/OP-18.png" alt="Opening #18: Hard Knock Days" style="width: 100%; height: 100%; object-fit: cover;" />
-                    <div class="play-overlay">
-                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
-                    </div>
-                    <div class="spoiler-overlay">
-                        <div class="spoiler-text">SAFE AFTER EP. 7<span class="blurred-digits">02</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ops-eds-item spoiler-blocked" id="opening-19">
-                <!-- remove ' spoiler-blocked' above this after ep764 -->
+            <div class="ops-eds-item" id="opening-19">
                 <div class="ops-eds-content">
                     <h4>Opening #19 – We Can! <span style="font-size: 0.69em;">(Hiroshi Kitadani & Kishidan)</span></h4>
                     <p class="episodes">Episodes 747-806</p>
-                    <p>This opening plays during the <span class="spoiler" onclick="toggleSpoiler(this)">Zou</span> & <span class="spoiler" onclick="toggleSpoiler(this)">Whole Cake Island</span> Arc.</p>
+                    <p>This opening plays during the Zou & <span class="spoiler" onclick="toggleSpoiler(this)">Whole Cake Island</span> Arc.</p>
                 </div>
                 <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/fhJb8CBhu38?si=VB615sxtxNttTCDU', '_blank')">
                     <img src="embeds/thumbnails/OPs & EDs/OP-19.png" alt="Opening #19: We Can!" style="width: 100%; height: 100%; object-fit: cover;" />
@@ -1072,8 +1133,7 @@
                 </div>
             </div>
 
-            <div class="ops-eds-item spoiler-blocked" id="opening-20">
-                <!-- remove ' spoiler-blocked' above this after ep816 -->
+            <div class="ops-eds-item" id="opening-20">
                 <div class="ops-eds-content">
                     <h4>Opening #20 – Hope <span style="font-size: 0.69em;">(Namie Amuro)</span></h4>
                     <p class="episodes">Episodes 807-855</p>
@@ -1674,6 +1734,47 @@
 
         // Run after PDFs have been scheduled for creation
         setTimeout(updateLoadAllButton, pdfs.length * 220);
+
+        // Auto-inject Close buttons at the bottom of all collapsibles
+        const collapsibles = document.querySelectorAll('.collapsible-section');
+
+        collapsibles.forEach(section => {
+            const inner = section.querySelector('.collapsible-content-inner');
+            const content = section.querySelector('.collapsible-content');
+            const header = section.querySelector('.collapsible-header');
+
+            if (inner && content && header) {
+                // Extract the exact ID needed to trigger your existing toggle function
+                const sectionId = content.id.replace('-content', '');
+
+                // Create the wrapper and button
+                const wrapper = document.createElement('div');
+                wrapper.className = 'collapse-bottom-wrapper';
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'collapse-bottom-btn';
+                closeBtn.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 15-6-6-6 6"/>
+                    </svg>
+                    Close Section
+                `;
+
+                // Add the click event to close and scroll up
+                closeBtn.onclick = function() {
+                    toggleCollapsible(sectionId);
+
+                    // Smoothly scroll back to the header
+                    setTimeout(() => {
+                        header.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 50);
+                };
+
+                // Inject it into the page
+                wrapper.appendChild(closeBtn);
+                inner.appendChild(wrapper);
+            }
+        });
     });
 
     function toggleSpoiler(element) {
