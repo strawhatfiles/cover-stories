@@ -1881,3 +1881,31 @@ h1 {
         margin-right: 0.5rem;
     }
 }
+
+.collapse-bottom-wrapper {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.collapse-bottom-btn {
+    padding: 0.6rem 1.5rem;
+    background: rgba(78, 205, 196, 0.05);
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    border-radius: 30px;
+    color: #4ecdc4;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.collapse-bottom-btn:hover {
+    background: rgba(78, 205, 196, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(78, 205, 196, 0.2);
+}

@@ -1734,6 +1734,47 @@
 
         // Run after PDFs have been scheduled for creation
         setTimeout(updateLoadAllButton, pdfs.length * 220);
+
+        // Auto-inject Close buttons at the bottom of all collapsibles
+        const collapsibles = document.querySelectorAll('.collapsible-section');
+
+        collapsibles.forEach(section => {
+            const inner = section.querySelector('.collapsible-content-inner');
+            const content = section.querySelector('.collapsible-content');
+            const header = section.querySelector('.collapsible-header');
+
+            if (inner && content && header) {
+                // Extract the exact ID needed to trigger your existing toggle function
+                const sectionId = content.id.replace('-content', '');
+
+                // Create the wrapper and button
+                const wrapper = document.createElement('div');
+                wrapper.className = 'collapse-bottom-wrapper';
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'collapse-bottom-btn';
+                closeBtn.innerHTML = `
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m18 15-6-6-6 6"/>
+                    </svg>
+                    Close Section
+                `;
+
+                // Add the click event to close and scroll up
+                closeBtn.onclick = function() {
+                    toggleCollapsible(sectionId);
+
+                    // Smoothly scroll back to the header
+                    setTimeout(() => {
+                        header.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 50);
+                };
+
+                // Inject it into the page
+                wrapper.appendChild(closeBtn);
+                inner.appendChild(wrapper);
+            }
+        });
     });
 
     function toggleSpoiler(element) {
