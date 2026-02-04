@@ -1779,6 +1779,34 @@
                 inner.appendChild(wrapper);
             }
         });
+
+        // Auto-calculate Cover Story progress based on the markers
+        function updateCoverStoryProgress() {
+            // Strictly match ONLY markers that have the 'completed' or 'incomplete' class
+            const validMarkers = document.querySelectorAll('.progress-markers .marker.completed, .progress-markers .marker.incomplete');
+            const completedMarkers = document.querySelectorAll('.progress-markers .marker.completed');
+
+            const total = validMarkers.length;
+            const completed = completedMarkers.length;
+
+            // Calculate the exact percentage
+            const percentage = total > 0 ? (completed / total) * 100 : 0;
+
+            // Target the bar and the text
+            const progressFill = document.querySelector('.progress-fill');
+            const progressLabel = document.querySelector('.progress-label');
+
+            // Apply the updates automatically
+            if (progressFill) {
+                progressFill.style.width = `${percentage}%`;
+            }
+            if (progressLabel) {
+                progressLabel.innerHTML = `Cover Story Progress &bull; ${completed} of ${total} Complete`;
+            }
+        }
+
+        // Run the calculation immediately on load
+        updateCoverStoryProgress();
     });
 
     function toggleSpoiler(element) {

@@ -1675,7 +1675,7 @@ h1 {
 
 .progress-fill {
     height: 100%;
-    width: 63%;
+    width: 0%;
     background: linear-gradient(90deg, #4ecdc4, #26a085);
     border-radius: 4px;
     animation: fillProgress 2s ease-out forwards;
