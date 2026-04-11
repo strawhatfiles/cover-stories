@@ -1088,6 +1088,16 @@ h1 {
     font-style: italic;
 }
 
+.filler-note-alt {
+    background: rgba(93, 173, 226, 0.1);
+    border-left: 3px solid #5dade2;
+    padding: 0.75rem 1rem;
+    margin-top: 1rem;
+    border-radius: 0 4px 4px 0;
+    font-size: 0.85rem;
+    color: #e0e0e0;
+}
+
 .special-filler {
     border-color: rgba(255, 107, 107, 0.3);
 }
