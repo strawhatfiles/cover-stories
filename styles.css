@@ -1988,3 +1988,82 @@ h1 {
         grid-template-columns: 1fr;
     }
 }
+
+.esp-toggle-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 107, 139, 0.1);
+    border: 1px solid rgba(255, 107, 139, 0.3);
+    border-radius: 30px;
+    color: #ff6b8b;
+    font-weight: 600;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: rgba(255, 255, 255, 0.15);
+    transition: 0.4s ease;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s ease;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.switch input:checked + .slider {
+    background-color: rgba(255, 107, 139, 0.85);
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(20px);
+}
+
+.filler-item.esp-filler {
+    border-left-color: rgba(255, 107, 139, 0.85);
+}
+
+.filler-item.esp-filler::before {
+    background: rgba(255, 107, 139, 0.85);
+}
+
+.filler-item.esp-filler .filler-title {
+    color: rgba(255, 107, 139, 0.85);
+}
+
+.filler-item.esp-filler .episode-count {
+    background: rgba(255, 107, 139, 0.85);
+    color: #ffffff;
+}
+
+.filler-item.esp-filler .filler-episodes {
+    background: rgba(255, 107, 139, 0.15);
+    color: rgba(255, 107, 139, 0.85);
+    border-color: rgba(255, 107, 139, 0.3);
+}
