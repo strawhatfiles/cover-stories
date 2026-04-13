@@ -29,8 +29,8 @@
     <link rel="preconnect" href="https://www.netflix.com" />
 
     <!-- Stylesheet + Version-Based Cache Busting -->
-    <link rel="stylesheet" href="styles.css?v=1.0.4">
-    <script>const SITE_VERSION = "1.0.4";</script>
+    <link rel="stylesheet" href="styles.css?v=1.0.5">
+    <script>const SITE_VERSION = "1.0.5";</script>
 </head>
 <body>
 <div class="header">
@@ -438,7 +438,7 @@
             <div class="cover-story deactivated" data-number="COVER #26" id="cover-story-26">
                 <div class="cover-story-content">
                     <h3>Oni Child Yamato's Golden Harvest Surrogate Pilgrimage</h3>
-                    <p class="chapters">ch1109-1162 (Egghead -> Elbaph)</p>
+                    <p class="chapters">ch1109-1162 (Egghead -> Elbaf)</p>
                     <div class="pdf-container" id="pdf-21"></div>
                     <div class="info-box">takes place after the events of <strong>Wano</strong>...</div>
                 </div>
@@ -975,10 +975,10 @@
                             <div class="episode-count">= 37</div>
                             <div class="filler-header">
                                 <h3 class="filler-title">up-to-date until</h3>
-                                <span class="filler-episodes">Ep. 782 Uncut Reaction</span>
+                                <span class="filler-episodes">Ep. 829 Uncut Reaction</span>
                             </div>
                             <p class="filler-description">
-                                as of February 08, 2026
+                                as of April 11, 2026
                             </p>
                         </div>
 
@@ -988,10 +988,19 @@
             </div>
         </div>
 
-        <h2 style="margin: 0; color: #4ecdc4;">Skipped Filler Episodes</h2>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin: 2rem 0; flex-wrap: wrap; gap: 1rem;">
+            <h2 style="margin: 0; color: #4ecdc4;">Skipped Filler Episodes</h2>
 
-        <div class="warning-box" style="background: rgba(78, 205, 196, 0.15); border: 1px solid rgba(78, 205, 196, 0.3);
-        color: #4ecdc4; border-left: 4px solid #4ecdc4; margin-bottom: 2rem;">
+            <div class="esp-toggle-container">
+                <span>Include E-SP Recaps (21)</span>
+                <label class="switch">
+                    <input type="checkbox" id="espToggle" onchange="toggleESP()">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <div class="warning-box" style="background: rgba(78, 205, 196, 0.15); border: 1px solid rgba(78, 205, 196, 0.3); color: #4ecdc4; border-left: 4px solid #4ecdc4; margin-bottom: 2rem;">
             <span class="warning-icon">📺</span>
             <div>
                 <strong>Note:</strong> Timestamps are made for Crunchyroll ! &emsp; Otherwise might need to either add
@@ -1091,7 +1100,7 @@
                 </div>
             </div>
 
-            <div class="filler-item">
+            <div class="filler-item special-filler">
                 <div class="episode-count">5</div>
                 <div class="filler-header">
                     <h3 class="filler-title">mid-Enies Lobby Padding</h3>
@@ -1237,14 +1246,321 @@
             </div>
 
             <div class="filler-item">
-                <div class="episode-count" id="total-skipped-count">= 70</div>
+                <div class="episode-count">1</div>
                 <div class="filler-header">
-                    <h3 class="filler-title">up-to-date until</h3>
-                    <span class="filler-episodes">Ep. 782 Uncut Reaction</span>
+                    <h3 class="filler-title">Romance Dawn</h3>
+                    <span class="filler-episodes">Ep. 907</span>
                 </div>
                 <p class="filler-description">
-                    as of February 08, 2026
+                    special adapting the 1996 one-shot "Romance Dawn, Version 2" &thinsp;(released 1 year before the start of the serialization of One Piece)
                 </p>
+                <div class="filler-note">
+                    There are 3 versions of Romance Dawn:<br>
+                    - Romance Dawn, Version 1 (Aug 04, 1996; one-shot)<br>
+                    - Romance Dawn, Version 2 (Sep 23, 1996; one-shot)<br>
+                    - Ch 1 of One Piece manga (July 19, 1997)
+                </div>
+                <div class="filler-note-alt">
+                    <u>Fun fact</u>: the few fans – who at the time had read this early iteration of Chapter 1 – had managed to link Garp to Luffy 7 years before the actual reveal, since Vice-Admiral Garp's design in the Koby-Meppo cover story was identical to the grandfather in the "Romance Dawn" one-shot; despite Oda's attempt at a disguise (= the dog mask)
+                </div>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 01 – Luffy-senpai Support Project! Barto's Secret Room!</h3>
+                    <span class="filler-episodes">Ep. 1004.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Bartolomeo & O-Tama review Luffy's actions in Wano
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 02 – Zoro and Sanji-senpai Admiring Project! Barto's Secret Room 2!</h3>
+                    <span class="filler-episodes">Ep. 1015.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Bartolomeo & Law look back on Zoro's & Sanji's adventures in Wano
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 03 – A Comprehensive Anatomy! The Legend of <span class="spoiler" onclick="toggleSpoiler(this)">Kozuki Oden</span>!</h3>
+                    <span class="filler-episodes">Ep. 1022.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Yamato & Momonosuke retell the adventures of the legendary <span class="spoiler" onclick="toggleSpoiler(this)">Kozuki Oden</span>
+                </p>
+            </div>
+
+            <div class="filler-item">
+                <div class="episode-count">2</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">Uta's Past Arc</h3>
+                    <span class="filler-episodes">Eps. 1029-1030</span>
+                </div>
+                <p class="filler-description">
+                    Filler that is meant to lead into movie #15 (One Piece Film: Red)
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 04 – The Legendary Log! Red-Haired Shanks!</h3>
+                    <span class="filler-episodes">Ep. 1030.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Koby & Makino think back on their time knowing Shanks
+                </p>
+                <div class="filler-note">
+                    Despite being mostly a recap, this episode also contains some original scenes tying in with Uta's Past (filler arc) and One Piece Film: Red (movie #15)
+                </div>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 05 – A Comprehensive Anatomy! Fierce Fight! The 5 from the New Gen!</h3>
+                    <span class="filler-episodes">Ep. 1035.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Roof Piece – Abridged
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 06 – Great Fierce Battle Special! The Straw Hats vs. the Tobi Roppo</h3>
+                    <span class="filler-episodes">Ep. 1045.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Zoro & Sanji narrate the battles that took place between the Straw Hat Pirates and the Tobiroppo
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 07 – Great Fierce Battle Special! Zoro vs. an All-Star!</h3>
+                    <span class="filler-episodes">Ep. 1061.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Sanji & Chopper narrate the events of what has occurred in the battle between Zoro and <span class="spoiler" onclick="toggleSpoiler(this)">King</span> so far
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 08 – Great Fierce Battle Special! Alliance Counterattack vs. <span class="spoiler" onclick="toggleSpoiler(this)">Big Mom</span></h3>
+                    <span class="filler-episodes">Ep. 1065.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Nami & Robin narrate the events of what has occurred in the battle between <span class="spoiler" onclick="toggleSpoiler(this)">Law & Kid against Big Mom</span> so far
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 09 – Luffy-senpai Support Project! Barto's Secret Room 3!</h3>
+                    <span class="filler-episodes">Ep. 1073.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Bartolomeo & O-Tama recap the events of Luffy's battles with <span class="spoiler" onclick="toggleSpoiler(this)">Kaido during the Raid on Onigashima</span>
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 10 – Luffy-senpai Support Project! Barto's Secret Room 4!</h3>
+                    <span class="filler-episodes">Ep. 1078.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Bartolomeo & O-Tama recap the events of Luffy's final battle with <span class="spoiler" onclick="toggleSpoiler(this)">Kaido during the Raid on Onigashima</span>
+                </p>
+            </div>
+
+            <div class="filler-item">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">Time to Depart - Wano Country and the Straw Hats</h3>
+                    <span class="filler-episodes">Ep. 1084</span>
+                </div>
+                <p class="filler-description">
+                    Filler that provides additional closure to the longest arc in the series &thinsp;(that some would say <span class="spoiler" onclick="toggleSpoiler(this)">lacked in the manga</span>)
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 11 – Special Feature! Momonosuke<span class="spoiler" onclick="toggleSpoiler(this)">'s Path to Becoming a Great Shogun</span></h3>
+                    <span class="filler-episodes">Ep. 1088.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Yamato, Momonosuke & Kin'emon recap the events of Momonosuke<span class="spoiler" onclick="toggleSpoiler(this)">'s rise to the position of Shogun</span> & the end of Wano
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 12 – Great Fun Project! <span class="spoiler" onclick="toggleSpoiler(this)">"Surgeon of Death" Trafalgar Law</span></h3>
+                    <span class="filler-episodes">Ep. 1092.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Bepo & Chopper recap <span class="spoiler" onclick="toggleSpoiler(this)">Trafalgar Law's involvement throughout the main story</span>
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 13 – Log of Rivalry! The Straw Hats and Cipher Pol</h3>
+                    <span class="filler-episodes">Ep. 1100.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Franky & Robin give a recap of their history with Cipher Pol
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 14 – Making History! The Turbulent Old and New Four Emperors!</h3>
+                    <span class="filler-episodes">Ep. 1108.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Zoro & Brook give a recap of the Four Emperors
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 15 – The Log of Turbulent Revolution - The Revolutionary Army Maneuvers!</h3>
+                    <span class="filler-episodes">Ep. 1116.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Cavendish & Bartolomeo give a recap of the history of various members of the Revolutionary Army + their operations
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 16 – Unwavering Justice! The Marines' Proud Log!</h3>
+                    <span class="filler-episodes">Ep. 1120.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Jinbe, Nami & Usopp give an in-depth explanation of the Marines, as well as the history of a few more notable members
+                </p>
+            </div>
+
+            <div class="filler-item special-filler">
+                <div class="episode-count">4</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-Recap – Egghead Sosyuhen Special</h3>
+                    <span class="filler-episodes">Ep. 1122.5</span>
+                </div>
+                <p class="filler-description">
+                    1h20m long recap of the first half of Egghead, following the 6-month-hiatus of the anime between Oct 2024 & Apr 2025
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 17 – Dr. Chopper's Adventure Checkup - The Ballad of a Father and Daughter</h3>
+                    <span class="filler-episodes">Ep. 1128.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Carrot & Chopper go over <span class="spoiler" onclick="toggleSpoiler(this)">Kuma & Bonney</span>'s history, as well as their interactions with the Straw Hats
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 18 – Dr. Chopper's Adventure Checkup - Good Friends at a Crossroad</h3>
+                    <span class="filler-episodes">Ep. 1133.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Carrot & Chopper go over <span class="spoiler" onclick="toggleSpoiler(this)">Kizaru, Sentomaru & Dr.Vegapunk</span>'s history, as well as their interactions with the Straw Hats
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 19 – Dr. Chopper's Adventure Checkup - The Proud Dream of the Giants</h3>
+                    <span class="filler-episodes">Ep. 1141.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Carrot & Chopper discuss various giants, while trying to identify a giant shadow
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 20 – Dr. Chopper's Adventure Checkup - Traitors' Masquerade</h3>
+                    <span class="filler-episodes">Ep. 1145.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Carrot, Bepo & Chopper discuss the various activities of CP0 & its members
+                </p>
+            </div>
+
+            <div class="filler-item special-filler esp-filler">
+                <div class="episode-count">1</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">E-SP 21 – Dr. Chopper's Adventure Checkup - Last Records That a Genius Left Behind</h3>
+                    <span class="filler-episodes">Ep. 1150.5</span>
+                </div>
+                <p class="filler-description">
+                    <u>Recap filler</u>: Carrot & Bartolomeo are forced to answer 5 questions by <span class="spoiler" onclick="toggleSpoiler(this)">Vegapunk</span> in order to rescue Chopper
+                </p>
+            </div>
+
+            <script>
+                const BASE_SKIPPED_COUNT = 78;
+            </script>
+
+            <div class="filler-item">
+                <div class="episode-count" id="total-skipped-count">= 78</div>
+                <div class="filler-header">
+                    <h3 class="filler-title">up-to-date until</h3>
+                    <span class="filler-episodes">Ep. 1156</span>
+                </div>
+                <p class="filler-description" id="total-skipped-desc">
+                    78 yet-to-watch filler episode count does <u>not</u> include the 21 E-SP recap summary episodes
+                </p>
+            </div>
+
+        </div>
+
+        <div class="warning-box" style="background: rgba(78, 205, 196, 0.15); border: 1px solid rgba(78, 205, 196, 0.3); color: #4ecdc4; border-left: 4px solid #4ecdc4; margin-bottom: 3rem; padding: 1rem;">
+            <span class="warning-icon">ℹ️</span>
+            <div style="display: inline-block; margin-left: 0.5rem;">
+                <strong><u>Anime Bonus Corner</u>:</strong>&ensp;&thinsp;At the end of <strong>Episodes 1089-1121</strong>
+                (between the ending song and the next episode preview), there are short filler segments.<br> Similar to
+                the E-SP XX episodes, these are just recap summaries.&ensp;&ensp;→ <strong><u>Note</u>:</strong> They are also
+                available on the <a href="https://www.youtube.com/playlist?list=PL5uc-KsgHpA43skv8l_QTIk6MxGLo205z"
+                                    target="_blank"
+                                    style="color: #ff6b6b; text-decoration: underline; transition: color 0.3s ease;"
+                                    onmouseover="this.style.color='#fff'"
+                                    onmouseout="this.style.color='#ff6b6b'"
+                                    >official One Piece YouTube channel w/ ENG subs</a>.
             </div>
         </div>
 
@@ -1442,7 +1758,7 @@
                 </div>
             </div>
 
-            <h2 style="margin: 2rem 0; color: #4ecdc4;">Openings (#19-28) + Endings (#19-22)</h2>
+            <h2 style="margin: 2rem 0; color: #4ecdc4;">Openings (#19-29) + Endings (#19-23)</h2>
 
             <div class="ops-eds-item" id="opening-19">
                 <div class="ops-eds-content">
@@ -1477,7 +1793,7 @@
                         </svg>
                     </div>
                     <div class="spoiler-overlay">
-                        <div class="spoiler-text">SAFE AFTER EP. 8<span class="blurred-digits">16</span></div>
+                        <div class="spoiler-text">SAFE AFTER EP. 816</div>
                     </div>
                 </div>
             </div>
@@ -1735,6 +2051,58 @@
                 </div>
             </div>
 
+            <div class="warning-box" style="background: rgba(78, 205, 196, 0.15); border: 1px solid rgba(78, 205, 196, 0.3); color: #4ecdc4; border-left: 4px solid #4ecdc4; margin-bottom: 2rem;">
+                <span class="warning-icon">📺</span>
+                <div>
+                    <strong>Note:</strong> All the YouTube embeds from here on out are for quick reference only again.
+                    For the best viewing experience (original quality + ENG subtitles), it's recommended to
+                    watch the openings and endings directly on Crunchyroll, using the listed episode numbers.
+                </div>
+            </div>
+
+
+            <!-- UPDATE EMBED LINKS BELOW TO VIDEO WITH CC FOR ENG + REMOVE WARNING ABOVE -->
+
+            <div class="ops-eds-item spoiler-blocked" id="opening-29">
+                <!-- remove ' spoiler-blocked' above this after ep???? -->
+                <div class="ops-eds-content">
+                    <h4>Opening #29 – Luminous <span style="font-size: 0.69em;">(AiNA THE END)</span></h4>
+                    <p class="episodes">Episodes 1157-</p>
+                    <p>This opening plays during the <span class="spoiler" onclick="toggleSpoiler(this)">Elbaf</span> Arc.</p>
+                </div>
+                <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/X48ZNGHBa8A?si=2-tW2pmu0LTiUoBx', '_blank')">
+                    <img src="embeds/thumbnails/OPs & EDs/OP-29.png" alt="Opening #29: Luminous" style="width: 100%; height: 100%; object-fit: cover;" />
+                    <div class="play-overlay">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </div>
+                    <div class="spoiler-overlay">
+                        <div class="spoiler-text">SAFE AFTER EP. ????</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ops-eds-item spoiler-blocked" id="ending-23">
+                <!-- remove ' spoiler-blocked' above this after ep???? -->
+                <div class="ops-eds-content">
+                    <h4>Ending #23 – Sono Mirai <span style="font-size: 0.69em;">(時速36km)</span></h4>
+                    <p class="episodes">Episodes 1157-</p>
+                    <p>This ending plays during the <span class="spoiler" onclick="toggleSpoiler(this)">Elbaf</span> Arc.</p>
+                </div>
+                <div class="ops-eds-video clickable-video" onclick="window.open('https://www.youtube-nocookie.com/embed/Qx-XXzEUm-8?si=8lh-Kygg5rloqzBV', '_blank')">
+                    <img src="embeds/thumbnails/OPs & EDs/ED-23.png" alt="Ending #23: Sono Mirai" style="width: 100%; height: 100%; object-fit: cover;" />
+                    <div class="play-overlay">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M8 5v14l11-7z" />
+                        </svg>
+                    </div>
+                    <div class="spoiler-overlay">
+                        <div class="spoiler-text">SAFE AFTER EP. ????</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="collapsible-section">
                 <div class="collapsible-header" onclick="toggleCollapsible('official-pvs')">
                     <h2>Official PVs <span style="color: #26887e; font-size: 0.8em;">[still being updated]</span></h2>
@@ -1802,6 +2170,33 @@
 </div>
 
 <script>
+    function toggleESP() {
+        const isChecked = document.getElementById('espToggle').checked;
+        const espItems = document.querySelectorAll('.esp-filler');
+        const countDisplay = document.getElementById('total-skipped-count');
+        const countDesc = document.getElementById('total-skipped-desc');
+
+        const espCount = espItems.length;
+
+        const totalWithESP = BASE_SKIPPED_COUNT + espCount;
+
+        espItems.forEach(item => {
+            item.style.display = isChecked ? 'block' : 'none';
+        });
+
+        if (isChecked) {
+            countDisplay.innerText = `= ${totalWithESP}`;
+            countDesc.innerHTML = `${totalWithESP} yet-to-watch filler episode count <u>includes</u> the ${espCount} E-SP recap summary episodes`;
+        } else {
+            countDisplay.innerText = `= ${BASE_SKIPPED_COUNT}`;
+            countDesc.innerHTML = `${BASE_SKIPPED_COUNT} yet-to-watch filler episode count does <u>not</u> include the ${espCount} E-SP recap summary episodes`;
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        toggleESP();
+    });
+
     function showTab(tabName) {
         // Temporarily disable tab container transitions during scroll
         const tabContainer = document.querySelector(".tab-container");
