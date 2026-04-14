@@ -138,46 +138,7 @@ function initializeCoverStories() {
 
 // --- OPS & EDS TAB ---
 function initializeOpsEds() {
-    // Auto-inject Close buttons at the bottom of all collapsibles
-    const collapsibles = document.querySelectorAll('.collapsible-section');
-
-    collapsibles.forEach(section => {
-        const inner = section.querySelector('.collapsible-content-inner');
-        const content = section.querySelector('.collapsible-content');
-        const header = section.querySelector('.collapsible-header');
-
-        // Prevent duplicate injections if tab is re-opened
-        if (inner && content && header && !inner.querySelector('.collapse-bottom-wrapper')) {
-            const sectionId = content.id.replace('-content', '');
-
-            const wrapper = document.createElement('div');
-            wrapper.className = 'collapse-bottom-wrapper';
-
-            const closeBtn = document.createElement('button');
-            closeBtn.className = 'btn btn-secondary collapse-bottom-btn'; // Utilized your existing button classes
-            closeBtn.style.marginTop = "2rem";
-            closeBtn.style.display = "flex";
-            closeBtn.style.gap = "0.5rem";
-            closeBtn.style.alignItems = "center";
-            closeBtn.style.marginInline = "auto";
-            closeBtn.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="m18 15-6-6-6 6"/>
-                </svg>
-                Close Section
-            `;
-
-            closeBtn.onclick = function() {
-                toggleCollapsible(sectionId);
-                setTimeout(() => {
-                    header.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 50);
-            };
-
-            wrapper.appendChild(closeBtn);
-            inner.appendChild(wrapper);
-        }
-    });
+    injectCollapsibleCloseButtons();
 }
 
 // --- FILLER TAB ---
@@ -188,6 +149,8 @@ function initializeFiller() {
         espToggle.addEventListener('change', toggleESP);
         toggleESP(); // Run once to set initial state
     }
+
+    injectCollapsibleCloseButtons();
 }
 
 function toggleESP() {
@@ -377,6 +340,48 @@ function toggleCollapsible(sectionId) {
         toggle.innerHTML = '−';
         toggle.style.transform = 'rotate(180deg)';
     }
+}
+
+function injectCollapsibleCloseButtons() {
+    const collapsibles = document.querySelectorAll('.collapsible-section');
+
+    collapsibles.forEach(section => {
+        const inner = section.querySelector('.collapsible-content-inner');
+        const content = section.querySelector('.collapsible-content');
+        const header = section.querySelector('.collapsible-header');
+
+        // Prevent duplicate injections if tab is re-opened
+        if (inner && content && header && !inner.querySelector('.collapse-bottom-wrapper')) {
+            const sectionId = content.id.replace('-content', '');
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'collapse-bottom-wrapper';
+
+            const closeBtn = document.createElement('button');
+            closeBtn.className = 'btn btn-secondary collapse-bottom-btn';
+            closeBtn.style.marginTop = "2rem";
+            closeBtn.style.display = "flex";
+            closeBtn.style.gap = "0.5rem";
+            closeBtn.style.alignItems = "center";
+            closeBtn.style.marginInline = "auto";
+            closeBtn.innerHTML = `
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m18 15-6-6-6 6"/>
+                </svg>
+                Close Section
+            `;
+
+            closeBtn.onclick = function() {
+                toggleCollapsible(sectionId);
+                setTimeout(() => {
+                    header.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 50);
+            };
+
+            wrapper.appendChild(closeBtn);
+            inner.appendChild(wrapper);
+        }
+    });
 }
 
 function openLightbox(imageSrc) {
