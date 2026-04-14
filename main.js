@@ -157,13 +157,14 @@ function initializeFiller() {
 }
 
 function toggleESP() {
-    const isChecked = document.getElementById('espToggle') ? document.getElementById('espToggle').checked : false;
+    const espToggle = document.getElementById('espToggle');
+    const isChecked = espToggle ? espToggle.checked : false;
     const espItems = document.querySelectorAll('.esp-filler');
     const countDisplay = document.getElementById('total-skipped-count');
     const countDesc = document.getElementById('total-skipped-desc');
 
-    // Ensure BASE_SKIPPED_COUNT is defined in your filler.html file, otherwise default to 0
-    const baseCount = typeof BASE_SKIPPED_COUNT !== 'undefined' ? BASE_SKIPPED_COUNT : 0;
+    // Read the base count directly from the toggle's data attribute
+    const baseCount = espToggle && espToggle.dataset.baseCount ? parseInt(espToggle.dataset.baseCount) : 0;
     const espCount = espItems.length;
     const totalWithESP = baseCount + espCount;
 
