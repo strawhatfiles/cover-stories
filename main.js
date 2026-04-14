@@ -427,11 +427,16 @@ function updateTabContainer() {
 }
 
 // Debounced Scroll Events
-let scrollTimeout;
+let isTicking = false;
 window.addEventListener("scroll", function () {
-    updateScrollButton();
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(updateTabContainer, 10);
+    if (!isTicking) {
+        window.requestAnimationFrame(function () {
+            updateScrollButton();
+            updateTabContainer();
+            isTicking = false;
+        });
+        isTicking = true;
+    }
 });
 
 // Typewriter Effect
