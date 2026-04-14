@@ -15,7 +15,8 @@ const tabContents = {
 const APP_VERSION = typeof SITE_VERSION !== 'undefined' ? SITE_VERSION : Date.now(); // Fallback
 
 /**
- * Main function to handle tab switching via Fetch API
+ * Handles tab switching via Fetch API
+ * Clears DOM early to abort pending media requests before fetching new content
  */
 async function showTab(tabName) {
     const display = document.getElementById('tab-display');
@@ -23,29 +24,31 @@ async function showTab(tabName) {
 
     if (!url) return;
 
-    // 1. Reset UI states immediately
+    // 1. Update active button state visually
+    updateActiveTabUI(tabName);
+    // Clear DOM immediately to force the browser to abort pending PDF network requests
+    display.innerHTML = '<div style="text-align: center; padding: 3rem; color: #4ecdc4; font-style: italic;">Loading...</div>';
+
+    // 2. Reset scroll position and header styling
     window.scrollTo({ top: 0, behavior: "instant" });
     const tabContainer = document.querySelector(".tab-container");
     if (tabContainer) tabContainer.classList.remove("scrolled");
 
     try {
-        // 2. Fetch the HTML file
+        // 3. Fetch new HTML with cache-busting parameter
         const fetchUrl = `${url}?v=${APP_VERSION}`;
         const response = await fetch(fetchUrl);
         if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
 
-        // 3. Inject the HTML
+        // 4. Inject fetched HTML
         display.innerHTML = await response.text();
 
-        // 4. Update the active button visually
-        updateActiveTabUI(tabName);
-
-        // 5. Restart the fade-in animation
+        // 5. Restart entry animations
         display.style.animation = "none";
-        display.offsetHeight; // Trigger reflow to restart animation
+        display.offsetHeight; // Trigger reflow
         display.style.animation = "fadeIn 0.5s ease-out";
 
-        // 6. Run tab-specific JavaScript ONLY after the HTML is in the DOM
+        // 6. Execute tab-specific initialization logic
         if (tabName === 'cover-stories') {
             initializeCoverStories();
         } else if (tabName === 'ops-eds') {
@@ -277,7 +280,7 @@ function loadAllPDFs() {
     button.classList.add("loading");
     button.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg> Loading...';
 
-    // Extract all pending Drive URLs from the buttons dynamically
+    // Dynamically extract pending Drive URLs
     Array.from(unloadedPlaceholders).forEach((btn, index) => {
         const onClickAttr = btn.getAttribute('onclick');
         // Extract parameters from onclick="loadPDF('placeholder-x', 'url')"
@@ -451,7 +454,7 @@ function updateTabContainer() {
     }
 }
 
-// Debounced Scroll Events
+// Optimized Scroll Events
 let isTicking = false;
 window.addEventListener("scroll", function () {
     if (!isTicking) {
