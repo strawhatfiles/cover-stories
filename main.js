@@ -77,14 +77,33 @@ function updateActiveTabUI(tabName) {
 
 // --- COVER STORIES TAB ---
 function initializeCoverStories() {
-    // Load all PDFs with staggered delay to avoid freezing the browser
-    coverStoryPDFs.forEach((pdf, index) => {
+    // Set up the Intersection Observer
+    const pdfObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const container = entry.target;
+                const pdfId = container.id;
+
+                // Find matching PDF data
+                const pdfData = coverStoryPDFs.find(p => p.id === pdfId);
+                if (pdfData) {
+                    const pdfNumber = pdfId.replace("pdf-", "");
+                    container.innerHTML = createPDFEmbed(pdfData.path, pdfNumber, pdfData.driveUrl);
+                }
+
+                // Stop watching this container once it loads
+                observer.unobserve(container);
+            }
+        });
+    }, {
+        rootMargin: "300px 0px" // Starts loading when within 300px of the viewport
+    });
+
+    // Observe all PDF containers
+    coverStoryPDFs.forEach((pdf) => {
         const container = document.getElementById(pdf.id);
         if (container) {
-            const pdfNumber = pdf.id.replace("pdf-", "");
-            setTimeout(() => {
-                container.innerHTML = createPDFEmbed(pdf.path, pdfNumber, pdf.driveUrl);
-            }, index * 200);
+            pdfObserver.observe(container);
         }
     });
 
