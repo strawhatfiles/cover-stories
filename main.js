@@ -77,32 +77,8 @@ function updateActiveTabUI(tabName) {
 
 // --- COVER STORIES TAB ---
 function initializeCoverStories() {
-    const pdfs = [
-        { id: "pdf-1", path: "./Colored-Cover-Stories/01.pdf", driveUrl: "https://drive.google.com/file/d/1o1m-AOBmkYQnOCbGpgNqfuhypJw0LyFb/preview" },
-        { id: "pdf-2", path: "./Colored-Cover-Stories/02.pdf", driveUrl: "https://drive.google.com/file/d/1ZMN2h90f8dtrsGeeJaFlMQ2ilexzjGNZ/preview" },
-        { id: "pdf-3", path: "./Colored-Cover-Stories/03.pdf", driveUrl: "https://drive.google.com/file/d/1DGH137BYqBw8nk0Z7sSyo8o43ONz81Wf/preview" },
-        { id: "pdf-4", path: "./Colored-Cover-Stories/04.pdf", driveUrl: "https://drive.google.com/file/d/11NCJhE-fjhxVzkF76g8vK9cK9jElHMLU/preview" },
-        { id: "pdf-5", path: "./Colored-Cover-Stories/05.pdf", driveUrl: "https://drive.google.com/file/d/1jwst7A5x5-XdCp2uRMSV1Bzkcz3nyyZ5/preview" },
-        { id: "pdf-6", path: "./Colored-Cover-Stories/06.pdf", driveUrl: "https://drive.google.com/file/d/1RG7C-0-w66xkNGV-BBma9wKuDrTzuiKS/preview" },
-        { id: "pdf-7", path: "./Colored-Cover-Stories/07.pdf", driveUrl: "https://drive.google.com/file/d/1srYxhyx1WsHqzaXHAFr041A4qgVaqKxn/preview" },
-        { id: "pdf-8", path: "./Colored-Cover-Stories/08.pdf", driveUrl: "https://drive.google.com/file/d/1E_rMKM3q0fsiRZSzUuJVHyC1WSlKXEdr/preview" },
-        { id: "pdf-9", path: "./Colored-Cover-Stories/08_09.pdf", driveUrl: "https://drive.google.com/file/d/19viS9LFusX5zEy9aQWb2VPpnx7WwO5f5/preview" },
-        { id: "pdf-10", path: "./Colored-Cover-Stories/09.pdf", driveUrl: "https://drive.google.com/file/d/14SoE08itCyfZoR01u17wuy5ropLGx4r4/preview" },
-        { id: "pdf-11", path: "./Colored-Cover-Stories/09_10.pdf", driveUrl: "https://drive.google.com/file/d/1VicvvI0x5VAL8YXFdw8Hw2lQxrdKKQ9m/preview" },
-        { id: "pdf-12", path: "./Colored-Cover-Stories/10.pdf", driveUrl: "https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview" },
-        { id: "pdf-13", path: "./Colored-Cover-Stories/11-18.pdf", driveUrl: "https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview" },
-        { id: "pdf-14", path: "./Colored-Cover-Stories/19.pdf", driveUrl: "https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview" },
-        { id: "pdf-15", path: "./Colored-Cover-Stories/20_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1yTHdvkemkvoOL5fVcUxLdjmyVq5qTlKq/preview" },
-        { id: "pdf-16", path: "./Colored-Cover-Stories/21_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1hUrvjyntwwSoI1Q0sMNgqn-s5NbhQaEj/preview" },
-        { id: "pdf-17", path: "./Colored-Cover-Stories/22_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1UR2mF2LrGL8dqZmGevwc4ECGZD2kDIGi/preview" },
-        { id: "pdf-18", path: "./Colored-Cover-Stories/23.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
-        { id: "pdf-19", path: "./Colored-Cover-Stories/24.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
-        { id: "pdf-20", path: "./Colored-Cover-Stories/25.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
-        { id: "pdf-21", path: "./Colored-Cover-Stories/26.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" }
-    ];
-
     // Load all PDFs with staggered delay to avoid freezing the browser
-    pdfs.forEach((pdf, index) => {
+    coverStoryPDFs.forEach((pdf, index) => {
         const container = document.getElementById(pdf.id);
         if (container) {
             const pdfNumber = pdf.id.replace("pdf-", "");
@@ -124,7 +100,7 @@ function initializeCoverStories() {
         }, 100);
     });
 
-    setTimeout(updateLoadAllButton, pdfs.length * 220);
+    setTimeout(updateLoadAllButton, coverStoryPDFs.length * 220);
 
     // Calculate Cover Story progress bar
     const validMarkers = document.querySelectorAll('.progress-markers .marker.completed, .progress-markers .marker.incomplete');
