@@ -430,14 +430,13 @@ function updateScrollButton() {
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
 
     if (scrolled > 300) {
+        scrollBtn.style.display = "block";
+        // Only change the icon graphic here
         if (nearBottom) {
             scrollIcon.innerHTML = '<path d="m18 15-6-6-6 6"/>';
-            scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
             scrollIcon.innerHTML = '<path d="m6 9 6 6 6-6"/>';
-            scrollBtn.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
         }
-        scrollBtn.style.display = "block";
     } else {
         scrollBtn.style.display = "none";
     }
@@ -496,7 +495,17 @@ document.addEventListener("DOMContentLoaded", async function () {
         typeWriter(header, originalText, 80);
     }
     updateScrollButton();
-
+    // Calculate the direction ONLY when the button is actually clicked
+    if (scrollBtn) {
+        scrollBtn.addEventListener("click", () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+            if (nearBottom) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+            }
+        });
+    }
     // 2. Default tab
     await showTab('cover-stories');
 });
