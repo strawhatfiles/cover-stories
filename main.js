@@ -442,10 +442,10 @@ window.addEventListener("scroll", function () {
 // Typewriter Effect
 function typeWriter(element, text, speed = 50) {
     let i = 0;
-    element.innerHTML = '';
+    element.textContent = '';
     function type() {
         if (i < text.length) {
-            element.innerHTML += text.charAt(i);
+            element.textContent += text.charAt(i);
             i++;
             setTimeout(type, speed);
         }
