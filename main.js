@@ -30,7 +30,8 @@ async function showTab(tabName) {
 
     try {
         // 2. Fetch the HTML file
-        const response = await fetch(url);
+        const fetchUrl = `${url}?v=${APP_VERSION}`;
+        const response = await fetch(fetchUrl);
         if (!response.ok) throw new Error(`HTTP ${response.status}: ${url}`);
 
         // 3. Inject the HTML
