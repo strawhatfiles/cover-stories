@@ -82,17 +82,16 @@ function updateActiveTabUI(tabName) {
 // --- COVER STORIES TAB ---
 function initializeCoverStories() {
     // Set up the Intersection Observer
-    const pdfObserver = new IntersectionObserver((entries, observer) => {
+    const galleryObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const container = entry.target;
-                const pdfId = container.id;
+                const galleryId = container.id;
 
-                // Find matching PDF data
-                const pdfData = coverStoryPDFs.find(p => p.id === pdfId);
-                if (pdfData) {
-                    const pdfNumber = pdfId.replace("pdf-", "");
-                    container.innerHTML = createPDFEmbed(pdfData.path, pdfNumber, pdfData.driveUrl);
+                // Find matching Gallery data from our new array
+                const galleryData = coverStoryGalleries.find(g => g.id === galleryId);
+                if (galleryData) {
+                    container.innerHTML = createGalleryEmbed(galleryData);
                 }
 
                 // Stop watching this container once it loads
@@ -103,11 +102,11 @@ function initializeCoverStories() {
         rootMargin: "300px 0px" // Starts loading when within 300px of the viewport
     });
 
-    // Observe all PDF containers
-    coverStoryPDFs.forEach((pdf) => {
-        const container = document.getElementById(pdf.id);
+    // Observe all containers
+    coverStoryGalleries.forEach((gallery) => {
+        const container = document.getElementById(gallery.id);
         if (container) {
-            pdfObserver.observe(container);
+            galleryObserver.observe(container);
         }
     });
 
@@ -122,8 +121,6 @@ function initializeCoverStories() {
             story.style.animationDelay = `${index * 0.1}s`;
         }, 100);
     });
-
-    setTimeout(updateLoadAllButton, coverStoryPDFs.length * 220);
 
     // Calculate Cover Story progress bar
     const validMarkers = document.querySelectorAll('.progress-markers .marker.completed, .progress-markers .marker.incomplete');
@@ -189,6 +186,29 @@ function toggleESP() {
  * 3. PDF HANDLING LOGIC
  * ==========================================
  */
+
+function createGalleryEmbed(galleryData) {
+    return `
+        <div style="position: relative; width: 100%; height: 100%; cursor: pointer; overflow: hidden; border-radius: 10px;" 
+             onclick="openCoverStoryGallery('${galleryData.id}')"
+             onmouseover="this.querySelector('.gallery-indicator').style.transform='scale(1.15)'; this.querySelector('.gallery-indicator').style.background='rgba(78, 205, 196, 0.9)'; this.querySelector('.gallery-indicator').style.color='white';"
+             onmouseout="this.querySelector('.gallery-indicator').style.transform='scale(1)'; this.querySelector('.gallery-indicator').style.background='rgba(0, 0, 0, 0.7)'; this.querySelector('.gallery-indicator').style.color='#4ecdc4';">
+             
+            <img src="${galleryData.folder}${galleryData.thumbnail}" 
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" 
+                 alt="${galleryData.title.replace(/"/g, '&quot;').replace(/'/g, '&#39;')} Preview" />
+                 
+            <div class="gallery-indicator" style="position: absolute; bottom: 8px; right: 8px; width: 28px; height: 28px; background: rgba(0, 0, 0, 0.7); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4ecdc4; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(5px); border: 1px solid rgba(78, 205, 196, 0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                </svg>
+            </div>
+            
+        </div>
+    `;
+}
+
+/**
 function createPDFEmbed(pdfPath, pdfId, driveUrl) {
     const isPlaceholder = driveUrl.includes('/yo/preview');
 
@@ -317,6 +337,7 @@ function updateLoadAllButton() {
         loadAllContainer.style.display = drivePlaceholders.length > 0 ? "block" : "none";
     }
 }
+*/
 
 
 /**
@@ -391,7 +412,13 @@ function injectCollapsibleCloseButtons() {
 function openLightbox(imageSrc) {
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
+    const galleryUI = document.getElementById("gallery-ui");
     if (!lightbox || !lightboxImg) return;
+
+    // HIDE gallery elements & disable clicking the image to go forward
+    if(galleryUI) galleryUI.style.display = "none";
+    lightboxImg.onclick = function(e) { e.stopPropagation(); };
+    lightboxImg.style.cursor = "default";
 
     lightboxImg.src = imageSrc;
     const filename = imageSrc.split("/").pop();
@@ -403,9 +430,118 @@ function openLightbox(imageSrc) {
     lightbox.style.display = "block";
 }
 
+let currentGalleryImages = [];
+let currentGalleryIndex = 0;
+let currentActiveGallery = null;
+let isColoredMode = true;
+
+function openCoverStoryGallery(galleryId) {
+    currentActiveGallery = coverStoryGalleries.find(g => g.id === galleryId);
+    if (!currentActiveGallery) return;
+    currentGalleryIndex = 0;
+
+    // SHOW gallery elements & re-enable clicking the image to advance
+    const galleryUI = document.getElementById("gallery-ui");
+    if(galleryUI) galleryUI.style.display = "block";
+
+    const lightboxImg = document.getElementById("lightbox-img");
+    if (lightboxImg) {
+        lightboxImg.onclick = function(e) { navigateGallery(1); e.stopPropagation(); };
+        lightboxImg.style.cursor = "e-resize";
+    }
+
+    // Sync the toggle switch with our global state before showing
+    const toggleCheckbox = document.getElementById("color-toggle-checkbox");
+    if (toggleCheckbox) toggleCheckbox.checked = isColoredMode;
+
+    generateGalleryImages();
+    updateLightboxImage();
+    updateColorToggleUI();
+
+    document.getElementById("lightbox").style.display = "block";
+    document.addEventListener("keydown", handleGalleryKeyboard);
+}
+
+function generateGalleryImages() {
+    if (!currentActiveGallery) return;
+
+    let baseFolder = currentActiveGallery.folder;
+    let fileExtension = "png"; // Colored stories are always PNG
+
+    // If they switched to manga mode, strip out "Colored-" and swap to JPG!
+    if (!isColoredMode) {
+        baseFolder = baseFolder.replace("Colored-Cover-Stories", "Cover-Stories");
+        fileExtension = "jpg"; // Original manga stories are always JPG
+    }
+
+    currentGalleryImages = Array.from(
+        { length: currentActiveGallery.pageCount },
+        (_, i) => `${baseFolder}${String(i + 1).padStart(2, '0')}.${fileExtension}`
+    );
+}
+
+function toggleColorMode(e) {
+    if (e) e.stopPropagation();
+    // Grab the true/false state directly from the new switch toggle
+    const toggleCheckbox = document.getElementById("color-toggle-checkbox");
+    if (toggleCheckbox) {
+        isColoredMode = toggleCheckbox.checked;
+    }
+    generateGalleryImages();
+    updateLightboxImage();
+    updateColorToggleUI();
+}
+
+function updateColorToggleUI() {
+    const label = document.querySelector(".color-toggle-label");
+    const wrapper = document.querySelector(".color-toggle-wrapper");
+
+    if (label && wrapper) {
+        if (isColoredMode) {
+            label.innerText = "COLORED";
+            label.style.color = "#4ecdc4";
+            wrapper.style.borderColor = "rgba(78, 205, 196, 0.3)";
+        } else {
+            label.innerText = "ORIGINAL";
+            label.style.color = "#d0d0d0";
+            wrapper.style.borderColor = "rgba(208, 208, 208, 0.3)";
+        }
+    }
+}
+
+function updateLightboxImage() {
+    const lightboxImg = document.getElementById("lightbox-img");
+    const counter = document.getElementById("lightbox-counter");
+    if (lightboxImg && currentGalleryImages.length > 0) {
+        lightboxImg.src = currentGalleryImages[currentGalleryIndex];
+        if (counter) {
+            counter.innerText = `${currentGalleryIndex + 1} / ${currentGalleryImages.length}`;
+        }
+    }
+}
+
+function navigateGallery(direction) {
+    currentGalleryIndex += direction;
+    // Loop around if out of bounds
+    if (currentGalleryIndex < 0) {
+        currentGalleryIndex = currentGalleryImages.length - 1;
+    } else if (currentGalleryIndex >= currentGalleryImages.length) {
+        currentGalleryIndex = 0;
+    }
+    updateLightboxImage();
+}
+
+function handleGalleryKeyboard(e) {
+    if (e.key === "ArrowRight") navigateGallery(1);
+    if (e.key === "ArrowLeft") navigateGallery(-1);
+    if (e.key === "Escape") closeLightbox();
+}
+
 function closeLightbox() {
     const lightbox = document.getElementById("lightbox");
     if (lightbox) lightbox.style.display = "none";
+    // Clean up gallery keyboard listeners so they don't fire in the background
+    document.removeEventListener("keydown", handleGalleryKeyboard);
 }
 
 document.addEventListener("click", function (e) {
@@ -487,6 +623,7 @@ function typeWriter(element, text, speed = 50) {
  * 6. INITIALIZATION ON LOAD
  * ==========================================
  */
+
 document.addEventListener("DOMContentLoaded", async function () {
     // 1. Run global UI triggers
     const header = document.querySelector('h1');

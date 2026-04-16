@@ -32,29 +32,6 @@
         <link rel="stylesheet" href="styles.css?v=1.0.7">
         <script>
             const SITE_VERSION = "1.0.7";
-            const coverStoryPDFs = [
-                { id: "pdf-1", path: "./Colored-Cover-Stories/01.pdf", driveUrl: "https://drive.google.com/file/d/1o1m-AOBmkYQnOCbGpgNqfuhypJw0LyFb/preview" },
-                { id: "pdf-2", path: "./Colored-Cover-Stories/02.pdf", driveUrl: "https://drive.google.com/file/d/1ZMN2h90f8dtrsGeeJaFlMQ2ilexzjGNZ/preview" },
-                { id: "pdf-3", path: "./Colored-Cover-Stories/03.pdf", driveUrl: "https://drive.google.com/file/d/1DGH137BYqBw8nk0Z7sSyo8o43ONz81Wf/preview" },
-                { id: "pdf-4", path: "./Colored-Cover-Stories/04.pdf", driveUrl: "https://drive.google.com/file/d/11NCJhE-fjhxVzkF76g8vK9cK9jElHMLU/preview" },
-                { id: "pdf-5", path: "./Colored-Cover-Stories/05.pdf", driveUrl: "https://drive.google.com/file/d/1jwst7A5x5-XdCp2uRMSV1Bzkcz3nyyZ5/preview" },
-                { id: "pdf-6", path: "./Colored-Cover-Stories/06.pdf", driveUrl: "https://drive.google.com/file/d/1RG7C-0-w66xkNGV-BBma9wKuDrTzuiKS/preview" },
-                { id: "pdf-7", path: "./Colored-Cover-Stories/07.pdf", driveUrl: "https://drive.google.com/file/d/1srYxhyx1WsHqzaXHAFr041A4qgVaqKxn/preview" },
-                { id: "pdf-8", path: "./Colored-Cover-Stories/08.pdf", driveUrl: "https://drive.google.com/file/d/1E_rMKM3q0fsiRZSzUuJVHyC1WSlKXEdr/preview" },
-                { id: "pdf-9", path: "./Colored-Cover-Stories/08_09.pdf", driveUrl: "https://drive.google.com/file/d/19viS9LFusX5zEy9aQWb2VPpnx7WwO5f5/preview" },
-                { id: "pdf-10", path: "./Colored-Cover-Stories/09.pdf", driveUrl: "https://drive.google.com/file/d/14SoE08itCyfZoR01u17wuy5ropLGx4r4/preview" },
-                { id: "pdf-11", path: "./Colored-Cover-Stories/09_10.pdf", driveUrl: "https://drive.google.com/file/d/1VicvvI0x5VAL8YXFdw8Hw2lQxrdKKQ9m/preview" },
-                { id: "pdf-12", path: "./Colored-Cover-Stories/10.pdf", driveUrl: "https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview" },
-                { id: "pdf-13", path: "./Colored-Cover-Stories/11-18.pdf", driveUrl: "https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview" },
-                { id: "pdf-14", path: "./Colored-Cover-Stories/19.pdf", driveUrl: "https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview" },
-                { id: "pdf-15", path: "./Colored-Cover-Stories/20_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1yTHdvkemkvoOL5fVcUxLdjmyVq5qTlKq/preview" },
-                { id: "pdf-16", path: "./Colored-Cover-Stories/21_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1hUrvjyntwwSoI1Q0sMNgqn-s5NbhQaEj/preview" },
-                { id: "pdf-17", path: "./Colored-Cover-Stories/22_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1UR2mF2LrGL8dqZmGevwc4ECGZD2kDIGi/preview" },
-                { id: "pdf-18", path: "./Colored-Cover-Stories/23.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
-                { id: "pdf-19", path: "./Colored-Cover-Stories/24.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
-                { id: "pdf-20", path: "./Colored-Cover-Stories/25.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
-                { id: "pdf-21", path: "./Colored-Cover-Stories/26.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" }
-            ];
         </script>
     </head>
 
@@ -93,7 +70,195 @@
 
         <div id="lightbox" class="lightbox">
             <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-            <img class="lightbox-content" id="lightbox-img" src="" alt=""/>
+            <div id="gallery-ui" style="display: none;">
+                <div class="color-toggle-wrapper">
+                    <span class="color-toggle-label">COLORED</span>
+                    <label class="switch">
+                        <input type="checkbox" id="color-toggle-checkbox" checked onchange="toggleColorMode(event)">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <span class="lightbox-nav left" onclick="navigateGallery(-1); event.stopPropagation();">&#10094;</span>
+                <span class="lightbox-nav right" onclick="navigateGallery(1); event.stopPropagation();">&#10095;</span>
+                <div id="lightbox-counter"></div>
+            </div>
+            <img class="lightbox-content" id="lightbox-img" src="" alt="" />
         </div>
+
+        <script>
+            const coverStoryPDFs = [
+                { id: "pdf-1", path: "./Colored-Cover-Stories/01.pdf", driveUrl: "https://drive.google.com/file/d/1o1m-AOBmkYQnOCbGpgNqfuhypJw0LyFb/preview" },
+                { id: "pdf-2", path: "./Colored-Cover-Stories/02.pdf", driveUrl: "https://drive.google.com/file/d/1ZMN2h90f8dtrsGeeJaFlMQ2ilexzjGNZ/preview" },
+                { id: "pdf-3", path: "./Colored-Cover-Stories/03.pdf", driveUrl: "https://drive.google.com/file/d/1DGH137BYqBw8nk0Z7sSyo8o43ONz81Wf/preview" },
+                { id: "pdf-4", path: "./Colored-Cover-Stories/04.pdf", driveUrl: "https://drive.google.com/file/d/11NCJhE-fjhxVzkF76g8vK9cK9jElHMLU/preview" },
+                { id: "pdf-5", path: "./Colored-Cover-Stories/05.pdf", driveUrl: "https://drive.google.com/file/d/1jwst7A5x5-XdCp2uRMSV1Bzkcz3nyyZ5/preview" },
+                { id: "pdf-6", path: "./Colored-Cover-Stories/06.pdf", driveUrl: "https://drive.google.com/file/d/1RG7C-0-w66xkNGV-BBma9wKuDrTzuiKS/preview" },
+                { id: "pdf-7", path: "./Colored-Cover-Stories/07.pdf", driveUrl: "https://drive.google.com/file/d/1srYxhyx1WsHqzaXHAFr041A4qgVaqKxn/preview" },
+                { id: "pdf-8", path: "./Colored-Cover-Stories/08.pdf", driveUrl: "https://drive.google.com/file/d/1E_rMKM3q0fsiRZSzUuJVHyC1WSlKXEdr/preview" },
+                { id: "pdf-9", path: "./Colored-Cover-Stories/08_09.pdf", driveUrl: "https://drive.google.com/file/d/19viS9LFusX5zEy9aQWb2VPpnx7WwO5f5/preview" },
+                { id: "pdf-10", path: "./Colored-Cover-Stories/09.pdf", driveUrl: "https://drive.google.com/file/d/14SoE08itCyfZoR01u17wuy5ropLGx4r4/preview" },
+                { id: "pdf-11", path: "./Colored-Cover-Stories/09_10.pdf", driveUrl: "https://drive.google.com/file/d/1VicvvI0x5VAL8YXFdw8Hw2lQxrdKKQ9m/preview" },
+                { id: "pdf-12", path: "./Colored-Cover-Stories/10.pdf", driveUrl: "https://drive.google.com/file/d/1Rji2KO-IFmOMCGX0WXpyeOt3awqvIsGR/preview" },
+                { id: "pdf-13", path: "./Colored-Cover-Stories/11-18.pdf", driveUrl: "https://drive.google.com/file/d/18CFV8ayme9D-Y0Dzv39N1T2635MDXdE-/preview" },
+                { id: "pdf-14", path: "./Colored-Cover-Stories/19.pdf", driveUrl: "https://drive.google.com/file/d/1MnJwXPs_R6H_UXeOQtGWXPSOWeZcsOCk/preview" },
+                { id: "pdf-15", path: "./Colored-Cover-Stories/20_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1yTHdvkemkvoOL5fVcUxLdjmyVq5qTlKq/preview" },
+                { id: "pdf-16", path: "./Colored-Cover-Stories/21_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1hUrvjyntwwSoI1Q0sMNgqn-s5NbhQaEj/preview" },
+                { id: "pdf-17", path: "./Colored-Cover-Stories/22_(with_Color_Spreads).pdf", driveUrl: "https://drive.google.com/file/d/1UR2mF2LrGL8dqZmGevwc4ECGZD2kDIGi/preview" },
+                { id: "pdf-18", path: "./Colored-Cover-Stories/23.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+                { id: "pdf-19", path: "./Colored-Cover-Stories/24.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+                { id: "pdf-20", path: "./Colored-Cover-Stories/25.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" },
+                { id: "pdf-21", path: "./Colored-Cover-Stories/26.pdf", driveUrl: "https://drive.google.com/file/d/yo/preview" }
+            ];
+
+            const coverStoryGalleries = [
+                {
+                    id: "pdf-1",
+                    title: "Buggy's Crew Adventure Chronicles",
+                    folder: "./Colored-Cover-Stories/01/",
+                    thumbnail: "cover.png",
+                    pageCount: 30
+                },
+                {
+                    id: "pdf-2",
+                    title: "Diary of Koby-Meppo",
+                    folder: "./Colored-Cover-Stories/02/",
+                    thumbnail: "cover.png",
+                    pageCount: 30
+                },
+                {
+                    id: "pdf-3",
+                    title: "Jango's Dance Paradise",
+                    folder: "./Colored-Cover-Stories/03/",
+                    thumbnail: "cover.png",
+                    pageCount: 38
+                },
+                {
+                    id: "pdf-4",
+                    title: "Hatchan's Sea-Floor Stroll",
+                    folder: "./Colored-Cover-Stories/04/",
+                    thumbnail: "cover.png",
+                    pageCount: 41
+                },
+                {
+                    id: "pdf-5",
+                    title: "Wapol's Omnivorous Hurrah",
+                    folder: "./Colored-Cover-Stories/05/",
+                    thumbnail: "cover.png",
+                    pageCount: 24
+                },
+                {
+                    id: "pdf-6",
+                    title: "Ace's Great Blackbeard Search",
+                    folder: "./Colored-Cover-Stories/06/",
+                    thumbnail: "cover.png",
+                    pageCount: 29
+                },
+                {
+                    id: "pdf-7",
+                    title: "Gedatsu's Accidental Blue-Sea Life",
+                    folder: "./Colored-Cover-Stories/07/",
+                    thumbnail: "cover.png",
+                    pageCount: 31
+                },
+                {
+                    id: "pdf-8",
+                    title: "Miss Goldenweek's \"Operation: Meet Baroque Works\"",
+                    folder: "./Colored-Cover-Stories/08/",
+                    thumbnail: "cover.png",
+                    pageCount: 43
+                },
+                {
+                    id: "pdf-9",
+                    title: "Where Are They Now? #1 - Skypiea",
+                    folder: "./Colored-Cover-Stories/08_09/",
+                    thumbnail: "cover.png",
+                    pageCount: 3
+                },
+                {
+                    id: "pdf-10",
+                    title: "Enel's Great Space Operations",
+                    folder: "./Colored-Cover-Stories/09/",
+                    thumbnail: "cover.png",
+                    pageCount: 39
+                },
+                {
+                    id: "pdf-11",
+                    title: "Where Are They Now? #2 - Water 7",
+                    folder: "./Colored-Cover-Stories/09_10/",
+                    thumbnail: "cover.png",
+                    pageCount: 5
+                },
+                {
+                    id: "pdf-12",
+                    title: "CP9's Independent Report",
+                    folder: "./Colored-Cover-Stories/10/",
+                    thumbnail: "cover.png",
+                    pageCount: 33
+                },
+                {
+                    id: "pdf-13",
+                    title: "Straw Hat's Separation Serial",
+                    folder: "./Colored-Cover-Stories/11-18/",
+                    thumbnail: "cover.png",
+                    pageCount: 16
+                },
+                {
+                    id: "pdf-14",
+                    title: "From the Decks of the World",
+                    folder: "./Colored-Cover-Stories/19/",
+                    thumbnail: "cover.png",
+                    pageCount: 51
+                },
+                {
+                    id: "pdf-15", // includes Color Spreads
+                    title: "Caribou's Kehihihihi in the New World",
+                    folder: "./Colored-Cover-Stories/20/",
+                    thumbnail: "cover.png",
+                    pageCount: 60 // not including 1 Film #12 (Z) color spread
+                },
+                {
+                    id: "pdf-16", // includes Color Spreads
+                    title: "Solo Journey of Jinbe, Knight of the Sea",
+                    folder: "./Colored-Cover-Stories/21/",
+                    thumbnail: "cover.png",
+                    pageCount: 35
+                },
+                {
+                    id: "pdf-17", // includes Color Spreads
+                    title: "From the Decks of the World: The 500,000,000 Man Arc",
+                    folder: "./Colored-Cover-Stories/22/",
+                    thumbnail: "cover.png",
+                    pageCount: 33 // not including 2 Film #13 (Gold) color spreads
+                },
+                {
+                    id: "pdf-18",
+                    title: "The Stories of the Self-Proclaimed Straw Hat Grand Fleet",
+                    folder: "./Colored-Cover-Stories/23/",
+                    thumbnail: "cover.png",
+                    pageCount: 1
+                },
+                {
+                    id: "pdf-19",
+                    title: "\"Gang\" Bege's Oh My Family",
+                    folder: "./Colored-Cover-Stories/24/",
+                    thumbnail: "cover.png",
+                    pageCount: 1
+                },
+                {
+                    id: "pdf-20",
+                    title: "Germa 66's Ahh... An Emotionless Excursion",
+                    folder: "./Colored-Cover-Stories/25/",
+                    thumbnail: "cover.png",
+                    pageCount: 1
+                },
+                {
+                    id: "pdf-21",
+                    title: "Oni Child Yamato's Golden Harvest Surrogate Pilgrimage",
+                    folder: "./Colored-Cover-Stories/26/",
+                    thumbnail: "cover.png",
+                    pageCount: 1
+                },
+            ];
+        </script>
     </body>
 </html>
