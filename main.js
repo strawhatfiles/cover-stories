@@ -474,10 +474,61 @@ function generateGalleryImages() {
         fileExtension = "jpg"; // Original manga stories are always JPG
     }
 
-    currentGalleryImages = Array.from(
-        { length: currentActiveGallery.pageCount },
-        (_, i) => `${baseFolder}${String(i + 1).padStart(2, '0')}.${fileExtension}`
-    );
+    currentGalleryImages = [];
+
+    for (let i = 1; i <= currentActiveGallery.pageCount; i++) {
+        let fileName = `${String(i).padStart(2, '0')}`;
+        let displayStr = String(i);
+
+        const shouldSkip = currentActiveGallery.modifiers?.find(m => m.type === "skip" && m.targetPage === i);
+
+        if (!shouldSkip) {
+            const replacement = currentActiveGallery.modifiers?.find(m => m.type === "replace" && m.targetPage === i && m.isUnlocked);
+            if (replacement) fileName = replacement.file;
+
+            currentGalleryImages.push({
+                src: `${baseFolder}${fileName}.${fileExtension}`,
+                displayNum: displayStr
+            });
+        }
+
+        const insertions = currentActiveGallery.modifiers?.filter(m => m.type === "insert" && m.afterPage === i && m.isUnlocked) || [];
+        insertions.forEach((ins, index) => {
+            currentGalleryImages.push({
+                src: `${baseFolder}${ins.file}.${fileExtension}`,
+                displayNum: `${displayStr} (Extra ${index + 1})`
+            });
+        });
+    }
+
+    const customDropdown = document.getElementById("custom-page-dropdown");
+    if (customDropdown) {
+        customDropdown.innerHTML = ""; // Clear old options
+        currentGalleryImages.forEach((img, index) => {
+            const item = document.createElement("div");
+            item.className = "custom-dropdown-item";
+            item.innerText = `Page ${img.displayNum}`;
+
+            // Handle clicking a specific page
+            item.onclick = (e) => {
+                e.stopPropagation(); // Stop click from bubbling to the wrapper
+                jumpToGalleryPage(index);
+                toggleCustomDropdown(); // Close the menu after clicking
+            };
+            customDropdown.appendChild(item);
+        });
+    }
+}
+
+function toggleCustomDropdown(e) {
+    if (e) e.stopPropagation();
+    const dropdown = document.getElementById("custom-page-dropdown");
+    if (dropdown) dropdown.classList.toggle("show");
+}
+
+function jumpToGalleryPage(index) {
+    currentGalleryIndex = parseInt(index);
+    updateLightboxImage();
 }
 
 function toggleColorMode(e) {
@@ -511,12 +562,27 @@ function updateColorToggleUI() {
 
 function updateLightboxImage() {
     const lightboxImg = document.getElementById("lightbox-img");
-    const counter = document.getElementById("lightbox-counter");
+    const display = document.getElementById("lightbox-page-display");
+
     if (lightboxImg && currentGalleryImages.length > 0) {
-        lightboxImg.src = currentGalleryImages[currentGalleryIndex];
-        if (counter) {
-            counter.innerText = `${currentGalleryIndex + 1} / ${currentGalleryImages.length}`;
+        const currentItem = currentGalleryImages[currentGalleryIndex];
+        lightboxImg.src = currentItem.src;
+
+        if (display) {
+            display.innerText = `${currentItem.displayNum} / ${currentActiveGallery.pageCount}`;
         }
+
+        // Sync the active class in the custom dropdown
+        const dropdownItems = document.querySelectorAll(".custom-dropdown-item");
+        dropdownItems.forEach((item, idx) => {
+            if (idx === currentGalleryIndex) {
+                item.classList.add("active");
+                // Automatically scroll the dropdown so the active item is visible
+                item.scrollIntoView({ block: "nearest" });
+            } else {
+                item.classList.remove("active");
+            }
+        });
     }
 }
 
@@ -545,6 +611,12 @@ function closeLightbox() {
 }
 
 document.addEventListener("click", function (e) {
+    // Hide dropdown
+    const dropdown = document.getElementById("custom-page-dropdown");
+    if (dropdown && dropdown.classList.contains("show")) {
+        dropdown.classList.remove("show");
+    }
+    // Close lightbox logic
     if (e.target.id === "lightbox" || e.target.id === "lightbox-img") {
         closeLightbox();
     }
@@ -624,14 +696,16 @@ function typeWriter(element, text, speed = 50) {
  * ==========================================
  */
 
-document.addEventListener("DOMContentLoaded", async function () {
+async function initializeApp() {
     // 1. Run global UI triggers
     const header = document.querySelector('h1');
     if (header) {
         const originalText = header.textContent;
         typeWriter(header, originalText, 80);
     }
+
     updateScrollButton();
+
     // Calculate the direction ONLY when the button is actually clicked
     if (scrollBtn) {
         scrollBtn.addEventListener("click", () => {
@@ -643,6 +717,15 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         });
     }
+
     // 2. Default tab
     await showTab('cover-stories');
-});
+}
+
+if (document.readyState === "loading") {
+    // The browser is still building the page, wait for the signal
+    document.addEventListener("DOMContentLoaded", initializeApp);
+} else {
+    // The browser is already done, run it immediately!
+    initializeApp();
+}

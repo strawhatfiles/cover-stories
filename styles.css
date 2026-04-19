@@ -1604,13 +1604,14 @@ h1 {
 
 .lightbox-content {
     position: absolute;
-    top: 50%;
+    top: calc(50% - 15px);
     left: 50%;
     transform: translate(-50%, -50%);
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 95%;
+    max-height: calc(100vh - 120px);
     border-radius: 8px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
 }
 
 .lightbox-close {
@@ -2132,6 +2133,100 @@ h1 {
     font-family: monospace;
     letter-spacing: 1px;
     backdrop-filter: blur(5px);
+}
+
+#lightbox-counter-wrapper {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.6);
+    padding: 8px 16px;
+    border-radius: 20px;
+    z-index: 10001;
+    backdrop-filter: blur(5px);
+    cursor: pointer;
+    border: 1px solid rgba(78, 205, 196, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+#lightbox-counter-wrapper:hover {
+    background: rgba(0,0,0,0.8);
+    border-color: #4ecdc4;
+    transform: translateX(-50%) scale(1.05);
+}
+
+#lightbox-page-display {
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: monospace;
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+#custom-page-dropdown {
+    position: absolute;
+    bottom: calc(100% + 15px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 15, 15, 0.95);
+    border: 1px solid rgba(78, 205, 196, 0.4);
+    border-radius: 12px;
+    max-height: 300px;
+    overflow-y: auto;
+    min-width: 160px;
+    box-shadow: 0 -10px 40px rgba(0,0,0,0.7);
+    backdrop-filter: blur(10px);
+    display: none;
+    flex-direction: column;
+    padding: 8px 0;
+    z-index: 10002;
+}
+
+#custom-page-dropdown.show {
+    display: flex;
+    animation: slideUpFade 0.2s ease-out;
+}
+
+@keyframes slideUpFade {
+    from { opacity: 0; transform: translate(-50%, 10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.custom-dropdown-item {
+    padding: 10px 20px;
+    color: #d0d0d0;
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.custom-dropdown-item:hover,
+.custom-dropdown-item.active {
+    background: rgba(78, 205, 196, 0.2);
+    color: #4ecdc4;
+}
+
+#custom-page-dropdown::-webkit-scrollbar {
+    width: 6px;
+}
+#custom-page-dropdown::-webkit-scrollbar-track {
+    background: rgba(0,0,0,0.2);
+    border-radius: 8px;
+}
+#custom-page-dropdown::-webkit-scrollbar-thumb {
+    background: rgba(78, 205, 196, 0.4);
+    border-radius: 8px;
+}
+#custom-page-dropdown::-webkit-scrollbar-thumb:hover {
+    background: rgba(78, 205, 196, 0.8);
 }
 
 
