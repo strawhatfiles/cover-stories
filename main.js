@@ -194,7 +194,7 @@ function createGalleryEmbed(galleryData) {
              onmouseover="this.querySelector('.gallery-indicator').style.transform='scale(1.15)'; this.querySelector('.gallery-indicator').style.background='rgba(78, 205, 196, 0.9)'; this.querySelector('.gallery-indicator').style.color='white';"
              onmouseout="this.querySelector('.gallery-indicator').style.transform='scale(1)'; this.querySelector('.gallery-indicator').style.background='rgba(0, 0, 0, 0.7)'; this.querySelector('.gallery-indicator').style.color='#4ecdc4';">
              
-            <img src="${galleryData.folder}${galleryData.thumbnail}" 
+            <img src="${galleryData.thumbnail}?v=${APP_VERSION}" 
                  style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" 
                  alt="${galleryData.title.replace(/"/g, '&quot;').replace(/'/g, '&#39;')} Preview" />
                  
@@ -487,7 +487,7 @@ function generateGalleryImages() {
             if (replacement) fileName = replacement.file;
 
             currentGalleryImages.push({
-                src: `${baseFolder}${fileName}.${fileExtension}`,
+                src: `${baseFolder}${fileName}.${fileExtension}?v=${APP_VERSION}`,
                 displayNum: displayStr
             });
         }
@@ -495,7 +495,7 @@ function generateGalleryImages() {
         const insertions = currentActiveGallery.modifiers?.filter(m => m.type === "insert" && m.afterPage === i && m.isUnlocked) || [];
         insertions.forEach((ins, index) => {
             currentGalleryImages.push({
-                src: `${baseFolder}${ins.file}.${fileExtension}`,
+                src: `${baseFolder}${ins.file}.${fileExtension}?v=${APP_VERSION}`,
                 displayNum: `${displayStr} (Extra ${index + 1})`
             });
         });
