@@ -82,17 +82,16 @@ function updateActiveTabUI(tabName) {
 // --- COVER STORIES TAB ---
 function initializeCoverStories() {
     // Set up the Intersection Observer
-    const pdfObserver = new IntersectionObserver((entries, observer) => {
+    const galleryObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const container = entry.target;
-                const pdfId = container.id;
+                const galleryId = container.id;
 
-                // Find matching PDF data
-                const pdfData = coverStoryPDFs.find(p => p.id === pdfId);
-                if (pdfData) {
-                    const pdfNumber = pdfId.replace("pdf-", "");
-                    container.innerHTML = createPDFEmbed(pdfData.path, pdfNumber, pdfData.driveUrl);
+                // Find matching Gallery data from our new array
+                const galleryData = coverStoryGalleries.find(g => g.id === galleryId);
+                if (galleryData) {
+                    container.innerHTML = createGalleryEmbed(galleryData);
                 }
 
                 // Stop watching this container once it loads
@@ -103,16 +102,16 @@ function initializeCoverStories() {
         rootMargin: "300px 0px" // Starts loading when within 300px of the viewport
     });
 
-    // Observe all PDF containers
-    coverStoryPDFs.forEach((pdf) => {
-        const container = document.getElementById(pdf.id);
+    // Observe all containers
+    coverStoryGalleries.forEach((gallery) => {
+        const container = document.getElementById(gallery.id);
         if (container) {
-            pdfObserver.observe(container);
+            galleryObserver.observe(container);
         }
     });
 
     // Staggered Entry Animations
-    const coverStories = document.querySelectorAll(".cover-story");
+    const coverStories = document.querySelectorAll(".story-wrapper, .cover-story");
     coverStories.forEach((story, index) => {
         story.style.setProperty("--item-index", index);
         story.style.opacity = "0";
@@ -123,12 +122,15 @@ function initializeCoverStories() {
         }, 100);
     });
 
-    setTimeout(updateLoadAllButton, coverStoryPDFs.length * 220);
+    // 1. Filter out 8.5 & 9.5
+    const filteredMarkers = Array.from(document.querySelectorAll('.progress-markers .marker'))
+        .filter(marker => marker.dataset.number !== "8.5" && marker.dataset.number !== "9.5");
 
-    // Calculate Cover Story progress bar
-    const validMarkers = document.querySelectorAll('.progress-markers .marker.completed, .progress-markers .marker.incomplete');
-    const completedMarkers = document.querySelectorAll('.progress-markers .marker.completed');
+    // 2. Count the valid ones (completed + incomplete) and the strictly completed ones
+    const validMarkers = filteredMarkers.filter(m => m.classList.contains('completed') || m.classList.contains('incomplete'));
+    const completedMarkers = validMarkers.filter(m => m.classList.contains('completed'));
 
+    // 3. Calculate Cover Story progress bar and update the UI
     if (validMarkers.length > 0) {
         const percentage = (completedMarkers.length / validMarkers.length) * 100;
         const progressFill = document.querySelector('.progress-fill');
@@ -157,13 +159,14 @@ function initializeFiller() {
 }
 
 function toggleESP() {
-    const isChecked = document.getElementById('espToggle') ? document.getElementById('espToggle').checked : false;
+    const espToggle = document.getElementById('espToggle');
+    const isChecked = espToggle ? espToggle.checked : false;
     const espItems = document.querySelectorAll('.esp-filler');
     const countDisplay = document.getElementById('total-skipped-count');
     const countDesc = document.getElementById('total-skipped-desc');
 
-    // Ensure BASE_SKIPPED_COUNT is defined in your filler.html file, otherwise default to 0
-    const baseCount = typeof BASE_SKIPPED_COUNT !== 'undefined' ? BASE_SKIPPED_COUNT : 0;
+    // Read the base count directly from the toggle's data attribute
+    const baseCount = espToggle && espToggle.dataset.baseCount ? parseInt(espToggle.dataset.baseCount) : 0;
     const espCount = espItems.length;
     const totalWithESP = baseCount + espCount;
 
@@ -188,6 +191,29 @@ function toggleESP() {
  * 3. PDF HANDLING LOGIC
  * ==========================================
  */
+
+function createGalleryEmbed(galleryData) {
+    return `
+        <div style="position: relative; width: 100%; height: 100%; cursor: pointer; overflow: hidden; border-radius: 10px;" 
+             onclick="openCoverStoryGallery('${galleryData.id}')"
+             onmouseover="this.querySelector('.gallery-indicator').style.transform='scale(1.15)'; this.querySelector('.gallery-indicator').style.background='rgba(78, 205, 196, 0.9)'; this.querySelector('.gallery-indicator').style.color='white';"
+             onmouseout="this.querySelector('.gallery-indicator').style.transform='scale(1)'; this.querySelector('.gallery-indicator').style.background='rgba(0, 0, 0, 0.7)'; this.querySelector('.gallery-indicator').style.color='#4ecdc4';">
+             
+            <img src="${galleryData.thumbnail}?v=${APP_VERSION}" 
+                 style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;" 
+                 alt="${galleryData.title.replace(/"/g, '&quot;').replace(/'/g, '&#39;')} Preview" />
+                 
+            <div class="gallery-indicator" style="position: absolute; bottom: 8px; right: 8px; width: 28px; height: 28px; background: rgba(0, 0, 0, 0.7); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #4ecdc4; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); backdrop-filter: blur(5px); border: 1px solid rgba(78, 205, 196, 0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+                </svg>
+            </div>
+            
+        </div>
+    `;
+}
+
+/**
 function createPDFEmbed(pdfPath, pdfId, driveUrl) {
     const isPlaceholder = driveUrl.includes('/yo/preview');
 
@@ -316,6 +342,7 @@ function updateLoadAllButton() {
         loadAllContainer.style.display = drivePlaceholders.length > 0 ? "block" : "none";
     }
 }
+*/
 
 
 /**
@@ -390,7 +417,13 @@ function injectCollapsibleCloseButtons() {
 function openLightbox(imageSrc) {
     const lightbox = document.getElementById("lightbox");
     const lightboxImg = document.getElementById("lightbox-img");
+    const galleryUI = document.getElementById("gallery-ui");
     if (!lightbox || !lightboxImg) return;
+
+    // HIDE gallery elements & disable clicking the image to go forward
+    if(galleryUI) galleryUI.style.display = "none";
+    lightboxImg.onclick = function(e) { e.stopPropagation(); };
+    lightboxImg.style.cursor = "default";
 
     lightboxImg.src = imageSrc;
     const filename = imageSrc.split("/").pop();
@@ -402,12 +435,581 @@ function openLightbox(imageSrc) {
     lightbox.style.display = "block";
 }
 
+let lightboxLoadToken = 0;
+let currentGalleryImages = [];
+let currentBaseCount = 0;
+let currentExtraCount = 0;
+let currentSideCount = 0;
+let galleryManifest = {};
+let currentGalleryIndex = 0;
+let currentActiveGallery = null;
+let isColoredMode = true;
+let spreadsInCoverStories = false; // Default state (cover requests)
+
+function toggleGalleryMode(e) {
+    spreadsInCoverStories = !e.target.checked;
+    
+    const storyLabel = document.getElementById("mode-story-label");
+    const requestLabel = document.getElementById("mode-request-label");
+
+    if (spreadsInCoverStories) {
+        storyLabel.style.color = "#4ecdc4"; 
+        requestLabel.style.color = "#666";
+    } else {
+        storyLabel.style.color = "#666";
+        requestLabel.style.color = "#ffc107"; 
+    }
+}
+
+function openCoverStoryGallery(galleryId) {
+    currentActiveGallery = coverStoryGalleries.find(g => g.id === galleryId);
+    if (!currentActiveGallery) return;
+    currentGalleryIndex = 0;
+
+    // SHOW gallery elements & re-enable clicking the image to advance
+    const galleryUI = document.getElementById("gallery-ui");
+    if(galleryUI) galleryUI.style.display = "block";
+
+    const lightboxImg = document.getElementById("lightbox-img");
+    if (lightboxImg) {
+        lightboxImg.onclick = function(e) { navigateGallery(1); e.stopPropagation(); };
+        lightboxImg.style.cursor = "e-resize";
+    }
+
+    // Sync the toggle switch with our global state before showing
+    const toggleCheckbox = document.getElementById("color-toggle-checkbox");
+    if (toggleCheckbox) toggleCheckbox.checked = isColoredMode;
+
+    generateGalleryImages();
+    updateLightboxImage();
+    updateColorToggleUI();
+
+    document.getElementById("lightbox").style.display = "block";
+    document.addEventListener("keydown", handleGalleryKeyboard);
+}
+
+function generateGalleryImages() {
+    if (!currentActiveGallery) return;
+
+    currentGalleryImages = [];
+    currentBaseCount = 0;
+    currentExtraCount = 0;
+    currentSideCount = 0;
+
+    const isStoryMode = currentActiveGallery.type === "story";
+
+    // 1. Build the path array
+    let pathsToRead = [currentActiveGallery.folder];
+
+    if (isStoryMode && spreadsInCoverStories && currentActiveGallery.altFolder) {
+        pathsToRead.push(currentActiveGallery.altFolder);
+    }
+
+    // 2. Process the folders
+    pathsToRead.forEach(folderPath => {
+        let activePath = folderPath;
+        if (!isColoredMode) {
+            activePath = activePath.replace("Colored-Cover-Stories", "Cover-Stories");
+        }
+
+        const safePath = activePath.replace(/#/g, '%23');
+        let availableFiles = galleryManifest[activePath] || [];
+        
+        // Setup B: Define the locked array FIRST so we can use it below
+        let activeLocked = currentActiveGallery.locked || [];
+        if (!isStoryMode) {
+            const parentId = currentActiveGallery.id.split('.')[0]; // Turns "pdf-15.5" into "pdf-15"
+            const parentGallery = coverStoryGalleries.find(g => g.id === parentId);
+            if (parentGallery && parentGallery.locked) {
+                activeLocked = parentGallery.locked;
+            }
+        }
+
+        // Setup A: Find what files to replace, but IGNORE them if they are locked
+        const editedBaseNames = availableFiles
+            .filter(f => {
+                const baseName = f.replace(/\.(png|jpg)$/, '');
+                
+                // If you put "17+TL" in the locked array, this stops it from acting as a replacement
+                if (activeLocked.includes(baseName)) {
+                    return false; 
+                }
+                
+                return f.includes('-edited') || f.includes('+TL');
+            })
+            .map(f => {
+                const base = f.replace(/\.(png|jpg)$/, '');
+                if (base.includes('-edited')) return base.split('-edited')[0];
+                if (base.includes('+TL')) return base.split('+TL')[0];
+                return base;
+            });
+
+        availableFiles = availableFiles.filter(fileName => {
+            const baseName = fileName.replace(/\.(png|jpg)$/, '');
+
+            // RULE 1: Is it manually locked in the HTML? Hide it.
+            if (activeLocked && activeLocked.length > 0) {
+                // A. Direct Match (Hides the exact file you listed, e.g. "15-extra...")
+                if (activeLocked.includes(baseName)) return false;
+
+                // B. Twin Match (Protects regular spreads, ONLY targets movie spreads)
+                if (baseName.includes('-colorspread') && baseName.includes('_movie')) {
+                    // Extracts the "15" from "692-colorspread_15_movie"
+                    const spreadNum = baseName.split(/-colorspread\d*_/)[1].split(/[-_+]/)[0]; 
+                    
+                    // Checks if you locked the original extra version
+                    const isTwinLocked = activeLocked.some(lockItem => 
+                        lockItem.startsWith(`${spreadNum}-extra_movie`)
+                    );
+                    
+                    if (isTwinLocked) return false;
+                }
+            }
+
+            // RULE 2: Is it a movie extra, and are we in Story Mode WITH Spreads active? Ensure we ONLY hide the original, not copy.
+            if (isStoryMode && spreadsInCoverStories && baseName.includes('_movie') && !baseName.includes('-colorspread_')) {
+                return false;
+            }
+
+            // RULE 3: Does an edited/TL version exist for this exact base name? Hide this original.
+            if (editedBaseNames.includes(baseName)) {
+                return false;
+            }
+
+            // RULE 4: Hide manual _blurred.png files from the main loop so they aren't duplicates
+            if (baseName.includes('_blurred')) {
+                return false;
+            }
+
+            return true; 
+        });
+
+        availableFiles.forEach(fileName => {
+            const baseName = fileName.replace(/\.(png|jpg)$/, '');
+            const isSpread = baseName.includes('-colorspread');
+            const isExtra = baseName.includes('-extra');
+            const isSide = baseName.includes('-side');
+            const soonToBeGone = baseName.endsWith('-DELETE');
+
+            // --- CENSORSHIP LOGIC ---
+            let useManualBlur = false;
+            let useAutoBlur = false;
+            let currentBlurConfig = { direction: "top", amount: 100 }; // Default config object
+
+            // Determine whether to pull data from the main gallery or the parent gallery
+            let sourceGallery = currentActiveGallery;
+            if (!isStoryMode) {
+                const parentId = currentActiveGallery.id.split('.')[0]; 
+                const parentGallery = coverStoryGalleries.find(g => g.id === parentId);
+                if (parentGallery) sourceGallery = parentGallery;
+            }
+
+            // Select the appropriate censor configuration
+            let activeCensor = null;
+            if (!isColoredMode && sourceGallery.autoCensorBW) {
+                activeCensor = sourceGallery.autoCensorBW;
+            } else if (sourceGallery.autoCensor) {
+                activeCensor = sourceGallery.autoCensor;
+            }
+
+            if (activeCensor) {
+                const manualList = activeCensor.manualList || [];
+                const fileNum = parseFloat(baseName.split(/[-_+]/)[0]); 
+                const isChapterRequest = !isStoryMode || folderPath === currentActiveGallery.altFolder;
+
+                // 1. Color Spreads
+                if (isSpread && activeCensor.coverPages && activeCensor.coverPages.afterChapter !== undefined) {
+                    const chapterNum = parseFloat(baseName.split(/-colorspread\d*_/)[0]);
+                    if (chapterNum > activeCensor.coverPages.afterChapter) {
+                        if (manualList.some(lockItem => baseName.includes(lockItem))) {
+                            useManualBlur = true; 
+                        } else {
+                            useAutoBlur = true;
+                            let targetConfig = { direction: "top", amount: activeCensor.coverPages.spreadBlurHeight || 100 };
+
+                            if (activeCensor.coverPages.spreadBlurHeightExceptions) {
+                                for (const [rule, fileArray] of Object.entries(activeCensor.coverPages.spreadBlurHeightExceptions)) {
+                                    if (fileArray.some(item => baseName.includes(item))) {
+                                        if (rule.includes(':')) {
+                                            const parts = rule.split(':');
+                                            targetConfig = { direction: parts[0].trim(), amount: parseFloat(parts[1]) };
+                                        } else {
+                                            targetConfig.amount = parseFloat(rule);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            currentBlurConfig = targetConfig;
+                        }
+                    }
+                }
+                
+                // 2. Regular Story Pages & Chapter Requests
+                else if (!isSpread) {
+                    let shouldCensor = false;
+                    let targetConfig = { direction: "top", amount: 100 };
+                    let exceptionsToCheck = null;
+
+                    if (!isChapterRequest && activeCensor.coverStories && activeCensor.coverStories.afterPage !== undefined) {
+                        if (fileNum > activeCensor.coverStories.afterPage) {
+                            shouldCensor = true;
+                            targetConfig.amount = activeCensor.coverStories.blurHeight || 100;
+                            exceptionsToCheck = activeCensor.coverStories.blurHeightExceptions;
+                        }
+                    }
+                    else if (isChapterRequest && activeCensor.coverPages && activeCensor.coverPages.afterChapter !== undefined) {
+                        if (fileNum > activeCensor.coverPages.afterChapter) {
+                            shouldCensor = true;
+                            targetConfig.amount = activeCensor.coverPages.blurHeight || 100;
+                            exceptionsToCheck = activeCensor.coverPages.blurHeightExceptions;
+                        }
+                    }
+
+                    if (shouldCensor) {
+                        if (manualList.some(lockItem => baseName.includes(lockItem))) {
+                            useManualBlur = true;
+                        } else {
+                            useAutoBlur = true;
+                            if (exceptionsToCheck) {
+                                for (const [rule, fileArray] of Object.entries(exceptionsToCheck)) {
+                                    if (fileArray.some(item => baseName.includes(item))) {
+                                        // Parses rules like "bottom: 25" into direction and amount
+                                        if (rule.includes(':')) {
+                                            const parts = rule.split(':');
+                                            targetConfig = { direction: parts[0].trim(), amount: parseFloat(parts[1]) };
+                                        } else {
+                                            targetConfig.amount = parseFloat(rule);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            currentBlurConfig = targetConfig;
+                        }
+                    }
+                }
+            }
+
+            // 3. Finalize the Source URL
+            let finalSrc = `${safePath}${fileName}?v=${APP_VERSION}`;
+            if (useManualBlur) {
+                const blurredFileName = fileName.replace(/\.(png|jpg)$/, '_blurred.$1');
+                finalSrc = `${safePath}${blurredFileName}?v=${APP_VERSION}`;
+            }
+
+            if (isStoryMode) {
+                // --- COVER STORY gallery ---
+                if (isSpread && spreadsInCoverStories && folderPath === currentActiveGallery.altFolder) {
+                    const pagePart = baseName.split(/-colorspread\d*_/)[1];
+                    currentGalleryImages.push({
+                        src: finalSrc,
+                        displayNum: ``, 
+                        sortKey: parseFloat(pagePart.split(/[-_+]/)[0]),
+                        isSpreadFlag: true,
+                        pageNum: pagePart.split(/[-_+]/)[0],
+                        requiresAutoBlur: useAutoBlur,
+                        blurConfig: currentBlurConfig
+                    });
+                } else if (!isSpread && folderPath !== currentActiveGallery.altFolder) {
+                    if (isExtra) currentExtraCount++;
+                    else if (isSide) currentSideCount++;
+                    else currentBaseCount++;
+
+                    const pageNum = baseName.split(/[-_+]/)[0];
+                    
+                    currentGalleryImages.push({
+                        src: finalSrc,
+                        displayNum: ``,
+                        sortKey: parseFloat(baseName),
+                        isSpreadFlag: false,
+                        isExtra: isExtra,
+                        isSide: isSide,
+                        pageNum: pageNum,
+                        requiresAutoBlur: useAutoBlur,
+                        blurConfig: currentBlurConfig
+                    });
+                }
+            } else {
+                // --- COVER REQUEST gallery ---
+                if (isSpread) {
+                    if (!spreadsInCoverStories) {
+                        const chapterPart = baseName.split(/-colorspread\d*_/)[0];
+                        currentGalleryImages.push({
+                            src: finalSrc,
+                            displayNum: ``, 
+                            sortKey: parseFloat(chapterPart),
+                            isSpreadFlag: true,
+                            requiresAutoBlur: useAutoBlur,
+                            blurConfig: currentBlurConfig,
+                            chapterNum: chapterPart
+                        });
+                    }
+                } else {
+                    if (!soonToBeGone) currentBaseCount++;
+                    const chapterPart = baseName.split(/[-_+]/)[0];
+                    currentGalleryImages.push({
+                        src: finalSrc,
+                        displayNum: ``, 
+                        sortKey: parseFloat(baseName),
+                        isSpreadFlag: false,
+                        soonToBeGone: soonToBeGone,
+                        requiresAutoBlur: useAutoBlur,
+                        blurConfig: currentBlurConfig,
+                        chapterNum: chapterPart
+                    });
+                }
+            }
+        });
+    });
+
+    // 2. SORT THE ARRAY
+    currentGalleryImages.sort((a, b) => {
+        if (a.sortKey !== b.sortKey) {
+            return a.sortKey - b.sortKey;
+        }
+        // TIE BREAKER: If chapter numbers tie, sort alphabetically so spread1 comes before spread2
+        return a.src.localeCompare(b.src);
+    });
+
+    // 3. SECOND PASS: Dynamically count spreads, request pages, extras, and sides
+    let spreadCounter = 0;
+    let requestPageCounter = 0;
+    let extraCounter = 0;
+    let sideCounter = 0;
+
+    currentGalleryImages.forEach(img => {
+        if (img.isSpreadFlag) {
+            spreadCounter++; 
+            
+            if (isStoryMode) {
+                img.displayNum = `Page ${img.pageNum} (Spread ${spreadCounter})`;
+            } else {
+                // Request Mode Spreads (Chapter first, padded spread)
+                const formattedSpread = String(spreadCounter).padStart(2, '0');
+                img.displayNum = `(Ch. ${img.chapterNum}) Spread ${formattedSpread}`;
+            }
+        } else {
+            if (isStoryMode) {
+                // Story Mode Standard, Extra & Side Pages
+                if (img.isExtra) {
+                    extraCounter++;
+                    img.displayNum = `Page ${img.pageNum} (Extra ${extraCounter})`;
+                } else if (img.isSide) {
+                    sideCounter++;
+                    img.displayNum = `Page ${img.pageNum} (Side ${sideCounter})`;
+                } else {
+                    img.displayNum = `Page ${img.pageNum}`;
+                }
+            } else {
+                if (img.soonToBeGone) {
+                    // Request Mode Title Pages (Skips counter, Chapter only)
+                    img.displayNum = `(Ch. ${img.chapterNum})`;
+                } else {
+                    // Request Mode Standard Pages (Chapter first, padded page)
+                    requestPageCounter++;
+                    const formattedPage = String(requestPageCounter).padStart(2, '0');
+                    img.displayNum = `(Ch. ${img.chapterNum}) Page ${formattedPage}`;
+                }
+            }
+        }
+    });
+
+    // 4. Build Custom Dropdown UI
+    const customDropdown = document.getElementById("custom-page-dropdown");
+    if (customDropdown) {
+        customDropdown.innerHTML = "";
+        currentGalleryImages.forEach((img, index) => {
+            const item = document.createElement("div");
+            item.className = "custom-dropdown-item";
+            item.innerText = img.displayNum;
+            item.onclick = (e) => {
+                e.stopPropagation();
+                jumpToGalleryPage(index);
+                toggleCustomDropdown();
+            };
+            customDropdown.appendChild(item);
+        });
+    }
+}
+
+function toggleCustomDropdown(e) {
+    if (e) e.stopPropagation();
+    const dropdown = document.getElementById("custom-page-dropdown");
+    if (dropdown) dropdown.classList.toggle("show");
+}
+
+function jumpToGalleryPage(index) {
+    currentGalleryIndex = parseInt(index);
+    updateLightboxImage();
+}
+
+function toggleColorMode(e) {
+    if (e) e.stopPropagation();
+    // Grab the true/false state directly from the new switch toggle
+    const toggleCheckbox = document.getElementById("color-toggle-checkbox");
+    if (toggleCheckbox) {
+        isColoredMode = toggleCheckbox.checked;
+    }
+    generateGalleryImages();
+    updateLightboxImage();
+    updateColorToggleUI();
+}
+
+function updateColorToggleUI() {
+    const label = document.querySelector(".color-toggle-label");
+    const wrapper = document.querySelector(".color-toggle-wrapper");
+
+    if (label && wrapper) {
+        if (isColoredMode) {
+            label.innerText = "COLORED";
+            label.style.color = "#4ecdc4";
+            wrapper.style.borderColor = "rgba(78, 205, 196, 0.3)";
+        } else {
+            label.innerText = "ORIGINAL";
+            label.style.color = "#d0d0d0";
+            wrapper.style.borderColor = "rgba(208, 208, 208, 0.3)";
+        }
+    }
+}
+
+function updateLightboxImage() {
+    const lightboxImg = document.getElementById("lightbox-img");
+    const display = document.getElementById("lightbox-page-display");
+
+    if (lightboxImg && currentGalleryImages.length > 0) {
+        const currentItem = currentGalleryImages[currentGalleryIndex];
+        
+        // --- NEW: Generate a unique token for this specific click ---
+        lightboxLoadToken++;
+        const myToken = lightboxLoadToken;
+
+        // --- NEW: Grab the wrapper so we can fade the image and censor bar TOGETHER ---
+        const wrapper = lightboxImg.parentElement;
+
+        // 1. INSTANTLY hide the entire wrapper
+        wrapper.style.transition = "none";
+        wrapper.style.opacity = "0";
+        void wrapper.offsetHeight; // Force the browser to apply this immediately
+
+        // 2. Set up the Censor Bar while the wrapper is completely hidden
+        const censorBar = document.getElementById("auto-censor-bar");
+        if (censorBar) {
+            if (currentItem.requiresAutoBlur) {
+                censorBar.style.display = "block";
+                const config = currentItem.blurConfig;
+
+                // Reset all CSS properties
+                censorBar.style.top = "auto";
+                censorBar.style.bottom = "auto";
+                censorBar.style.left = "auto";
+                censorBar.style.right = "auto";
+                censorBar.style.width = "100%";
+                censorBar.style.height = "100%";
+
+                // Apply dynamic dimensions
+                if (config.direction === "top") {
+                    censorBar.style.top = "0";
+                    censorBar.style.left = "0";
+                    censorBar.style.height = `${config.amount}%`;
+                } else if (config.direction === "bottom") {
+                    censorBar.style.bottom = "0";
+                    censorBar.style.left = "0";
+                    censorBar.style.height = `${config.amount}%`;
+                } else if (config.direction === "left") {
+                    censorBar.style.top = "0";
+                    censorBar.style.left = "0";
+                    censorBar.style.width = `${config.amount}%`;
+                } else if (config.direction === "right") {
+                    censorBar.style.top = "0";
+                    censorBar.style.right = "0";
+                    censorBar.style.width = `${config.amount}%`;
+                }
+            } else {
+                censorBar.style.display = "none";
+            }
+        }
+
+        // 3. Attach onload BEFORE changing the source
+        lightboxImg.onload = () => {
+            // --- NEW: If the user spammed next, ignore this old image! ---
+            if (myToken !== lightboxLoadToken) return;
+
+            // Turn the smooth transition back on and fade the wrapper in
+            wrapper.style.transition = "opacity 0.2s ease-in";
+            wrapper.style.opacity = "1";
+        };
+
+        // 4. Change the source
+        lightboxImg.src = currentItem.src;
+
+        // 5. Update the counter text
+        if (display) {
+            // Check if the current image is a color spread OR a title page
+            if (currentItem.isSpreadFlag || currentItem.soonToBeGone) {
+                display.innerText = currentItem.displayNum;
+            } else {
+                // Combine extras and sides for the (+X) total display
+                let totalBonusCount = currentExtraCount + currentSideCount;
+                let totalDisplay = totalBonusCount > 0 
+                    ? `${currentBaseCount} (+${totalBonusCount})` 
+                    : `${currentBaseCount}`;
+                display.innerText = `${currentItem.displayNum} / ${totalDisplay}`;
+            }
+        }
+
+        const dropdownItems = document.querySelectorAll(".custom-dropdown-item");
+        dropdownItems.forEach((item, idx) => {
+            if (idx === currentGalleryIndex) {
+                item.classList.add("active");
+                item.scrollIntoView({ block: "nearest" });
+            } else {
+                item.classList.remove("active");
+            }
+        });
+    } else {
+        if (lightboxImg) {
+            lightboxImg.removeAttribute('src'); 
+            lightboxImg.alt = "No images currently available."; 
+            lightboxImg.parentElement.style.opacity = "1"; // Reset visibility just in case
+        }
+        if (display) {
+            display.innerText = "0 / 0"; 
+        }
+    }
+}
+
+function navigateGallery(direction) {
+    currentGalleryIndex += direction;
+    // Loop around if out of bounds
+    if (currentGalleryIndex < 0) {
+        currentGalleryIndex = currentGalleryImages.length - 1;
+    } else if (currentGalleryIndex >= currentGalleryImages.length) {
+        currentGalleryIndex = 0;
+    }
+    updateLightboxImage();
+}
+
+function handleGalleryKeyboard(e) {
+    if (e.key === "ArrowRight") navigateGallery(1);
+    if (e.key === "ArrowLeft") navigateGallery(-1);
+    if (e.key === "Escape") closeLightbox();
+}
+
 function closeLightbox() {
     const lightbox = document.getElementById("lightbox");
     if (lightbox) lightbox.style.display = "none";
+    // Clean up gallery keyboard listeners so they don't fire in the background
+    document.removeEventListener("keydown", handleGalleryKeyboard);
 }
 
 document.addEventListener("click", function (e) {
+    // Hide dropdown
+    const dropdown = document.getElementById("custom-page-dropdown");
+    if (dropdown && dropdown.classList.contains("show")) {
+        dropdown.classList.remove("show");
+    }
+    // Close lightbox logic
     if (e.target.id === "lightbox" || e.target.id === "lightbox-img") {
         closeLightbox();
     }
@@ -429,14 +1031,13 @@ function updateScrollButton() {
     const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
 
     if (scrolled > 300) {
+        scrollBtn.style.display = "block";
+        // Only change the icon graphic here
         if (nearBottom) {
             scrollIcon.innerHTML = '<path d="m18 15-6-6-6 6"/>';
-            scrollBtn.onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
         } else {
             scrollIcon.innerHTML = '<path d="m6 9 6 6 6-6"/>';
-            scrollBtn.onclick = () => window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
         }
-        scrollBtn.style.display = "block";
     } else {
         scrollBtn.style.display = "none";
     }
@@ -487,15 +1088,48 @@ function typeWriter(element, text, speed = 50) {
  * 6. INITIALIZATION ON LOAD
  * ==========================================
  */
-document.addEventListener("DOMContentLoaded", async function () {
+
+async function initializeApp() {
     // 1. Run global UI triggers
     const header = document.querySelector('h1');
     if (header) {
         const originalText = header.textContent;
         typeWriter(header, originalText, 80);
     }
+
+    // Fetch the automated manifest
+    try {
+        const response = await fetch(`./manifest.json?v=${APP_VERSION}`);
+        if (response.ok) {
+            galleryManifest = await response.json();
+            console.log("Manifest loaded successfully!", galleryManifest);
+        }
+    } catch (error) {
+        console.error("Failed to load image manifest:", error);
+    }
+
     updateScrollButton();
+
+    // Calculate the direction ONLY when the button is actually clicked
+    if (scrollBtn) {
+        scrollBtn.addEventListener("click", () => {
+            const nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+            if (nearBottom) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+                window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+            }
+        });
+    }
 
     // 2. Default tab
     await showTab('cover-stories');
-});
+}
+
+if (document.readyState === "loading") {
+    // The browser is still building the page, wait for the signal
+    document.addEventListener("DOMContentLoaded", initializeApp);
+} else {
+    // The browser is already done, run it immediately!
+    initializeApp();
+}

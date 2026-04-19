@@ -1,0 +1,33 @@
+name: Generate Gallery Manifest
+
+on:
+  push:
+    branches:
+      - main  # Change to 'master' if that is your default branch name
+    paths:
+      - 'Colored-Cover-Stories/**'
+      - 'Cover-Stories/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Allows the bot to commit the new JSON file
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Generate manifest.json
+        run: node genManifest.js
+
+      - name: Commit and Push Changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: auto-update image manifest"
+          file_pattern: manifest.json
