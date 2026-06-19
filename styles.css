@@ -2000,8 +2000,8 @@ h1 {
     gap: 1rem;
     margin: 1.5rem 0;
     padding: 0.8rem 1.5rem;
-    background: rgba(255, 107, 139, 0.1);
-    border: 1px solid rgba(255, 107, 139, 0.3);
+    background: rgba(200, 107, 139, 0.1);
+    border: 1px solid rgba(200, 107, 139, 0.3);
     border-radius: 30px;
     color: #ff6b8b;
     font-weight: 600;
@@ -2051,26 +2051,26 @@ h1 {
 }
 
 .filler-item.esp-filler {
-    border-left-color: rgba(255, 107, 139, 0.85);
+    border-left-color: rgba(200, 107, 139, 0.85);
 }
 
 .filler-item.esp-filler::before {
-    background: rgba(255, 107, 139, 0.85);
+    background: rgba(200, 107, 139, 0.85);
 }
 
 .filler-item.esp-filler .filler-title {
-    color: rgba(255, 107, 139, 0.85);
+    color: rgba(200, 107, 139, 0.85);
 }
 
 .filler-item.esp-filler .episode-count {
-    background: rgba(255, 107, 139, 0.85);
+    background: rgba(200, 107, 139, 0.85);
     color: #ffffff;
 }
 
 .filler-item.esp-filler .filler-episodes {
-    background: rgba(255, 107, 139, 0.15);
-    color: rgba(255, 107, 139, 0.85);
-    border-color: rgba(255, 107, 139, 0.3);
+    background: rgba(200, 107, 139, 0.15);
+    color: rgba(200, 107, 139, 0.85);
+    border-color: rgba(200, 107, 139, 0.3);
 }
 
 .color-toggle-wrapper {

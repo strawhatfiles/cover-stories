@@ -553,13 +553,15 @@ function generateGalleryImages() {
                 if (activeLocked.includes(baseName)) return false;
 
                 // B. Twin Match (Protects regular spreads, ONLY targets movie spreads)
-                if (baseName.includes('-colorspread') && baseName.includes('_movie')) {
-                    // Extracts the "15" from "692-colorspread_15_movie"
+                if (baseName.includes('-colorspread') && baseName.includes('movie')) {
+                    // Extracts the "15" from "691-colorspread_15_(movie-12-film-z)"
                     const spreadNum = baseName.split(/-colorspread\d*_/)[1].split(/[-_+]/)[0]; 
                     
-                    // Checks if you locked the original extra version
+                    // Checks if you locked the corresponding extra version (supports old & new naming)
                     const isTwinLocked = activeLocked.some(lockItem => 
-                        lockItem.startsWith(`${spreadNum}-extra_movie`)
+                        (lockItem.startsWith(`${spreadNum}-extra`) || lockItem.startsWith(`${spreadNum}_`)) 
+                        && lockItem.includes('-extra') 
+                        && lockItem.includes('movie')
                     );
                     
                     if (isTwinLocked) return false;
@@ -567,7 +569,7 @@ function generateGalleryImages() {
             }
 
             // RULE 2: Is it a movie extra, and are we in Story Mode WITH Spreads active? Ensure we ONLY hide the original, not copy.
-            if (isStoryMode && spreadsInCoverStories && baseName.includes('_movie') && !baseName.includes('-colorspread_')) {
+            if (isStoryMode && spreadsInCoverStories && baseName.includes('movie') && !baseName.includes('-colorspread_')) {
                 return false;
             }
 
@@ -587,9 +589,35 @@ function generateGalleryImages() {
         availableFiles.forEach(fileName => {
             const baseName = fileName.replace(/\.(png|jpg)$/, '');
             const isSpread = baseName.includes('-colorspread');
+            const isVolume = baseName.includes('-volume');
             const isExtra = baseName.includes('-extra');
             const isSide = baseName.includes('-side');
             const soonToBeGone = baseName.endsWith('-DELETE');
+
+            // --- CHAPTER NUMBER EXTRACTION ---
+            let extractedChapter = null;
+
+            // This turns "38_474-extra(ep418-ch523)" into just "38_474-extra"
+            let cleanBase = baseName.replace(/\([^)]*\)/g, '');
+            
+            if (isSpread) {
+                extractedChapter = parseFloat(cleanBase.split(/-colorspread\d*_/)[0]);
+            } else if (isVolume) {
+                extractedChapter = parseFloat(cleanBase.split('-volume')[0]);
+            } else {
+                // Strip out '-extra1', '-side2', etc. before searching for the chapter number
+                let strippedBase = cleanBase.replace(/-(extra|side)\d*/g, '');
+                
+                // Ultimate Regex: Finds the last number behind an underscore/dash, 
+                // ignores text like "ch", and safely ignores trailing tags like "+TL"
+                const match = strippedBase.match(/[-_][A-Za-z]*(\d+)(?:\D*)$/);
+                if (match) {
+                    extractedChapter = parseFloat(match[1]);
+                } else {
+                    // NEW FALLBACK: For regular pages like "732.png", just grab the number at the front!
+                    extractedChapter = parseFloat(cleanBase.split(/[-_+]/)[0]);
+                }
+            }
 
             // --- CENSORSHIP LOGIC ---
             let useManualBlur = false;
@@ -617,9 +645,9 @@ function generateGalleryImages() {
                 const fileNum = parseFloat(baseName.split(/[-_+]/)[0]); 
                 const isChapterRequest = !isStoryMode || folderPath === currentActiveGallery.altFolder;
 
-                // 1. Color Spreads
-                if (isSpread && activeCensor.coverPages && activeCensor.coverPages.afterChapter !== undefined) {
-                    const chapterNum = parseFloat(baseName.split(/-colorspread\d*_/)[0]);
+                // 1. Color Spreads & Volumes
+                if ((isSpread || isVolume) && activeCensor.coverPages && activeCensor.coverPages.afterChapter !== undefined) {
+                    const chapterNum = isVolume ? parseFloat(baseName.split('-volume')[0]) : parseFloat(baseName.split(/-colorspread\d*_/)[0]);
                     if (chapterNum > activeCensor.coverPages.afterChapter) {
                         if (manualList.some(lockItem => baseName.includes(lockItem))) {
                             useManualBlur = true; 
@@ -646,7 +674,7 @@ function generateGalleryImages() {
                 }
                 
                 // 2. Regular Story Pages & Chapter Requests
-                else if (!isSpread) {
+                else if (!isSpread && !isVolume) {
                     let shouldCensor = false;
                     let targetConfig = { direction: "top", amount: 100 };
                     let exceptionsToCheck = null;
@@ -700,18 +728,30 @@ function generateGalleryImages() {
 
             if (isStoryMode) {
                 // --- COVER STORY gallery ---
-                if (isSpread && spreadsInCoverStories && folderPath === currentActiveGallery.altFolder) {
-                    const pagePart = baseName.split(/-colorspread\d*_/)[1];
+                if ((isSpread || isVolume) && spreadsInCoverStories && folderPath === currentActiveGallery.altFolder) {
+                    let pagePart, volNum = null;
+                    if (isVolume) {
+                        const volPart = baseName.split('-volume')[1];
+                        volNum = volPart.split(/[-_+]/)[0];
+                        // Allows "890-volume89_35" to parse as page 35, otherwise defaults to 890
+                        pagePart = volPart.includes('_') ? volPart.split('_')[1] : baseName.split('-volume')[0];
+                    } else {
+                        pagePart = baseName.split(/-colorspread\d*_/)[1];
+                    }
+                    
                     currentGalleryImages.push({
                         src: finalSrc,
                         displayNum: ``, 
                         sortKey: parseFloat(pagePart.split(/[-_+]/)[0]),
-                        isSpreadFlag: true,
+                        isSpreadFlag: isSpread,
+                        isVolumeFlag: isVolume,
                         pageNum: pagePart.split(/[-_+]/)[0],
+                        volNum: volNum,
                         requiresAutoBlur: useAutoBlur,
-                        blurConfig: currentBlurConfig
+                        blurConfig: currentBlurConfig,
+                        chapterNum: extractedChapter
                     });
-                } else if (!isSpread && folderPath !== currentActiveGallery.altFolder) {
+                } else if (!isSpread && !isVolume && folderPath !== currentActiveGallery.altFolder) {
                     if (isExtra) currentExtraCount++;
                     else if (isSide) currentSideCount++;
                     else currentBaseCount++;
@@ -723,40 +763,47 @@ function generateGalleryImages() {
                         displayNum: ``,
                         sortKey: parseFloat(baseName),
                         isSpreadFlag: false,
+                        isVolumeFlag: false,
                         isExtra: isExtra,
                         isSide: isSide,
                         pageNum: pageNum,
                         requiresAutoBlur: useAutoBlur,
-                        blurConfig: currentBlurConfig
+                        blurConfig: currentBlurConfig,
+                        chapterNum: extractedChapter
                     });
                 }
             } else {
                 // --- COVER REQUEST gallery ---
-                if (isSpread) {
+                if (isSpread || isVolume) {
                     if (!spreadsInCoverStories) {
-                        const chapterPart = baseName.split(/-colorspread\d*_/)[0];
+                        const chapterPart = isVolume ? baseName.split('-volume')[0] : baseName.split(/-colorspread\d*_/)[0];
+                        let volNum = null;
+                        if (isVolume) volNum = baseName.split('-volume')[1].split(/[-_+]/)[0];
+
                         currentGalleryImages.push({
                             src: finalSrc,
                             displayNum: ``, 
                             sortKey: parseFloat(chapterPart),
-                            isSpreadFlag: true,
+                            isSpreadFlag: isSpread,
+                            isVolumeFlag: isVolume,
+                            volNum: volNum,
                             requiresAutoBlur: useAutoBlur,
                             blurConfig: currentBlurConfig,
-                            chapterNum: chapterPart
+                            chapterNum: extractedChapter
                         });
                     }
                 } else {
                     if (!soonToBeGone) currentBaseCount++;
-                    const chapterPart = baseName.split(/[-_+]/)[0];
                     currentGalleryImages.push({
                         src: finalSrc,
                         displayNum: ``, 
                         sortKey: parseFloat(baseName),
                         isSpreadFlag: false,
+                        isVolumeFlag: false,
                         soonToBeGone: soonToBeGone,
                         requiresAutoBlur: useAutoBlur,
                         blurConfig: currentBlurConfig,
-                        chapterNum: chapterPart
+                        chapterNum: extractedChapter
                     });
                 }
             }
@@ -765,10 +812,45 @@ function generateGalleryImages() {
 
     // 2. SORT THE ARRAY
     currentGalleryImages.sort((a, b) => {
+        /* Pushes all Color Spreads and Volume covers to the END of the Request Gallery
+        if (!isStoryMode) {
+            const aIsBonus = a.isSpreadFlag || a.isVolumeFlag;
+            const bIsBonus = b.isSpreadFlag || b.isVolumeFlag;
+            
+            if (aIsBonus !== bIsBonus) {
+                return aIsBonus ? 1 : -1; // Standard pages come first, bonus items at the end
+            }
+        }*/
+
+        // 1st Priority: Sort by the primary sortKey (Page Number for Story, Chapter Number for Requests)
         if (a.sortKey !== b.sortKey) {
             return a.sortKey - b.sortKey;
         }
-        // TIE BREAKER: If chapter numbers tie, sort alphabetically so spread1 comes before spread2
+
+        // 2nd Priority: If page numbers tie (Story Mode), sort by chronological Chapter Number
+        if (a.chapterNum && b.chapterNum && a.chapterNum !== b.chapterNum) {
+            return a.chapterNum - b.chapterNum;
+        }
+
+        // Helper function to establish absolute priority when numbers tie AND chapters tie
+        // Order: 1=Base, 2=Side, 3=Extra, 4=Volume, 5=Color Spread
+        const getRank = (img) => {
+            if (img.isSide) return 2;
+            if (img.isExtra) return 3;
+            if (img.isVolumeFlag) return 4;
+            if (img.isSpreadFlag) return 5;
+            return 1; 
+        };
+
+        const rankA = getRank(a);
+        const rankB = getRank(b);
+
+        // 3rd Priority: Sort by the established Rank
+        if (rankA !== rankB) {
+            return rankA - rankB;
+        }
+
+        // 4th Priority (Tie Breaker): If types are completely identical, sort alphabetically
         return a.src.localeCompare(b.src);
     });
 
@@ -779,15 +861,25 @@ function generateGalleryImages() {
     let sideCounter = 0;
 
     currentGalleryImages.forEach(img => {
-        if (img.isSpreadFlag) {
-            spreadCounter++; 
-            
-            if (isStoryMode) {
-                img.displayNum = `Page ${img.pageNum} (Spread ${spreadCounter})`;
-            } else {
-                // Request Mode Spreads (Chapter first, padded spread)
-                const formattedSpread = String(spreadCounter).padStart(2, '0');
-                img.displayNum = `(Ch. ${img.chapterNum}) Spread ${formattedSpread}`;
+        if (img.isSpreadFlag || img.isVolumeFlag) {
+            if (img.isVolumeFlag) {
+                if (isStoryMode) {
+                    // Story Mode Volumes
+                    img.displayNum = `Page ${img.pageNum} (Vol. ${img.volNum})`;
+                } else {
+                    // Request Mode Volumes
+                    img.displayNum = `(Ch. ${img.chapterNum}) Vol. ${img.volNum}`;
+                }
+            } else if (img.isSpreadFlag) {
+                spreadCounter++; 
+                
+                if (isStoryMode) {
+                    img.displayNum = `Page ${img.pageNum} (Spread ${spreadCounter})`;
+                } else {
+                    // Request Mode Spreads
+                    const formattedSpread = String(spreadCounter).padStart(2, '0');
+                    img.displayNum = `(Ch. ${img.chapterNum}) Spread ${formattedSpread}`;
+                }
             }
         } else {
             if (isStoryMode) {
@@ -945,15 +1037,19 @@ function updateLightboxImage() {
 
         // 5. Update the counter text
         if (display) {
-            // Check if the current image is a color spread OR a title page
-            if (currentItem.isSpreadFlag || currentItem.soonToBeGone) {
+            // Check if the current image is a color spread OR a title page OR a volume cover
+            if (currentItem.isSpreadFlag || currentItem.soonToBeGone || currentItem.isVolumeFlag) {
                 display.innerText = currentItem.displayNum;
             } else {
                 // Combine extras and sides for the (+X) total display
                 let totalBonusCount = currentExtraCount + currentSideCount;
+                
+                // Add leading zero if the base count is less than 10
+                let paddedBaseCount = String(currentBaseCount).padStart(2, '0');
+                
                 let totalDisplay = totalBonusCount > 0 
-                    ? `${currentBaseCount} (+${totalBonusCount})` 
-                    : `${currentBaseCount}`;
+                    ? `${paddedBaseCount} (+${totalBonusCount})` 
+                    : `${paddedBaseCount}`;
                 display.innerText = `${currentItem.displayNum} / ${totalDisplay}`;
             }
         }

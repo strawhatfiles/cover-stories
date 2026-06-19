@@ -46,7 +46,7 @@ const coverStoryGalleries = [
         altFolder: "./Colored-Cover-Stories/01(38-69+76-82)/",
         thumbnail: "./embeds/thumbnails/Cover Stories/01.png",
         pageCount: 28,
-        locked: [] // "19-side1" & "19-side2"
+        locked: [] // "19_62-side" & "19_63-side"
     },
     {
         id: "pdf-1.5",
@@ -62,7 +62,7 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/02.png",
         pageCount: 30,
         locked: []/*,
-        locked: ["03-extra", "10-extra", "17-extra"]*/
+        locked: ["03_86-extra", "10_94-extra", "17_103-extra"]*/
     },
     {
         id: "pdf-2.5", // 86 & 94 & 103
@@ -78,8 +78,8 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/03.png",
         pageCount: 37,
         locked: []/*,
-        locked: ["09-extra", "14-extra", "30-extra"]
-        locked: ["37-extra_ep128_ch214"]*/
+        locked: ["37_172-extra(ep128-ch214)"],
+        locked: ["09_137-extra", "14_144-extra", "30_165-extra"]*/
     },
     {
         id: "pdf-3.5", // 137 & 144 & 165
@@ -95,7 +95,7 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/04.png",
         pageCount: 40,
         locked: []/*,
-        locked: ["18-edited_ep531_ch612", "32-extra_ep390_ch496"]*/
+        locked: ["18-edited(ep531-ch612)", "32_218-extra(ep390-ch496)"]*/
     },
     {
         id: "pdf-4.5",
@@ -111,7 +111,7 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/05.png",
         pageCount: 23,
         locked: []/*,
-        locked: ["14-extra_ep345_ch451", "18-edited_ep557_ch636"],
+        locked: ["14_251-extra(ep345-ch451)", "18-edited(ep557-ch636)"],
         locked: ["07-edited", "09-edited", "22-edited"]*/
     },
     {
@@ -157,7 +157,7 @@ const coverStoryGalleries = [
         altFolder: "./Colored-Cover-Stories/08(414-423)/",
         thumbnail: "./embeds/thumbnails/Cover Stories/08.png",
         pageCount: 42,
-        locked: [] // "06-side" & "17+TL" (only in Colored)
+        locked: [] // "06_366-side" & "17+TL" (only in Colored)
     },
     {
         id: "pdf-8.5",
@@ -183,8 +183,8 @@ const coverStoryGalleries = [
         altFolder: "./Colored-Cover-Stories/09(475-485)/",
         thumbnail: "./embeds/thumbnails/Cover Stories/09.png",
         pageCount: 38,
-        locked: ["38-extra_without-TS-Franky"]/*, // "38-extra_ep418_ch523"
-        locked: ["01-edited", "03-extra", "17-edited"] // "03-extra+TL" (only in Colored)*/
+        locked: ["38_474-extra(without-TS-Franky)"]/*, // "38_474-extra(ep418-ch523)"
+        locked: ["01-edited", "03_432-extra", "17-edited"] // "03_432-extra+TL" (only in Colored)*/
     },
     {
         id: "pdf-10.5", // 432
@@ -200,7 +200,7 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/09_10.png",
         pageCount: 4,
         locked: []/*,
-        locked: ["03-extra"]*/
+        locked: ["03_488-extra"]*/
     },
     {
         id: "pdf-12",
@@ -227,7 +227,7 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/11-18.png",
         pageCount: 16,
         locked: []/*,
-        locked: ["00-extra"]*/
+        locked: ["00_543-extra"]*/
     },
     {
         id: "pdf-13.5",
@@ -243,8 +243,8 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/19.png",
         pageCount: 48,
         locked: []/*,
-        locked: ["48_ep663_ch731"]
-        locked: ["07-edited", "22-extra1", "22-extra2", "28-edited", "39-edited", "39-extra", "45-edited"]*/
+        locked: ["48_(ep663-ch731)"] // ch668 spoiler
+        locked: ["07-edited", "22_638-extra1", "22_638-extra2", "28-edited", "39_657-edited", "39_657-extra", "45-edited"]*/
     },
     {
         id: "pdf-14.5",
@@ -260,12 +260,13 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/20.png",
         pageCount: 46,
         locked: [
-            "15-extra_movie-12-film-z", // UNDO if "#12 Film Z" done
+            "15_691-extra(movie-12-film-z)", /* UNDO if "#12 Film Z" done
+            = 691-colorspread_15_(movie-12-film-z) */
             "676-colorspread_02", "685-colorspread_10", "692-colorspread_15", "693-colorspread_15", "699-colorspread_20",
             "703-colorspread_23", "707-colorspread_26", "710-colorspread_28", "717-colorspread_34", "724-colorspread_40",
             "726-colorspread_41" // UNDO once "Cover Pages (Ch. 732-749)  [Fan Requests]" done
         ]/*,
-        locked: ["24-extra", "27-extra"]*/
+        locked: ["24_704-extra", "27_708-extra"]*/
     },
     {
         id: "pdf-15.5",
@@ -300,11 +301,12 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/22.png",
         pageCount: 25,
         locked: [
-            "10-extra_movie-13-film-gold", "19-extra_movie-13-film-gold", // UNDO if "#13 Film Gold" done
+            "10_817-extra(movie-13-film-gold)", "19_829-extra(movie-13-film-gold)", /* UNDO if "#13 Film Gold" done
+            = 817-colorspread_10_(movie-13-film-gold), 829-colorspread_19_(movie-13-film-gold) */
             "809-colorspread_04", "811-colorspread_05", "821-colorspread_13", "824-colorspread_15", "832-colorspread_21",
             "833-colorspread_21", "835-colorspread_22" // UNDO once "Cover Pages (Ch. 839-862)  [Fan Requests]" done
         ]/*,
-        locked: ["13-extra"]*/
+        locked: ["13_820-extra"]*/
     },
     {
         id: "pdf-17.5",
@@ -321,11 +323,13 @@ const coverStoryGalleries = [
         pageCount: 46,
         locked: [
             "946", // UNDO once ep911 done
-            "46-extra_movie-14-film-stampede"], // UNDO if "#14 Film Stampede" done
+            "46_945-extra(movie-14-film-stampede)" // UNDO if "#14 Film Stampede" done
+            // = 945-colorspread_46_(movie-14-film-stampede)
+        ],
         autoCensor: {
             manualList: [
-                "46-extra_movie-14-film-stampede",
-                "945-colorspread_46_movie-14-film-stampede"
+                "46_945-extra(movie-14-film-stampede)",
+                "945-colorspread_46_(movie-14-film-stampede)"
             ],
             coverStories: {
                 afterPage: 32, // = 901
@@ -340,14 +344,14 @@ const coverStoryGalleries = [
                         26: ["923", "926", "927", "928", "932", "933", "934", "938"]
                     },
                     spreadBlurHeight: 8, spreadBlurHeightExceptions: {
-                        "right: 11": ["912-colorspread_40"]
+                        "right: 10": ["912-colorspread_40"]
                     }
             }
         },
         autoCensorBW: {
             manualList: [
-                "46-extra_movie-14-film-stampede",
-                "945-colorspread_46_movie-14-film-stampede"
+                "46_945-extra(movie-14-film-stampede)",
+                "945-colorspread_46_(movie-14-film-stampede)"
             ],
             coverStories: {
                 afterPage: 32, // = 901
@@ -359,7 +363,7 @@ const coverStoryGalleries = [
                         26: ["935", "942"]
                     },
                     spreadBlurHeight: 7, spreadBlurHeightExceptions: {
-                        "right: 10": ["912-colorspread_40"],
+                        "right: 9": ["912-colorspread_40"],
                         "6": ["941-colorspread_46"]
                     }
             }

@@ -3,7 +3,7 @@ name: Generate Gallery Manifest
 on:
   push:
     branches:
-      - main  # Change to 'master' if that is your default branch name
+      - gh-pages  # Change to 'master' if that is your default branch name
     paths:
       - 'Colored-Cover-Stories/**'
       - 'Cover-Stories/**'
