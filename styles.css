@@ -1643,19 +1643,66 @@ h1 {
     transition: opacity 0.2s ease-in;
 }
 
-.lightbox-close {
+.lightbox-close, .lightbox-fullscreen {
     position: absolute;
     top: 15px;
-    right: 25px;
+    width: 44px;
+    height: 44px;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #fff;
-    font-size: 35px;
-    font-weight: bold;
     cursor: pointer;
-    z-index: 10000;
+    z-index: 10002;
+    border: 1px solid transparent;
+    backdrop-filter: blur(5px);
+    margin: 0;
+    padding: 0;
+}
+
+.lightbox-close {
+    right: 20px;
+    font-size: 28px;
+    font-weight: 300; 
+}
+
+.lightbox-fullscreen {
+    right: 74px;
+}
+
+.lightbox-close:hover, 
+.lightbox-fullscreen:hover {
+    transform: scale(1.1);
 }
 
 .lightbox-close:hover {
-    color: #ff6b6b;
+    background: #ff6b6b !important;
+    border-color: #ff6b6b !important;
+    transform: scale(1.1) rotate(90deg) !important;
+    color: white !important;
+}
+
+.lightbox-fullscreen:hover {
+    color: #4ecdc4 !important;
+    background: rgba(0, 0, 0, 0.8) !important;
+    border-color: rgba(78, 205, 196, 0.5) !important;
+}
+
+.lightbox-close, .lightbox-fullscreen, #gallery-ui {
+    transition: opacity 0.4s ease, transform 0.3s ease, background 0.3s ease;
+}
+
+.lightbox.ui-hidden {
+    cursor: none;
+}
+
+.lightbox.ui-hidden .lightbox-close,
+.lightbox.ui-hidden .lightbox-fullscreen,
+.lightbox.ui-hidden #gallery-ui {
+    opacity: 0 !important;
+    pointer-events: none; 
 }
 
 .pdf-mobile-fallback {
@@ -2129,6 +2176,9 @@ h1 {
     border-radius: 30px;
     backdrop-filter: blur(5px);
     border: 1px solid rgba(78, 205, 196, 0.3);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
 .color-toggle-label {

@@ -433,6 +433,7 @@ function openLightbox(imageSrc) {
         .replace(/[-_]/g, " ")
         .trim();
     lightbox.style.display = "block";
+    resetLightboxIdleTimer();
 }
 
 let lightboxLoadToken = 0;
@@ -486,6 +487,7 @@ function openCoverStoryGallery(galleryId) {
 
     document.getElementById("lightbox").style.display = "block";
     document.addEventListener("keydown", handleGalleryKeyboard);
+    resetLightboxIdleTimer();
 }
 
 function generateGalleryImages() {
@@ -1092,11 +1094,35 @@ function handleGalleryKeyboard(e) {
     if (e.key === "Escape") closeLightbox();
 }
 
+function toggleFullscreen() {
+    const lightbox = document.getElementById("lightbox");
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        // Enter Fullscreen
+        if (lightbox.requestFullscreen) {
+            lightbox.requestFullscreen();
+        } else if (lightbox.webkitRequestFullscreen) {
+            lightbox.webkitRequestFullscreen();
+        }
+    } else {
+        // Exit Fullscreen
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        }
+    }
+}
+
 function closeLightbox() {
     const lightbox = document.getElementById("lightbox");
     if (lightbox) lightbox.style.display = "none";
     // Clean up gallery keyboard listeners so they don't fire in the background
     document.removeEventListener("keydown", handleGalleryKeyboard);
+    // NEW: Exit fullscreen automatically if it's active when closing
+    if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+    }
 }
 
 document.addEventListener("click", function (e) {
@@ -1177,6 +1203,40 @@ function typeWriter(element, text, speed = 50) {
     }
     type();
 }
+
+/**
+ * ==========================================
+ * AUTO-HIDE LIGHTBOX UI LOGIC
+ * ==========================================
+ */
+let lightboxIdleTimer;
+
+function resetLightboxIdleTimer() {
+    const lightbox = document.getElementById("lightbox");
+    
+    // If the lightbox doesn't exist or is currently closed, do nothing.
+    if (!lightbox || lightbox.style.display === "none" || lightbox.style.display === "") {
+        return;
+    }
+
+    // Wake up the UI and bring back the mouse cursor
+    lightbox.classList.remove("ui-hidden");
+    clearTimeout(lightboxIdleTimer);
+
+    // Set timer to go back to sleep after 2.5 seconds
+    lightboxIdleTimer = setTimeout(() => {
+        // Prevent hiding if the custom page dropdown is currently open
+        const dropdown = document.getElementById("custom-page-dropdown");
+        if (dropdown && dropdown.classList.contains("show")) return;
+        
+        lightbox.classList.add("ui-hidden");
+    }, 800); 
+}
+
+document.addEventListener("mousemove", resetLightboxIdleTimer);
+document.addEventListener("mousedown", resetLightboxIdleTimer);
+document.addEventListener("touchstart", resetLightboxIdleTimer);
+document.addEventListener("keydown", resetLightboxIdleTimer);
 
 
 /**
