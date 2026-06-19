@@ -312,8 +312,10 @@ h1 {
 
 .cover-story h3 {
     color: #4ecdc4;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5;
     font-size: 1.5rem;
+    line-height: 1.4;
+    min-height: 4.2em;
 }
 
 .cover-story-content {
@@ -324,12 +326,15 @@ h1 {
 
 .chapters {
     color: #a0a0a0;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     font-style: italic;
+    line-height: 1.4;
+    min-height: 2.8em;
 }
 
 .pdf-container {
-    margin: 1rem 0;
+    margin: 0.25rem 0;
+    margin-bottom: auto;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
@@ -355,6 +360,8 @@ h1 {
 }
 
 .pdf-placeholder {
+    margin: 0rem 0;
+    margin-bottom: auto;
     background: rgba(255, 255, 255, 0.1);
     border: 2px dashed rgba(255, 255, 255, 0.3);
     border-radius: 10px;
@@ -430,11 +437,13 @@ h1 {
     background: rgba(255, 255, 255, 0.08);
     border-radius: 8px;
     padding: 1rem;
-    margin-top: auto;
+    margin-top: 1rem; 
     font-size: 0.9rem;
     color: #b0b0b0;
     border-left: 3px solid #4ecdc4;
     flex-shrink: 0;
+    line-height: 1.5;
+    min-height: 5.5em;
 }
 
 .spoiler {
@@ -549,14 +558,18 @@ h1 {
 
 @media (max-width: 768px) {
     .cover-stories-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
         padding: 0.5rem 0;
     }
 
     .cover-story {
-        padding: 1.25rem;
+        padding: 1rem;
         margin-bottom: 0;
+    }
+    
+    .cover-story h3 {
+        font-size: 1.15rem;
     }
 
     .pdf-container,
@@ -716,12 +729,18 @@ h1 {
 
 @media (max-width: 768px) {
     .specials-grid {
-        flex-direction: column;
+        flex-direction: row;
+        gap: 1rem;
     }
 
     .special-item {
-        flex: 1 1 100%;
+        flex: 1 1 calc(50% - 0.5rem);
         min-width: unset;
+        padding: 1rem;
+    }
+    
+    .special-item h4 {
+        font-size: 1.1rem;
     }
 }
 
@@ -975,21 +994,31 @@ h1 {
 
 @media (max-width: 768px) {
     .non-canon-row-1 {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
     }
 
     .nissin-grid {
-        grid-template-columns: 1fr;
-        grid-template-rows: repeat(4, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
         min-height: auto;
+        gap: 1rem;
     }
 
     .nissin-container {
-        padding: 1.5rem;
+        padding: 1.25rem;
+    }
+    
+    .nissin-container h4 {
+        font-size: 1.1rem;
     }
 
     .non-canon-item {
-        padding: 1.25rem;
+        padding: 1rem;
+    }
+    
+    .non-canon-item h4 {
+        font-size: 1.1rem;
     }
 }
 
@@ -1990,7 +2019,21 @@ h1 {
     }
 
     .mixed-canon-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .mixed-canon-item {
+        padding: 1rem;
+    }
+    
+    .mc-ep {
+        font-size: 1.6rem;
+        margin-right: 1rem;
+    }
+    
+    .mc-times {
+        font-size: 0.85rem;
     }
 }
 
