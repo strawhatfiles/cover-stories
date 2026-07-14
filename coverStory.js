@@ -323,8 +323,11 @@ const coverStoryGalleries = [
         pageCount: 46,
         locked: [
             "946", // UNDO once ep911 done
-            "46_945-extra(movie-14-film-stampede)" // UNDO if "#14 Film Stampede" done
+            "46_945-extra(movie-14-film-stampede)", // UNDO if "#14 Film Stampede" done
             // = 945-colorspread_46_(movie-14-film-stampede)
+            "872-colorspread_08", "874-colorspread_09", "878-colorspread_12", "886-colorspread_19", "890-volume89_22",
+            "890-colorspread_22", "900-colorspread_31", "902-colorspread_32", "911-colorspread_40", "912-colorspread_40",
+            "916-colorspread_43" // UNDO once "Cover Pages (Ch. 920-947) [Fan Requests]" done
         ],
         autoCensor: {
             manualList: [
@@ -379,10 +382,13 @@ const coverStoryGalleries = [
         type: "story",
         title: "\"Gang\" Bege's Oh My Family",
         folder: "./Colored-Cover-Stories/24(948-994)/",
-        altFolder: "./Colored-Cover-Stories/24(949-985)-DELETE/", // change to 24(995-1034)
+        altFolder: "./Colored-Cover-Stories/24(995-1034)-DELETE/", // change to 24(995-1034)
         thumbnail: "./embeds/thumbnails/Cover Stories/24.png",
         pageCount: 37,
-        locked: [],
+        locked: [
+            "949-colorspread_01", "957-colorspread_07", "967-colorspread_16", "976-colorspread_23", "981-colorspread_27",
+            "985-colorspread_30" // UNDO once "Cover Pages (Ch. 995-1034) [Fan Requests]" done
+        ],
         autoCensor: {
             manualList: [
                 "972-colorspread_20"
@@ -395,13 +401,18 @@ const coverStoryGalleries = [
             },
             coverPages: {
                 afterChapter: 948,
-                    blurHeight: 0, blurHeightExceptions: {
+                    blurHeight: 29, blurHeightExceptions: {
                         // TODO: once altFolder changed
+                        "30": ["1001"],
+                        "26": ["1004"],
+                        "28": ["1015", "1021"]
                     },
                     spreadBlurHeight: 8, spreadBlurHeightExceptions: {
+                        // TODO: once altFolder changed
                         "9": ["957"],
                         "right: 6": ["967"],
-                        "0": ["1000"]
+                        "0": ["1000"],
+                        "bottom: 6": ["1009"]
                     }
             }
         },
@@ -415,13 +426,17 @@ const coverStoryGalleries = [
             },
             coverPages: {
                 afterChapter: 948,
-                    blurHeight: 0, blurHeightExceptions: {
+                    blurHeight: 27, blurHeightExceptions: {
                         // TODO: once altFolder changed
+                        "26": ["995", "1005", "1015", "1016", "1021"]
                     },
                     spreadBlurHeight: 7, spreadBlurHeightExceptions: {
+                        // TODO: once altFolder changed
+                        "6": ["1019"],
                         "8": ["957"],
                         "right: 7": ["967"],
-                        "0": ["1000"]
+                        "0": ["1000"],
+                        "bottom: 8": ["1009"]
                     }
             }
         }
@@ -429,7 +444,7 @@ const coverStoryGalleries = [
     {
         id: "pdf-19.5",
         type: "request",
-        folder: "./Colored-Cover-Stories/24(949-985)-DELETE/" // change to 24(995-1034)
+        folder: "./Colored-Cover-Stories/24(995-1034)-DELETE/" // change to 24(995-1034)
     },
     {
         id: "pdf-20",
@@ -439,7 +454,9 @@ const coverStoryGalleries = [
         altFolder: "./Colored-Cover-Stories/25(1079-1108)/",
         thumbnail: "./embeds/thumbnails/Cover Stories/25.png",
         pageCount: 0,
-        locked: []
+        locked: [],
+        autoCensor: {},
+        autoCensorBW: {}
     },
     {
         id: "pdf-20.5",
