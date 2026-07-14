@@ -1,19 +1,26 @@
-name: Generate Gallery Manifest
+name: Generate manifest.json + pages build and deployment
 
 on:
   push:
     branches:
       - gh-pages  # Change to 'master' if that is your default branch name
-    paths:
-      - 'Colored-Cover-Stories/**'
-      - 'Cover-Stories/**'
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
-  build:
+  build-and-deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # Allows the bot to commit the new JSON file
-    
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
@@ -21,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Generate manifest.json
         run: node genManifest.js
@@ -31,3 +38,15 @@ jobs:
         with:
           commit_message: "chore: auto-update image manifest"
           file_pattern: manifest.json
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.' # Uploads the entire repository root. Adjust if your site is in a specific folder.
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
