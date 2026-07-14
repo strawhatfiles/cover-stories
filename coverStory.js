@@ -1,3 +1,5 @@
+// Movie posters in main folder which are currently not at display need their blurHeight adjusted if diff format
+
 const coverStoryPDFs = [
     { id: "pdf-1", path: "./Colored-Cover-Stories/01.pdf", driveUrl: "https://drive.google.com/file/d/1o1m-AOBmkYQnOCbGpgNqfuhypJw0LyFb/preview" },
     { id: "pdf-2", path: "./Colored-Cover-Stories/02.pdf", driveUrl: "https://drive.google.com/file/d/1ZMN2h90f8dtrsGeeJaFlMQ2ilexzjGNZ/preview" },
@@ -264,7 +266,7 @@ const coverStoryGalleries = [
             = 691-colorspread_15_(movie-12-film-z) */
             "676-colorspread_02", "685-colorspread_10", "692-colorspread_15", "693-colorspread_15", "699-colorspread_20",
             "703-colorspread_23", "707-colorspread_26", "710-colorspread_28", "717-colorspread_34", "724-colorspread_40",
-            "726-colorspread_41" // UNDO once "Cover Pages (Ch. 732-749)  [Fan Requests]" done
+            "726-colorspread_41" // UNDO once "Cover Pages (Ch. 732-749) [Fan Requests]" done
         ]/*,
         locked: ["24_704-extra", "27_708-extra"]*/
     },
@@ -283,7 +285,7 @@ const coverStoryGalleries = [
         pageCount: 28,
         locked: [
             "756-colorspread_05", "764-colorspread_12", "771-colorspread_17", "775-colorspread_20", "779-colorspread_23",
-            "784-colorspread_27" // UNDO once "Cover Pages (Ch. 786-804)  [Fan Requests]" done
+            "784-colorspread_27" // UNDO once "Cover Pages (Ch. 786-804) [Fan Requests]" done
         ]/*,
         locked: ["13-extra"]*/
     },
@@ -304,7 +306,7 @@ const coverStoryGalleries = [
             "10_817-extra(movie-13-film-gold)", "19_829-extra(movie-13-film-gold)", /* UNDO if "#13 Film Gold" done
             = 817-colorspread_10_(movie-13-film-gold), 829-colorspread_19_(movie-13-film-gold) */
             "809-colorspread_04", "811-colorspread_05", "821-colorspread_13", "824-colorspread_15", "832-colorspread_21",
-            "833-colorspread_21", "835-colorspread_22" // UNDO once "Cover Pages (Ch. 839-862)  [Fan Requests]" done
+            "833-colorspread_21", "835-colorspread_22" // UNDO once "Cover Pages (Ch. 839-862) [Fan Requests]" done
         ]/*,
         locked: ["13_820-extra"]*/
     },
@@ -322,9 +324,9 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/23.png",
         pageCount: 46,
         locked: [
-            "946", // UNDO once ep911 done
-            "46_945-extra(movie-14-film-stampede)", // UNDO if "#14 Film Stampede" done
-            // = 945-colorspread_46_(movie-14-film-stampede)
+            "946_(ep960-ch960)", // UNDO once ep960/ch960 done !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+            "46_945-extra(movie-14-film-stampede)", /* UNDO if "#14 Film Stampede" done
+            = 945-colorspread_46_(movie-14-film-stampede) */
             "872-colorspread_08", "874-colorspread_09", "878-colorspread_12", "886-colorspread_19", "890-volume89_22",
             "890-colorspread_22", "900-colorspread_31", "902-colorspread_32", "911-colorspread_40", "912-colorspread_40",
             "916-colorspread_43" // UNDO once "Cover Pages (Ch. 920-947) [Fan Requests]" done
@@ -334,11 +336,11 @@ const coverStoryGalleries = [
                 "46_945-extra(movie-14-film-stampede)",
                 "945-colorspread_46_(movie-14-film-stampede)"
             ],
-            coverStories: {
+            coverStories: { /* as of ep909/ch919 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 afterPage: 32, // = 901
                     blurHeight: 29, blurHeightExceptions: {
                         30: ["45"]
-                    }
+                    }*/
             },
             coverPages: {
                 afterChapter: 902,
@@ -356,9 +358,9 @@ const coverStoryGalleries = [
                 "46_945-extra(movie-14-film-stampede)",
                 "945-colorspread_46_(movie-14-film-stampede)"
             ],
-            coverStories: {
+            coverStories: { /* as of ep909/ch919 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 afterPage: 32, // = 901
-                    blurHeight: 27, blurHeightExceptions: {}
+                    blurHeight: 27, blurHeightExceptions: {}*/
             },
             coverPages: {
                 afterChapter: 902,
@@ -386,6 +388,9 @@ const coverStoryGalleries = [
         thumbnail: "./embeds/thumbnails/Cover Stories/24.png",
         pageCount: 37,
         locked: [
+            "972-colorspread_20", // UNDO once Hungry Days (non-canon special) done
+            "02_951-extra(movie-14-film-stampede)", /* UNDO if "#14 Film Stampede" done
+            = 951-colorspread_02_(movie-14-film-stampede) */
             "949-colorspread_01", "957-colorspread_07", "967-colorspread_16", "976-colorspread_23", "981-colorspread_27",
             "985-colorspread_30" // UNDO once "Cover Pages (Ch. 995-1034) [Fan Requests]" done
         ],

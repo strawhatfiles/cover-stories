@@ -1,4 +1,4 @@
-name: Generate manifest.json + pages build and deployment
+name: Generate manifest.json + pages
 
 on:
   push:
@@ -36,16 +36,19 @@ jobs:
       - name: Commit and Push Changes
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: auto-update image manifest"
+          commit_message: "chore: auto-update image manifest.json"
           file_pattern: manifest.json
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      - name: Remove PDFs to reduce artifact size
+        run: rm -rf 'Colored-Cover-Stories/PDFs'
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Uploads the entire repository root. Adjust if your site is in a specific folder.
+          path: '.' # Uploads the entire repository root, minus the PDFs.
 
       - name: Deploy to GitHub Pages
         id: deployment

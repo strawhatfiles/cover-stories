@@ -149,25 +149,44 @@ function initializeOpsEds() {
 // --- FILLER TAB ---
 function initializeFiller() {
     // Only run if the ESP toggle elements exist in the loaded HTML
-    const espToggle = document.getElementById('espToggle');
-    if (espToggle) {
-        espToggle.addEventListener('change', toggleESP);
-        toggleESP(); // Run once to set initial state
+    const espToggles = document.querySelectorAll('.esp-toggle');
+    const espItems = document.querySelectorAll('.esp-filler');
+    const espCount = espItems.length;
+
+    // 1. Inject the dynamic count (e.g., 21) into the toggle labels
+    const dynamicCountLabels = document.querySelectorAll('.esp-dynamic-count');
+    dynamicCountLabels.forEach(label => label.innerText = espCount);
+
+    // 2. Read the "77" directly from the HTML text exactly ONCE and cache it invisibly
+    const countDisplay = document.getElementById('total-skipped-count');
+    if (countDisplay && !countDisplay.dataset.baseCount) countDisplay.dataset.baseCount = countDisplay.innerText.replace(/\D/g, '');
+
+    if (espToggles.length > 0) {
+        // Attach the event listener to BOTH toggles
+        espToggles.forEach(toggle => {
+            toggle.addEventListener('change', toggleESP);
+        });
+        // Run once to set the initial text state and math
+        toggleESP({ target: espToggles[0] });
     }
 
     injectCollapsibleCloseButtons();
 }
 
-function toggleESP() {
-    const espToggle = document.getElementById('espToggle');
-    const isChecked = espToggle ? espToggle.checked : false;
+function toggleESP(e) {
+    const isChecked = e && e.target ? e.target.checked : false;
     const espItems = document.querySelectorAll('.esp-filler');
+    const espCount = espItems.length;
+
+    // Sync all toggles on the page
+    const espToggles = document.querySelectorAll('.esp-toggle');
+    espToggles.forEach(toggle => toggle.checked = isChecked);
+
     const countDisplay = document.getElementById('total-skipped-count');
     const countDesc = document.getElementById('total-skipped-desc');
 
-    // Read the base count directly from the toggle's data attribute
-    const baseCount = espToggle && espToggle.dataset.baseCount ? parseInt(espToggle.dataset.baseCount) : 0;
-    const espCount = espItems.length;
+    // Read the base count we secretly saved during initializeFiller
+    const baseCount = countDisplay && countDisplay.dataset.baseCount ? parseInt(countDisplay.dataset.baseCount) : 0;
     const totalWithESP = baseCount + espCount;
 
     espItems.forEach(item => {
@@ -1230,7 +1249,7 @@ function resetLightboxIdleTimer() {
         if (dropdown && dropdown.classList.contains("show")) return;
         
         lightbox.classList.add("ui-hidden");
-    }, 800); 
+    }, 2000);
 }
 
 document.addEventListener("mousemove", resetLightboxIdleTimer);
